@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
-
+using PagedList;
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuTiepNhansController : Controller
@@ -15,12 +15,42 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuTiepNhans
-        public ActionResult Index()
+        //public ActionResult Index(int page=1, int pageSize = 10)
+        //{
+        //    var phieuTiepNhans = db.PhieuTiepNhans.Include(p => p.Xe).OrderByDescending(p=>p.Xe.TenChuXe).ToPagedList(page,pageSize);
+        //    return View(phieuTiepNhans);
+        //}
+        public ViewResult Index(string currentFilter,string searchString, int? page)
         {
-            var phieuTiepNhans = db.PhieuTiepNhans.Include(p => p.Xe);
-            return View(phieuTiepNhans.ToList());
-        }
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewBag.CurrentFilter = searchString;
+            var phieuTiepNhans = from s in db.PhieuTiepNhans
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                phieuTiepNhans = phieuTiepNhans.Where(s => s.Xe.TenChuXe.Contains(searchString));
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(phieuTiepNhans.OrderBy(s => s.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
+        }
+        //public ActionResult Index(string searchString, int? page)
+        //{
+        //    var phieuTiepNhans = db.PhieuTiepNhans.Include(p => p.Xe).OrderBy(p => p.Xe.TenChuXe).ToPagedList(page ?? 1, 10);
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        phieuTiepNhans = phieuTiepNhans.Where(s => s.Xe.TenChuXe.Contains(searchString)).OrderBy(p => p.Xe.TenChuXe).ToPagedList(page ?? 1, 10);
+        //    }
+        //    return View(phieuTiepNhans);
+        //}
         // GET: PhieuTiepNhans/Details/5
         public ActionResult Details(int? id)
         {
@@ -60,7 +90,6 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
             return View(phieuTiepNhan);
         }
-
         // GET: PhieuTiepNhans/Edit/5
         public ActionResult Edit(int? id)
         {

@@ -1,4 +1,4 @@
-namespace QuanLyGaraOto.Models
+﻿namespace QuanLyGaraOto.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace QuanLyGaraOto.Models
         public int IDPhieuTN { get; set; }
 
         public int? IDBienSo { get; set; }
-
+        [Display(Name = "Ngày tiếp nhận")]
         public DateTime? NgayTiepNhan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

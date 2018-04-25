@@ -1,4 +1,4 @@
-namespace QuanLyGaraOto.Models
+﻿namespace QuanLyGaraOto.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,18 +18,20 @@ namespace QuanLyGaraOto.Models
 
         [Key]
         public int IDBienSo { get; set; }
-
+        [Display(Name ="Tên Chủ Xe")]
         [StringLength(50)]
         public string TenChuXe { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Địa Chỉ")]
         public string DiaChi { get; set; }
 
         [StringLength(20)]
+        [Display(Name = "Điện Thoại")]
         public string DienThoai { get; set; }
-
+        [Display(Name = "Hiệu Xe")]
         public int? IDHieuXe { get; set; }
-
+        [Display(Name = "Tiền nợ")]
         public int? TienNo { get; set; }
 
         public virtual HieuXe HieuXe { get; set; }
