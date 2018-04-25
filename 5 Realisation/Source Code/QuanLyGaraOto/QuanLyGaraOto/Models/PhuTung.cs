@@ -21,6 +21,8 @@ namespace QuanLyGaraOto.Models
         [StringLength(50)]
         public string TenPhuTung { get; set; }
 
+        public int? SoLuong { get; set; }
+
         public int? DonGiaHienHanh { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

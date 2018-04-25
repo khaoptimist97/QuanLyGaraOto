@@ -1,39 +1,152 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Phần mềm quản lí gara </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .navbar .navbar-brand {
+            padding-top: 0px;
+        }
+
+            .navbar .navbar-brand img {
+                height: 50px;
+            }
+
+        .navbar-inverse {
+            background-color: black;
+        }
+
+        .navbar .navbar-btn {
+            border-radius: 81px 81px 81px 81px;
+            background-color: #08A6FB;
+            margin-right: 15px;
+        }
+
+        .container {
+            min-height: 100%;
+            position: relative;
+        }
+
+        #body {
+            height: 100%;
+            padding: 10px;
+            padding-bottom: 450px; /* Height of the footer */
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            text-align: left;
+            color: black;
+        }
+    </style>
 </head>
+
+
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+
+                <a class="navbar-brand" href="#">
+                    <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+                </a>
+                <p class="navbar-text" style="vertical-align:top"><strong>Gara Việt-Cộng</strong>  </p>
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
+                    <li>@Html.ActionLink("Báo cáo tháng", "Report", "BaoCaoDS")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="button" onclick="location.href='@Url.Action("About","Home")'" class="navbar-btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-info-sign"> </span> Thông tin
+                        </button>
+                    </li>
+
+                    <li>
+                        <button type="button" onclick="location.href='@Url.Action("Contact","Home")'" class="navbar-btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-envelope"></span> Liên Hệ
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
+        <div id="body">
+            @RenderBody()
+        </div>
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <hr />
+            <p>&copy; Phần mềm quản lí gara ô tô - Phầm mềm sử dụng với mục đích học tập </p>
         </footer>
     </div>
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

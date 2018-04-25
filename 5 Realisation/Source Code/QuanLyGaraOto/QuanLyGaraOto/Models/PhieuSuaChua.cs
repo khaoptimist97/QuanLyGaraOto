@@ -13,6 +13,7 @@ namespace QuanLyGaraOto.Models
         public PhieuSuaChua()
         {
             ChiTietPhieuSuas = new HashSet<ChiTietPhieuSua>();
+            ChiTietPhieuSuas1 = new HashSet<ChiTietPhieuSua>();
         }
 
         [Key]
@@ -26,6 +27,9 @@ namespace QuanLyGaraOto.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuSua> ChiTietPhieuSuas { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietPhieuSua> ChiTietPhieuSuas1 { get; set; }
 
         public virtual PhieuTiepNhan PhieuTiepNhan { get; set; }
     }

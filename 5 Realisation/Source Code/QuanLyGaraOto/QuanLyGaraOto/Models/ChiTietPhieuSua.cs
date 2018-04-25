@@ -32,8 +32,8 @@ namespace QuanLyGaraOto.Models
 
         public virtual PhieuSuaChua PhieuSuaChua { get; set; }
 
-        public virtual PhuTung PhuTung { get; set; }
+        public virtual PhieuSuaChua PhieuSuaChua1 { get; set; }
 
-        public virtual TienCong TienCong { get; set; }
+        public virtual PhuTung PhuTung { get; set; }
     }
 }

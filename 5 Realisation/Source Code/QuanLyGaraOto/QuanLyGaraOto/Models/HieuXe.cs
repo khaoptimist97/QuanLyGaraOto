@@ -1,7 +1,8 @@
-namespace QuanLyGaraOto.Models
+﻿namespace QuanLyGaraOto.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,7 +19,8 @@ namespace QuanLyGaraOto.Models
         [Key]
         public int IDHieuXe { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50)]      
+        [DisplayName("Hiệu xe")]
         public string TenHieuXe { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

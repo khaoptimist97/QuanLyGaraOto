@@ -1,0 +1,36 @@
+﻿@model IEnumerable<QuanLyGaraOto.Models.HieuXe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="form-group">
+    <label for="usr">Name:</label><input type="text" class="datepicker" id="usr">
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHieuXe)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHieuXe)      
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDHieuXe }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDHieuXe }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDHieuXe })
+        </td>
+    </tr>
+}
+
+</table>
+
