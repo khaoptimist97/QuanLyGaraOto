@@ -90,7 +90,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 db.PhieuTiepNhans.Add(phieuTiepNhan);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "PhieuSuaChuas", new { id = phieuTiepNhan.IDPhieuTN });
             }
 
             ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);

@@ -135,6 +135,7 @@
     <Compile Include="Controllers\BaoCaoDSController.cs" />
     <Compile Include="Controllers\HieuXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhieuSuaChuasController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
     <Compile Include="Controllers\XesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -381,6 +382,11 @@
     <Content Include="Views\Xes\Details.cshtml" />
     <Content Include="Views\Xes\Edit.cshtml" />
     <Content Include="Views\Xes\Index.cshtml" />
+    <Content Include="Views\PhieuSuaChuas\Create.cshtml" />
+    <Content Include="Views\PhieuSuaChuas\Delete.cshtml" />
+    <Content Include="Views\PhieuSuaChuas\Details.cshtml" />
+    <Content Include="Views\PhieuSuaChuas\Edit.cshtml" />
+    <Content Include="Views\PhieuSuaChuas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
