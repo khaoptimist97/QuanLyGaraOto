@@ -54,7 +54,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 db.Xes.Add(xe);
                 db.SaveChanges();
-                return RedirectToAction("CreateByID","PhieuTiepNhans", new {id = xe.IDBienSo});
+                return RedirectToAction("Create","PhieuTiepNhans", new {id = xe.IDBienSo});
             }
 
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", xe.IDHieuXe);

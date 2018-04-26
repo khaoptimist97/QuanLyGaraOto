@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>PhieuTiepNhan</h4>
         <hr />
@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IDBienSo, "IDBienSo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDBienSo", String.Empty)
+                @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IDBienSo)
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NgayTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayTiepNhan)
+                @Html.TextBoxFor(model => model.NgayTiepNhan, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.NgayTiepNhan)
             </div>
         </div>
@@ -43,3 +43,13 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts
+{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+}
+<script type="text/javascript">
+    $(function () {
+        $("#NgayTiepNhan").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>

@@ -22,7 +22,7 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<ThamSo> ThamSoes { get; set; }
         public virtual DbSet<TienCong> TienCongs { get; set; }
         public virtual DbSet<Xe> Xes { get; set; }
-
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()

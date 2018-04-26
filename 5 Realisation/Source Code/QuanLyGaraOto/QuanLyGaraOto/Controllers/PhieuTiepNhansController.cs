@@ -67,8 +67,14 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: PhieuTiepNhans/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id != null)
+            {
+                var xe = db.Xes.Where(i => i.IDBienSo == id);
+                ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe",xe.First().TenChuXe);
+                return View();
+            }           
             ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
             return View();
         }

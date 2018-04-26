@@ -21,7 +21,7 @@ namespace QuanLyGaraOto.Models
         [StringLength(50)]
         public string TenPhuTung { get; set; }
 
-        public int? SoLuong { get; set; }
+        public int? SoLuongTon { get; set; }
 
         public int? DonGiaHienHanh { get; set; }
 

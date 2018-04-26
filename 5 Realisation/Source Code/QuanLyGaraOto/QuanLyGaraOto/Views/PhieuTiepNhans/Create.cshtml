@@ -4,20 +4,19 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Lập phiếu tiếp nhận</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PhieuTiepNhan</h4>
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
-            @Html.LabelFor(model => model.IDBienSo, "IDBienSo", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IDBienSo, "Tên Chủ Xe", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDBienSo", String.Empty)
+                @Html.DropDownList("IDBienSo", (SelectList)ViewBag.IDBienSo, new {@class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IDBienSo)
             </div>
         </div>
@@ -26,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NgayTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NgayTiepNhan)
+                @Html.TextBoxFor(model => model.NgayTiepNhan, new { @class = "form-control"})
                 @Html.ValidationMessageFor(model => model.NgayTiepNhan)
             </div>
         </div>
