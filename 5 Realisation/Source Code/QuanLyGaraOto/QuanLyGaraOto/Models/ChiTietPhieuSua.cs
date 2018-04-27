@@ -23,7 +23,7 @@ namespace QuanLyGaraOto.Models
 
         public int? DonGia { get; set; }
 
-        public int? IDTienCong { get; set; }
+        public int IDTienCong { get; set; }
 
         public long? ThanhTien { get; set; }
 
@@ -32,8 +32,7 @@ namespace QuanLyGaraOto.Models
 
         public virtual PhieuSuaChua PhieuSuaChua { get; set; }
 
-        public virtual PhieuSuaChua PhieuSuaChua1 { get; set; }
-
         public virtual PhuTung PhuTung { get; set; }
+        public virtual TienCong TienCong { get; set; }
     }
 }

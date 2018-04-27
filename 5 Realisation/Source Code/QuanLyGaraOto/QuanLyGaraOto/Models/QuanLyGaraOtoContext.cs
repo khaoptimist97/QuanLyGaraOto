@@ -35,12 +35,6 @@ namespace QuanLyGaraOto.Models
                 .HasForeignKey(e => e.IDPhieu)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<PhieuSuaChua>()
-                .HasMany(e => e.ChiTietPhieuSuas1)
-                .WithRequired(e => e.PhieuSuaChua1)
-                .HasForeignKey(e => e.IDPhieu)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<PhuTung>()
                 .HasMany(e => e.ChiTietPhieuSuas)
                 .WithRequired(e => e.PhuTung)

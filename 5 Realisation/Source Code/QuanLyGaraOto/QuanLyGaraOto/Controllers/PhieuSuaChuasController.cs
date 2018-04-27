@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
+using PagedList;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -15,10 +16,27 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuSuaChuas
-        public ActionResult Index()
+        public ViewResult Index(string currentFilter, string searchString, int? page)
         {
-            var phieuSuaChuas = db.PhieuSuaChuas.Include(p => p.PhieuTiepNhan);
-            return View(phieuSuaChuas.ToList());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var phieuSuaChuas = from s in db.PhieuSuaChuas
+                                 select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //phieuSuaChuas = phieuSuaChuas.Where(s => s.Xe.TenChuXe.Contains(searchString));
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(phieuSuaChuas.OrderBy(s => s.PhieuTiepNhan.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: PhieuSuaChuas/Details/5

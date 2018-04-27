@@ -133,17 +133,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BUS\BaoCaoDoanhThu_BUS.cs" />
     <Compile Include="Controllers\BaoCaoDSController.cs" />
+    <Compile Include="Controllers\ChiTietPhieuSuasController.cs" />
     <Compile Include="Controllers\HieuXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhieuSuaChuasController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
     <Compile Include="Controllers\XesController.cs" />
+    <Compile Include="DTO\Motor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804260325033_QLGarav1.cs" />
     <Compile Include="Migrations\201804260325033_QLGarav1.Designer.cs">
       <DependentUpon>201804260325033_QLGarav1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804271042269_QLGarav2.cs" />
+    <Compile Include="Migrations\201804271042269_QLGarav2.Designer.cs">
+      <DependentUpon>201804271042269_QLGarav2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804271048468_QLGarav21.cs" />
+    <Compile Include="Migrations\201804271048468_QLGarav21.Designer.cs">
+      <DependentUpon>201804271048468_QLGarav21.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -173,6 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetDoanhSo.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PhieuTiepNhan_Xe.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -183,6 +194,25 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootswatch.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -341,6 +371,8 @@
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
@@ -387,6 +419,12 @@
     <Content Include="Views\PhieuSuaChuas\Details.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Edit.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Index.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\Create.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\Delete.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\Details.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\Edit.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\Index.cshtml" />
+    <Content Include="Views\ChiTietPhieuSuas\_PhuTungPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -396,6 +434,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804260325033_QLGarav1.resx">
       <DependentUpon>201804260325033_QLGarav1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271042269_QLGarav2.resx">
+      <DependentUpon>201804271042269_QLGarav2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271048468_QLGarav21.resx">
+      <DependentUpon>201804271048468_QLGarav21.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

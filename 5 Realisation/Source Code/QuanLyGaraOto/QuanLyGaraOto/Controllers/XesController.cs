@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
+using QuanLyGaraOto.DTO;
 namespace QuanLyGaraOto.Controllers
 {
     public class XesController : Controller
@@ -15,27 +16,44 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: Xes
-        public ViewResult Index(string option,string searchString, int? page)
+        public ViewResult Index(string option, string currentFilter, string searchString, int? page)
         {
             if (searchString != null)
             {
                 page = 1;
             }
-
-            var xes = from s in db.Xes
-                                 select s;
-            if (!String.IsNullOrEmpty(searchString))
+            else
             {
-                if(option == "Name")
-                    xes = xes.Where(s => s.TenChuXe.Contains(searchString));
-                else
-                    xes = xes.Where(s => s.HieuXe.TenHieuXe.Contains(searchString));
+                searchString = currentFilter;
             }
+            ViewBag.CurrentFilter = searchString;
+            var xes = from s in db.Xes
+                      select s;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (option == "BrandName")
+                    return View(xes.Where(s => s.HieuXe.TenHieuXe.Contains(searchString)).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
+                else
+                    return View(xes.Where(s => s.TenChuXe.Contains(searchString)).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
+            }
             return View(xes.OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
-
+        [HttpGet]
+        public JsonResult GetSearchValue(string search)
+        {
+            List<Motor> allsearch = db.Xes.Where(s => s.TenChuXe.Contains(search)).Select(x => new Motor
+            {
+                IDBienSo = x.IDBienSo,
+                TenChuXe = x.TenChuXe,
+                DiaChi = x.DiaChi,
+                DienThoai = x.DienThoai,
+                IDHieuXe = x.IDHieuXe,
+                TienNo = x.TienNo
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         // GET: Xes/Details/5
         public ActionResult Details(int? id)
         {
@@ -69,7 +87,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 db.Xes.Add(xe);
                 db.SaveChanges();
-                return RedirectToAction("Create","PhieuTiepNhans", new {id = xe.IDBienSo});
+                return RedirectToAction("Create", "PhieuTiepNhans", new { id = xe.IDBienSo });
             }
 
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", xe.IDHieuXe);
@@ -134,7 +152,6 @@ namespace QuanLyGaraOto.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

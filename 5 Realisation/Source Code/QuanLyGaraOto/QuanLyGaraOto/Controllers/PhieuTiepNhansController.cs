@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
+using QuanLyGaraOto.ViewModel;
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuTiepNhansController : Controller
@@ -67,16 +68,23 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: PhieuTiepNhans/Create
-        public ActionResult Create(int? id)
+        //public ActionResult Create(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        var xe = db.Xes.Where(i => i.IDBienSo == id);
+        //        ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe",xe.First().TenChuXe);
+        //        return View();
+        //    }           
+        //    ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
+        //    return View();
+        //}
+        public ActionResult Create()
         {
-            if (id != null)
-            {
-                var xe = db.Xes.Where(i => i.IDBienSo == id);
-                ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe",xe.First().TenChuXe);
-                return View();
-            }           
-            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
-            return View();
+            PhieuTiepNhan_Xe phieuTiepNhan_Xe = new PhieuTiepNhan_Xe();
+            ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", db.HieuXes.First().TenHieuXe);
+
+            return View(phieuTiepNhan_Xe);
         }
 
         // POST: PhieuTiepNhans/Create
@@ -84,17 +92,33 @@ namespace QuanLyGaraOto.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDPhieuTN,IDBienSo,NgayTiepNhan")] PhieuTiepNhan phieuTiepNhan)
+        public ActionResult Create(PhieuTiepNhan_Xe phieuTiepNhan_Xe)
         {
             if (ModelState.IsValid)
             {
+                Xe xe = new Xe();
+                PhieuTiepNhan phieuTiepNhan = new PhieuTiepNhan();
+                //Add 1 xe
+                xe.IDBienSo = phieuTiepNhan_Xe.IDBienSo;
+                xe.TenChuXe = phieuTiepNhan_Xe.TenChuXe;
+                xe.IDHieuXe = phieuTiepNhan_Xe.IDHieuXe;
+                xe.DiaChi = phieuTiepNhan_Xe.DiaChi;
+                xe.DienThoai = phieuTiepNhan_Xe.DienThoai;
+                db.Xes.Add(xe);
+                db.SaveChanges();
+                //Add 1 Phieu tiep nhan
+                int latestIDXe = xe.IDBienSo;
+                phieuTiepNhan.IDBienSo = latestIDXe;
+                phieuTiepNhan.NgayTiepNhan = phieuTiepNhan_Xe.NgayTiepNhan;
                 db.PhieuTiepNhans.Add(phieuTiepNhan);
                 db.SaveChanges();
-                return RedirectToAction("Create", "PhieuSuaChuas", new { id = phieuTiepNhan.IDPhieuTN });
+               
+                return RedirectToAction("Index");
             }
 
-            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
-            return View(phieuTiepNhan);
+            ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe",db.HieuXes.First().TenHieuXe);
+
+            return View(phieuTiepNhan_Xe);
         }
         // GET: PhieuTiepNhans/Edit/5
         public ActionResult Edit(int? id)

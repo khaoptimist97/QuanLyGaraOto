@@ -1,4 +1,4 @@
-﻿@model QuanLyGaraOto.Models.PhieuTiepNhan
+﻿@model QuanLyGaraOto.ViewModel.PhieuTiepNhan_Xe
 
 @{
     ViewBag.Title = "Create";
@@ -10,32 +10,52 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDBienSo, "Tên Chủ Xe", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDBienSo", (IEnumerable<SelectListItem>)ViewBag.IDBienSo, new {@class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDBienSo)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.NgayTiepNhan, new { @class = "form-control"})
-                @Html.ValidationMessageFor(model => model.NgayTiepNhan)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.LabelFor(model => model.TenChuXe, "Tên Chủ Xe", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.TenChuXe, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TenChuXe)
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IDHieuXe, "IDHieuXe", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("IDHieuXe", (SelectList)ViewBag.IDHieuXe, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDHieuXe)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DiaChi)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.DienThoai, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DienThoai)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NgayTiepNhan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.NgayTiepNhan, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NgayTiepNhan)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
