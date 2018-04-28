@@ -1,0 +1,99 @@
+﻿@model QuanLyGaraOto.Models.PhieuThuTien
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PhieuThuTien</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { @class = "form-control", id = "dropDownID" })
+                @Html.ValidationMessageFor(model => model.IDBienSo)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Xe.TenChuXe, "Họ tên", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Xe.TenChuXe, new { @class = "form-control", id = "TenChuXe", @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.Xe.TenChuXe)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Xe.DienThoai, "Điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Xe.DienThoai, new { @class = "form-control", id = "DienThoai", @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.Xe.DienThoai)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" id="email" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayThu, "Ngày thu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NgayThu, new { @class = "form-control", id = "NgayThuTien" })
+                @Html.ValidationMessageFor(model => model.NgayThu)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoTienThu, "Số tiền thu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.SoTienThu, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(model => model.SoTienThu)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts
+{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+}
+<script>
+    $(function () {
+        $("#NgayThuTien").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+    $(document).ready(function () {
+        $("#dropDownID").change(function () {
+
+            var dropDownID = $("#dropDownID").val();
+            $.ajax({
+                type: 'GET',
+                data: { dropDownID: dropDownID },
+                url: '@Url.Action("GetInfoXe", "PhieuThuTiens")',
+                success: function (result) {
+                    //var info = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        $("#TenChuXe").val(result[i].TenChuXe);
+                        $("#DienThoai").val(result[i].DienThoai);
+                    }
+                }
+            });
+        });
+    });
+</script>
