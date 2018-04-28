@@ -81,6 +81,7 @@ C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.xm
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.Mvc.xml
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav1.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csproj.GenerateResource.cache
-C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav2.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav21.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav3.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache

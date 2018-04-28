@@ -11,12 +11,10 @@ namespace QuanLyGaraOto.Models
     {
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDPhieu { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDPhuTung { get; set; }
 
         public int? SoLuongBan { get; set; }

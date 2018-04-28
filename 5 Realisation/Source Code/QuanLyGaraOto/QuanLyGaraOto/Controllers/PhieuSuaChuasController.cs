@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
-using PagedList;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -16,29 +15,42 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuSuaChuas
-        public ViewResult Index(string currentFilter, string searchString, int? page)
+        public ActionResult Index()
         {
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-            var phieuSuaChuas = from s in db.PhieuSuaChuas
-                                 select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                //phieuSuaChuas = phieuSuaChuas.Where(s => s.Xe.TenChuXe.Contains(searchString));
-            }
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(phieuSuaChuas.OrderBy(s => s.PhieuTiepNhan.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
+            ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC");
+            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN");
+            ViewBag.IDPhuTung = new SelectList(db.PhuTungs, "IDPhuTung", "TenPhuTung");
+            var phieuSuaChuas = db.PhieuSuaChuas.Include(p => p.PhieuTiepNhan);
+            return View(phieuSuaChuas.ToList());
         }
+        public ActionResult Save(int idPhieuTN, DateTime date, ChiTietPhieuSua[] chitietphieusua)
+        {
+            string result = "Error! Thêm chi tiết không thể hoàn tất!";
+            if (idPhieuTN != 0 && date != null && chitietphieusua != null)
+            {
+                PhieuSuaChua phieuSua = new PhieuSuaChua();
+                phieuSua.IDPhieuTN = idPhieuTN;
+                phieuSua.NgaySuaChua = date;
+                db.PhieuSuaChuas.Add(phieuSua);
+                db.SaveChanges();
+                int idPhieuSua = phieuSua.IDPhieu;
+                foreach (var ct in chitietphieusua)
+                {
+                    ChiTietPhieuSua C = new ChiTietPhieuSua();
+                    C.IDPhieu = idPhieuSua;
+                    C.IDPhuTung = ct.IDPhuTung;
+                    C.DonGia = ct.DonGia;
+                    C.SoLuongBan = ct.SoLuongBan;
+                    C.IDTienCong = ct.IDTienCong;
+                    C.ThanhTien = ct.ThanhTien;
+                    db.ChiTietPhieuSuas.Add(C);
 
+                }
+                db.SaveChanges();
+                result = "Thành công! Thêm chi tiết hoàn tất!";
+            }
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
         // GET: PhieuSuaChuas/Details/5
         public ActionResult Details(int? id)
         {
@@ -55,15 +67,8 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: PhieuSuaChuas/Create
-        [HttpGet]
-        public ActionResult Create(int? id)
+        public ActionResult Create()
         {
-            if (id != null)
-            {
-                var phieuTiepNhan = db.PhieuTiepNhans.Where(i => i.IDPhieuTN == id);
-                ViewBag.IDPhieuTN = new SelectList(phieuTiepNhan, "IDPhieuTN", "IDPhieuTN", phieuTiepNhan.First().IDPhieuTN);
-                return View();
-            }
             ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN");
             return View();
         }
