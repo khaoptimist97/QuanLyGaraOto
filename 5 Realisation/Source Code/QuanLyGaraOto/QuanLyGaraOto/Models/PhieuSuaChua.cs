@@ -19,7 +19,7 @@ namespace QuanLyGaraOto.Models
         public int IDPhieu { get; set; }
 
         public int? IDPhieuTN { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime? NgaySuaChua { get; set; }
 
         public long? TongTien { get; set; }

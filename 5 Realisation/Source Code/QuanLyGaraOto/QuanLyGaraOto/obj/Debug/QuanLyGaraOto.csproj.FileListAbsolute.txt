@@ -85,3 +85,4 @@ C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLy
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav21.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav3.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav4.resources

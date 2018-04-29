@@ -19,6 +19,8 @@
         public int IDPhieuTN { get; set; }
         [Display(Name = "Tên Chủ Xe")]
         public int? IDBienSo { get; set; }
+        
+        [DataType(DataType.DateTime)]
         [Display(Name = "Ngày tiếp nhận")]
         public DateTime? NgayTiepNhan { get; set; }
 

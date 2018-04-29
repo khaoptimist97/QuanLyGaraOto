@@ -6,7 +6,7 @@
     <div class="panel-heading">
         <div class="row">
             <h2 class="panel-title pull-left" style="margin-left:10px;">
-                <strong>Chi Tiết Phiếu Sửa</strong>
+                <strong>Phiếu Sửa Chữa</strong>
             </h2>
             <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
         </div>
@@ -72,7 +72,7 @@
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
 
-@*Desing Bootdtrap Modal With Order Form*@
+@*Desing Bootdtrap Modal With ChiTietSua Form*@
 
 <div class="modal fade" id="newOrderModal">
     <div class="modal-dialog modal-lg" style=" width: 900px !important;">
@@ -143,11 +143,19 @@
                                 Tiền công
                             </label>
                             <div class="col-md-4">
-                                @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, new { @class = "form-control", id = "IDTienCong" })
+                                @Html.DropDownList("IDTienCong", new SelectList(ViewBag.IDTienCong, "Value", "Text", "---Select---"), new { @class = "form-control", id = "IDTienCong" })
                             </div>
-                            <div class="col-md-2 col-lg-offset-4">
+                            <label class="control-label col-md-2">
+                                Giá tiền công
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
+                                <br />
                                 <a id="addToList" class="btn btn-primary">Add To List</a>
                             </div>
+                            @*<div class="col-md-2 col-lg-offset-4">
+                                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                                </div>*@
                         </div>
 
 
@@ -176,13 +184,37 @@
 </div>
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
 
 @section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script>
+
         //Show Modal.
         function addNewOrder() {
             $("#newOrderModal").modal();
         }
+        //Khởi tạo giá trị đầu cho input tiền công, sử dụng hard-code do đã set mặc định giá trị cho dropdown nhưng ko hiển thị ????
+        $("#TienCong").val('20000')
+        $("#date").click(function () {
+            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+        $("#IDTienCong").change(function () {
+
+            var IDTienCong = $("#IDTienCong").val();
+            $.ajax({
+                type: 'GET',
+                data: { IDTienCong: IDTienCong },
+                url: '@Url.Action("GetInfoTienCong", "PhieuSuaChuas")',
+                success: function (result) {
+                    //var info = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        $("#TienCong").val(result[i].TienCong);
+                    }
+                }
+            });
+        });
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
@@ -197,9 +229,9 @@
                 SoLuongBan = $("#SoLuongBan").val(),
                 IDTienCong = $("#IDTienCong").val(),
                 NoiDung = $("#NoiDung").val(),
+                TienCong = $("#TienCong").val(),
                 detailsTableBody = $("#detailsTable tbody");
-
-            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan) + parseInt(TienCong)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
             detailsTableBody.append(productItem);
             clearItem();
         });

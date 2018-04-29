@@ -20,6 +20,7 @@
         public int IDBienSo { get; set; }
         [Display(Name ="Tên Chủ Xe")]
         [StringLength(50)]
+        [Required(ErrorMessage ="Vui lòng nhập tên chủ xe")]
         public string TenChuXe { get; set; }
 
         [StringLength(100)]
@@ -27,6 +28,7 @@
         public string DiaChi { get; set; }
 
         [StringLength(20)]
+        [RegularExpression("^[0-9]{9,13}$", ErrorMessage = "Chỉ nhập 0-9 gồm 9-13 số")]
         [Display(Name = "Điện Thoại")]
         public string DienThoai { get; set; }
         [Display(Name = "Hiệu Xe")]
