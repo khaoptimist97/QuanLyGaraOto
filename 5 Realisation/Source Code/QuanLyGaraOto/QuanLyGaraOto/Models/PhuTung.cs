@@ -24,6 +24,7 @@ namespace QuanLyGaraOto.Models
         public int? SoLuongTon { get; set; }
 
         public int? DonGiaHienHanh { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuSua> ChiTietPhieuSuas { get; set; }

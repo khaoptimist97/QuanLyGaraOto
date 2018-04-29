@@ -85,64 +85,6 @@ C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLy
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav21.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav3.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache
-<<<<<<< HEAD
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav4.resources
-=======
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\QuanLyGaraOto.dll.config
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\QuanLyGaraOto.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\QuanLyGaraOto.pdb
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\Antlr3.Runtime.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.CrystalReports.Engine.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportSource.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.Shared.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\EntityFramework.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\EntityFramework.SqlServer.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\Newtonsoft.Json.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.Mvc.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Helpers.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Mvc.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Optimization.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Razor.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.Deployment.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.Razor.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\WebGrease.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.Controllers.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.Prompting.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\stdole.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\EntityFramework.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\EntityFramework.SqlServer.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\PagedList.Mvc.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Helpers.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Mvc.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Optimization.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.Razor.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.Deployment.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\System.Web.WebPages.Razor.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\Newtonsoft.Json.xml
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\bin\Antlr3.Runtime.pdb
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav1.resources
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav2.resources
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav21.resources
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav3.resources
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csproj.GenerateResource.cache
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csproj.CoreCompileInputs.cache
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csproj.CopyComplete
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.dll
-C:\Users\tranh\OneDrive\Documents\GitHub\QuanLyGaraOto\5 Realisation\Source Code\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.pdb
->>>>>>> 98a5a82df857f5ce27a745db7ecb8de2223cbfb5
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav41.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav411.resources

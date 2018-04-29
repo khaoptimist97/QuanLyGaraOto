@@ -35,6 +35,7 @@
         public int? IDHieuXe { get; set; }
         [Display(Name = "Tiền nợ")]
         public int? TienNo { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual HieuXe HieuXe { get; set; }
 
