@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
+using PagedList;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -15,13 +16,26 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuSuaChuas
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC");
-            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN");
+            //Customize dropdownlist for show IDPhieu+TenChuXe
+            IQueryable<PhieuTiepNhan> model = from s in db.PhieuTiepNhans
+                                                select s;
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            foreach(var item in model)
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Value = item.IDPhieuTN.ToString(),
+                    Text = item.IDPhieuTN.ToString() + " -  " + item.Xe.TenChuXe
+                });
+            }
+            ViewBag.IDPhieuTN = new SelectList(listItems, "Value", "Text");
+            //
             ViewBag.IDPhuTung = new SelectList(db.PhuTungs, "IDPhuTung", "TenPhuTung");
             var phieuSuaChuas = db.PhieuSuaChuas.Include(p => p.PhieuTiepNhan);
-            return View(phieuSuaChuas.ToList());
+            return View(phieuSuaChuas.ToList().ToPagedList(page??1,10));
         }
         public ActionResult Save(int idPhieuTN, DateTime date, ChiTietPhieuSua[] chitietphieusua)
         {
@@ -43,6 +57,7 @@ namespace QuanLyGaraOto.Controllers
                     C.SoLuongBan = ct.SoLuongBan;
                     C.IDTienCong = ct.IDTienCong;
                     C.ThanhTien = ct.ThanhTien;
+                    C.NoiDung = ct.NoiDung;
                     db.ChiTietPhieuSuas.Add(C);
 
                 }

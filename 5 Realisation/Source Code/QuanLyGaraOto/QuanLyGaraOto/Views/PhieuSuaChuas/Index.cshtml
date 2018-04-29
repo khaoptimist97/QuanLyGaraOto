@@ -1,4 +1,6 @@
-﻿@model IEnumerable<QuanLyGaraOto.Models.PhieuSuaChua>
+﻿@model IPagedList<QuanLyGaraOto.Models.PhieuSuaChua>
+@using PagedList;
+@using PagedList.Mvc;
 <br /><br />
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -39,15 +41,15 @@
                                         }
                                         @foreach (var chitiet in item.ChiTietPhieuSuas)
                                         {
-                                        <tr>
-                                            <td>@chitiet.PhuTung.TenPhuTung</td>
-                                            <td>@chitiet.SoLuongBan</td>
-                                            <td>@chitiet.DonGia</td>
-                                            <td>@chitiet.TienCong.LoaiTC</td>
-                                            <td>@chitiet.ThanhTien</td>
+                                            <tr>
+                                                <td>@chitiet.PhuTung.TenPhuTung</td>
+                                                <td>@chitiet.SoLuongBan</td>
+                                                <td>@chitiet.DonGia</td>
+                                                <td>@chitiet.TienCong.LoaiTC</td>
+                                                <td>@chitiet.ThanhTien</td>
 
-                                        </tr>
-                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien);
+                                            </tr>
+                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
                                         }
                                     </tbody>
                                 </table>
@@ -67,6 +69,8 @@
 
     }
 </div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
 
 @*Desing Bootdtrap Modal With Order Form*@
 
@@ -85,7 +89,7 @@
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-md-2">
-                                IDPhieuTN
+                                Phiếu tiếp nhận
                             </label>
                             <div class="col-md-4">
                                 @*<input type="text" id="name" name="name" placeholder="Customer Name" class="form-control" />*@
@@ -127,7 +131,12 @@
                             <div class="col-md-4">
                                 <input type="number" id="SoLuongBan" name="SoLuongBan" placeholder="Số lượng bán" class="form-control" />
                             </div>
-
+                            <label class="control-label col-md-2">
+                                Nội dung
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="NoiDung" name="NoiDung" placeholder="Nội dung" class="form-control" />
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">
@@ -141,14 +150,16 @@
                             </div>
                         </div>
 
+
                         <table id="detailsTable" class="table">
                             <thead>
                                 <tr>
                                     <th style="width:20%">Phụ tùng</th>
                                     <th style="width:20%">Số lượng</th>
                                     <th style="width:15%">Đơn giá</th>
-                                    <th style="width:25%">Tiền công</th>
-                                    <th style="width:20%">Thành tiền</th>
+                                    <th style="width:10%">Tiền công</th>
+                                    <th style="width:20%">Nội dung</th>
+                                    <th style="width:35%">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -163,6 +174,9 @@
         </div>
     </div>
 </div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
 @section scripts{
     <script>
         //Show Modal.
@@ -182,9 +196,10 @@
                 DonGia = $("#DonGia").val(),
                 SoLuongBan = $("#SoLuongBan").val(),
                 IDTienCong = $("#IDTienCong").val(),
+                NoiDung = $("#NoiDung").val(),
                 detailsTableBody = $("#detailsTable tbody");
 
-            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
             detailsTableBody.append(productItem);
             clearItem();
         });
@@ -194,6 +209,7 @@
             $("#DonGia").val('');
             $("#SoLuongBan").val('');
             $("#IDTienCong").val('');
+            $("#NoiDung").val('');
         }
         // After Add A New Order In The List, If You Want, You Can Remove It.
         $(document).on('click', 'a.deleteItem', function (e) {
@@ -235,7 +251,8 @@
                     SoLuongBan: $(this).find('td:eq(1)').html(),
                     DonGia: $(this).find('td:eq(2)').html(),
                     IDTienCong: $(this).find('td:eq(3)').html(),
-                    ThanhTien: $(this).find('td:eq(4)').html()
+                    NoiDung: $(this).find('td:eq(4)').html(),
+                    ThanhTien: $(this).find('td:eq(5)').html()
                 });
             });
 
@@ -251,6 +268,9 @@
             }).fail(function (err) {
                 console.log(err);
             });
+        });
+        $(function () {
+            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
         });
     </script>
 }

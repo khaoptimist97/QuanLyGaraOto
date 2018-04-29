@@ -137,6 +137,7 @@
     <Compile Include="Controllers\HieuXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhieuSuaChuasController.cs" />
+    <Compile Include="Controllers\PhieuThuTiensController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
     <Compile Include="Controllers\XesController.cs" />
     <Compile Include="DTO\Motor.cs" />
@@ -187,6 +188,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetDoanhSo.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PhieuThuTien_Xe.cs" />
     <Compile Include="ViewModel\PhieuTiepNhan_Xe.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -429,6 +431,11 @@
     <Content Include="Views\ChiTietPhieuSuas\Edit.cshtml" />
     <Content Include="Views\ChiTietPhieuSuas\Index.cshtml" />
     <Content Include="Views\ChiTietPhieuSuas\_PhuTungPartial.cshtml" />
+    <Content Include="Views\PhieuThuTiens\Create.cshtml" />
+    <Content Include="Views\PhieuThuTiens\Delete.cshtml" />
+    <Content Include="Views\PhieuThuTiens\Details.cshtml" />
+    <Content Include="Views\PhieuThuTiens\Edit.cshtml" />
+    <Content Include="Views\PhieuThuTiens\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
