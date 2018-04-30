@@ -4,67 +4,143 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Xe</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenChuXe, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenChuXe)
-                @Html.ValidationMessageFor(model => model.TenChuXe)
+
+<style>
+
+
+    body {
+        margin: 0;
+        padding-top: 10vh;
+        padding-left: 23vh;
+        background: url("/Content/Image/BG-DSxe.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif;
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 80%;
+    }
+
+
+    h3 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        color: #fafc0d;
+    }
+
+
+
+    table {
+        text-align: center;
+    }
+
+    .col-md-3 {
+        color: white;
+    }
+
+    ::placeholder {
+        font-style: italic;
+       
+    }
+
+    footer {
+        position: unset;
+    }
+ 
+</style>
+
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-12"></div>
+
+                <div class="col-md-6 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center>
+                            <h3>Thêm Xe Mới</h3>
+                        </Center>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="form-horizontal" style="padding-left:30px; ">
+
+                                    @Html.ValidationSummary(true)
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TenChuXe, "Chủ xe", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.TenChuXe, new { placeholder = "Tên chủ xe" })
+                                            @Html.ValidationMessageFor(model => model.TenChuXe)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DiaChi, "Địa Chỉ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.DiaChi, new { placeholder = "Địa Chỉ Nhà" })
+                                            @Html.ValidationMessageFor(model => model.DiaChi)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DienThoai, "SĐT", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.DienThoai, new { placeholder = "Số Điện Thoại" })
+                                            @Html.ValidationMessageFor(model => model.DienThoai)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.IDHieuXe, "Hiệu Xe", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9" >
+                                            @Html.DropDownList("IDHieuXe", String.Empty)
+                                            @Html.ValidationMessageFor(model => model.IDHieuXe)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            @Html.HiddenFor(model => model.TienNo)
+                                            @Html.ValidationMessageFor(model => model.TienNo)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-inline col-md-offset-2 " style="padding-left:25px;">
+
+
+                                        <a href="@Url.Action("Index", "Xes")" style="padding-right:20px;">
+                                            <button type="button" class="btn btn-danger">Quay lại </button>
+                                        </a>
+
+                                        <a href="@Url.Action("Index", "Xes")" style="padding-right:20px;">
+                                            <button type="submit" class="btn btn-success">Xác Nhận </button>
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DiaChi)
-                @Html.ValidationMessageFor(model => model.DiaChi)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DienThoai)
-                @Html.ValidationMessageFor(model => model.DienThoai)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDHieuXe, "IDHieuXe", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDHieuXe", String.Empty)
-                @Html.ValidationMessageFor(model => model.IDHieuXe)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.HiddenFor(model=>model.TienNo)
-                @Html.ValidationMessageFor(model => model.TienNo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    }
+</body>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

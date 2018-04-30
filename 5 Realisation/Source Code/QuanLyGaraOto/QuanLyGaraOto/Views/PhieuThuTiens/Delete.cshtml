@@ -4,45 +4,114 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<style>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>PhieuThuTien</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Xe.TenChuXe)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Xe.TenChuXe)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayThu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayThu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienThu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTienThu)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    body {
+        color: white;
+        margin: 0;
+        padding-top: 10vh;
+        padding-right: 40px;
+        background: url("/Content/Image/BG-Paying.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
     }
-</div>
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 99%;
+    }
+
+
+    h2 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
+
+    footer {
+        position: unset;
+    }
+
+    table {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div>
+
+        <dl class="dl-horizontal">
+            <div class="row">
+                <div class="col-md-1 col-sm-2 col-xs-12"> </div>
+
+                <div class="col-md-11 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center><h2>Xóa Phiếu Thu Tiền</h2></Center>
+                        <div class="panel-body col-md-offset-3" style="padding-left:70px;">
+                            <div>
+
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Xe.TenChuXe)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Xe.TenChuXe)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.NgayThu)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.NgayThu)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SoTienThu)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SoTienThu)
+                                    </dd>
+                                </dl>
+                            </div>
+
+
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+
+                                <div class="form-inline col-md-offset-1" style="padding-top:20px;padding-left:30px;">
+
+
+                                    <a href="@Url.Action("Index", "PhieuThuTiens")" class="btn btn-danger">
+                                        Quay lại
+                                    </a>
+
+
+                                    <a href="@Url.Action("Index", "PhieuThuTiens", new { id = Model.IDBienSo })" style="padding-left:20px;">
+                                        <button type="submit" class="btn btn-success">Xóa</button>
+                                        @*<input type="submit" value="Xóa" class="btn btn-success" />*@
+                                    </a>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+        </dl>
+    </div>
+</body>

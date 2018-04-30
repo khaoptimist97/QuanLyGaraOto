@@ -81,16 +81,57 @@
         #body {
             height: 100%;
             padding: 10px;
-            padding-bottom: 450px; /* Height of the footer */
+            /* Height of the footer */
         }
 
         footer {
-            position: absolute;
+            left: 50px;
+            position: fixed;
             bottom: 0;
-            width: 100%;
-            height: 60px;
             text-align: left;
             color: black;
+        }
+        /*------------------*/
+
+        .dropbtn {
+            background-color: black;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: grey;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: lightslategrey;
         }
     </style>
 </head>
@@ -111,12 +152,21 @@
                 <a class="navbar-brand" href="#">
                     <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
                 </a>
-                <p class="navbar-text" style="vertical-align:top"><strong>Gara Việt-Cộng</strong>  </p>
+                <p class="navbar-text" style="vertical-align:top"><strong>Gara Đại Long</strong>  </p>
             </div>
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="dropbtn glyphicon glyphicon-th-list"> Menu</button>
+                            <div class="dropdown-content">
+                                <a style="color:#e9bc41;text-align:center;" href="~/Xes/Index/">Danh sách xe</a>
+                                <a style="color:#e9bc41;text-align:center;" href="~/PhieuTiepNhans/Index/">Danh Sách Phiếu Tiếp Nhận</a>
+                                <a style="color:#e9bc41;text-align:center;" href="#"  > Đăng Xuất</a>
+                            </div>
+                        </div>
+                    </li>
                     <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
                     <li>@Html.ActionLink("Tìm kiếm xe", "Index", "Xes")</li>
                     <li>@Html.ActionLink("Lập phiếu sửa chữa", "Index", "PhieuSuaChuas")</li>

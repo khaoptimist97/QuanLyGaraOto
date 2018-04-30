@@ -4,33 +4,115 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<div class="form-group">
-    <label for="usr">Name:</label><input type="text" class="datepicker" id="usr">
-</div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHieuXe)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHieuXe)      
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDHieuXe }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDHieuXe }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDHieuXe })
-        </td>
-    </tr>
+<style>
+
+
+    body {
+        color: white;
+        margin: 0;
+        padding-top: 0px;
+        padding-right: 60px;
+        background: url("/Content/Image/BG-CarBrand.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 20px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 99%;
+    }
+
+
+    h3 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
+
+    footer {
+        position: unset;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    ::placeholder {
+        font-style: italic;
+    }
+</style>
+<body>
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-3 col-sm-2 col-xs-12"> </div>
+
+            <div class="col-md-8 col-sm-9 col-xs-12">
+                <div class="panel panel-default">
+
+                    <h1 style="font-family:'Myriad Pro'; text-align:center;color: #fafc0d;">Hiệu Xe</h1>
+                    <br /><br /><br />
+                    @using (Html.BeginForm("Index", "PhieuTiepNhans", FormMethod.Get))
+                    {
+                                <div class="form-inline my-2 my-lg-0">
+                                    <label for="usr">Hiệu Xe:</label>
+                                    <input type="text" class="datepicker" id="usr">
+                                    <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm Kiếm" />
+                                    <a href="@Url.Action("Create","Hiệu xe")" style="padding-left:20px;">
+                                        <button type="button" class="btn btn-success col-md-offset-3" style="padding-left:10px;">Thêm Hiệu Xe</button>
+                                    </a>
+                                    @*<a href="#" class="btn btn-danger" style="" id="suaButton">Sửa chữa</a>*@
+                                </div>
+                    }
+                    <br />
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="form-group">
+                                  
+                                </div>
+                                <div class="panel-body">
+
+                                  
+                                    <table class="table">
+                                       
+
+                                        @foreach (var item in Model)
+            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenHieuXe)
+                                </td>
+                                <td style="padding-left:200px;">
+                                 
+                                       
+
+                                        <a href="@Url.Action("Delete", "HieuXe", new { id = item.IDHieuXe })">
+                                            <button type="button" class="btn btn-danger ">Xóa</button>
+                                        </a>
+                                   
+                                </td>
+                            </tr>
 }
 
-</table>
+                                    </table>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
