@@ -18,7 +18,7 @@ namespace QuanLyGaraOto.Controllers
         // GET: PhieuSuaChuas
         public ActionResult Index(int? page)
         {
-            ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC");
+            ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC","---Select TC---");
             //Customize dropdownlist for show IDPhieu+TenChuXe
             IQueryable<PhieuTiepNhan> model = from s in db.PhieuTiepNhans
                                                 select s;
@@ -36,6 +36,12 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.IDPhuTung = new SelectList(db.PhuTungs, "IDPhuTung", "TenPhuTung");
             var phieuSuaChuas = db.PhieuSuaChuas.Include(p => p.PhieuTiepNhan);
             return View(phieuSuaChuas.ToList().ToPagedList(page??1,10));
+        }
+        public ActionResult GetInfoTienCong(int IDTienCong)
+        {
+            return Json(db.TienCongs.Where(x => x.IDTienCong == IDTienCong).Select(s => new {
+                TienCong = s.Gia
+            }).ToList(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Save(int idPhieuTN, DateTime date, ChiTietPhieuSua[] chitietphieusua)
         {

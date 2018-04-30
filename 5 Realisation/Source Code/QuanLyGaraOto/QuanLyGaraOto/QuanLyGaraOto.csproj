@@ -160,6 +160,18 @@
     <Compile Include="Migrations\201804271825456_QLGarav3.Designer.cs">
       <DependentUpon>201804271825456_QLGarav3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804291525377_QLGarav4.cs" />
+    <Compile Include="Migrations\201804291525377_QLGarav4.Designer.cs">
+      <DependentUpon>201804291525377_QLGarav4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804291603538_QLGarav41.cs" />
+    <Compile Include="Migrations\201804291603538_QLGarav41.Designer.cs">
+      <DependentUpon>201804291603538_QLGarav41.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804291605498_QLGarav411.cs" />
+    <Compile Include="Migrations\201804291605498_QLGarav411.Designer.cs">
+      <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChiTietPhieuSua.cs" />
@@ -454,6 +466,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804271825456_QLGarav3.resx">
       <DependentUpon>201804271825456_QLGarav3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291525377_QLGarav4.resx">
+      <DependentUpon>201804291525377_QLGarav4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291603538_QLGarav41.resx">
+      <DependentUpon>201804291603538_QLGarav41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291605498_QLGarav411.resx">
+      <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
