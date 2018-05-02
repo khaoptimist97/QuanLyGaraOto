@@ -49,7 +49,7 @@
         text-align: center;
     }
 
-    ::placeholder {
+    ::-moz-placeholder {
         font-style: italic;
     }
 </style>
@@ -61,30 +61,28 @@
 
             <div class="col-md-11 col-sm-9 col-xs-12">
                 <div class="panel panel-default">
-                    
-                        <h1 style="font-family:'Myriad Pro'; text-align:center; color: #fafc0d;">DANH SÁCH XE</h1>
-                        <br /><br /><br />
-                        @using (Html.BeginForm("Index", "Xes", FormMethod.Get))
-                        {
-                            <div class="form-inline ">
-                                <label>Tìm kiếm theo: </label>
-                                <input type="radio" id="customRadio2" name="option" class="custom-control-input" value="BrandName">
-                                <label class="custom-control-label" for="customRadio2">Hiệu Xe</label>
-                                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập hiệu xe", id = "txtSearch" })
-                                <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm kiếm" />
 
-                                <a href="@Url.Action("Create","Xes")style="padding-right:20px;" >
-                                    <button type="button" class="btn btn-success col-md-offset-4">Thêm Xe</button>
-                                </a>
+                    <h1 style="font-family:'Myriad Pro'; text-align:center; color: #fafc0d;">DANH SÁCH XE</h1>
+                    <br /><br /><br />
+                    @using (Html.BeginForm("Index", "Xes", FormMethod.Get))
+                    {
+                        <div class="form-inline ">
+                            <label>Tìm kiếm theo: </label>
+                            <input type="radio" id="customRadio2" name="option" class="custom-control-input" value="BrandName">
+                            <label class="custom-control-label" for="customRadio2">Hiệu Xe</label>
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập hiệu xe", id = "txtSearch" })
+                            <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm kiếm" />
+
+                            <a href="@Url.Action("Create","Xes")"style=" padding-right:20px;" class="btn btn-success col-md-offset-4">Thêm xe</a>
 
 
-                            </div>
+                        </div>
 
 
 
 
-                        }
-                        <script>
+                    }
+                    <script>
     $("#txtSearch").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -102,78 +100,77 @@
             });
         }
     });
-                        </script>
-                        <br />
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div>
-                                            <table class="table  table-bordered ">
+                    </script>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div>
+                                        <table class="table  table-bordered ">
+                                            <tr>
+                                                <th>
+                                                    <Center>Hiệu xe</Center>
+                                                </th>
+                                                <th>
+                                                    <Center>Tên chủ xe</Center>
+                                                </th>
+                                                <th>
+                                                    <Center>Địa chỉ</Center>
+                                                </th>
+                                                <th>
+                                                    <Center>Số Điện Thoại</Center>
+                                                </th>
+                                                <th>
+                                                    <Center>Tiền Nợ</Center>
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                            @if (Model.Count() == 0)
+                                            {
                                                 <tr>
-                                                    <th>
-                                                        <Center>Hiệu xe</Center>
-                                                    </th>
-                                                    <th>
-                                                        <Center>Tên chủ xe</Center>
-                                                    </th>
-                                                    <th>
-                                                        <Center>Địa chỉ</Center>
-                                                    </th>
-                                                    <th>
-                                                        <Center>Số Điện Thoại</Center>
-                                                    </th>
-                                                    <th>
-                                                        <Center>Tiền Nợ</Center>
-                                                    </th>
-                                                    <th></th>
+                                                    <td colspan="3"> Records not found </td>
                                                 </tr>
-                                                @if (Model.Count() == 0)
-        {
-                                        <tr>
-                                            <td colspan="3"> Records not found </td>
-                                        </tr>
-}
-else
-{
-foreach (var item in Model)
-{
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.HieuXe.TenHieuXe)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TenChuXe)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DiaChi)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DienThoai)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TienNo)
-                                            </td>
-                                            <td>
-                                                <a href="@Url.Action("Details","Xes",new { id = item.IDBienSo })">
-                                                    <button class="btn btn-primary glyphicon glyphicon-info-sign"></button>
-                                                </a>
-                                                <a href="@Url.Action("Edit", "Xes", new { id = item.IDBienSo })">
-                                                    <button class="btn btn-warning ">Sửa</button>
-                                                </a>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.HieuXe.TenHieuXe)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TenChuXe)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DiaChi)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DienThoai)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TienNo)
+                                                        </td>
+                                                        <td>
+                                                            <a href="@Url.Action("Details","Xes",new { id = item.IDBienSo })" class="btn btn-primary glyphicon glyphicon-info-sign">
+                                                                
+                                                            </a>
+                                                            <a href="@Url.Action("Edit", "Xes", new { id = item.IDBienSo })" class="btn btn-warning ">
+                                                                Sửa                                                      
+                                                            </a>
 
-                                                <a href="@Url.Action("Delete", "Xes", new { id = item.IDBienSo })">
-                                                    <button class="btn btn-danger ">Xóa</button>
-                                                </a>
-                                            </td>
-                                        </tr>
-}
-}
+                                                            <a href="@Url.Action("Delete", "Xes", new { id = item.IDBienSo })" class="btn btn-danger ">Xóa
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
 
-                                            </table>
-                                        </div>
+                                        </table>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page }))
