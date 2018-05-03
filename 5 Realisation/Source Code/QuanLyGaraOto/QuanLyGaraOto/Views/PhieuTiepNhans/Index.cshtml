@@ -11,9 +11,6 @@
 
     body {
         color: white;
-        margin: 0;
-        padding-top: 0px;
-        padding-right: 40px;
         background: url("/Content/Image/BG-Recieve.jpg");
         background-size: cover;
         background-repeat: no-repeat;
@@ -25,7 +22,7 @@
         border: 1px solid #ffffff;
         background: rgba(0,0,0,0.5);
         padding: 10px 40px;
-        margin-top: 10vh;
+        margin-top: 5vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
         width: 99%;
     }
@@ -38,15 +35,11 @@
         color: #fafc0d;
     }
 
-    footer {
-        position: unset;
-    }
-
     table {
         text-align: center;
     }
 
-    ::placeholder {
+    placeholder {
         font-style: italic;
     }
 </style>
@@ -90,40 +83,40 @@
                                                 <th></th>
                                             </tr>
                                             @if (Model.Count() == 0)
-                {
-                            <tr>
-                                <td colspan="3"> Records not found </td>
-                            </tr>
-}
-else
-{
-foreach (var item in Model)
-{
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NgayTiepNhan)
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDBienSo })">
-                                        <button type="button" class="btn btn-primary glyphicon glyphicon-info-sign"></button>
-                                    </a>
-                                    <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDBienSo })">
-                                        <button type="button" class="btn btn-warning ">Sửa</button>
-                                    </a>
+                                            {
+                                                <tr>
+                                                    <td colspan="3"> Records not found </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgayTiepNhan)
+                                                        </td>
+                                                        <td>
+                                                            <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDBienSo })">
+                                                                <button type="button" class="btn btn-primary glyphicon glyphicon-info-sign"></button>
+                                                            </a>
+                                                            <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDBienSo })">
+                                                                <button type="button" class="btn btn-warning ">Sửa</button>
+                                                            </a>
 
-                                    <a href="@Url.Action("Delete", "PhieuTiepNhans", new { id = item.IDBienSo })">
-                                        <button type="button" class="btn btn-danger ">Xóa</button>
-                                    </a>
-                                    <a href="@Url.Action("Create", "PhieuSuaChuas", new { id = item.IDBienSo })">
-                                        <button type="button" class="btn btn-success ">Sửa chữa</button>
-                                    </a>
-                                </td>
-                            </tr>
-}
-}
+                                                            <a href="@Url.Action("Delete", "PhieuTiepNhans", new { id = item.IDBienSo })">
+                                                                <button type="button" class="btn btn-danger ">Xóa</button>
+                                                            </a>
+                                                            <a href="@Url.Action("Create", "PhieuSuaChuas", new { id = item.IDBienSo })">
+                                                                <button type="button" class="btn btn-success ">Sửa chữa</button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
 
                                         </table>
                                     </div>
@@ -138,3 +131,14 @@ foreach (var item in Model)
     </div>
 
 </body>
+
+<script>
+    $('#txtSearch').on('keypress', function (event) {
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    });
+</script>

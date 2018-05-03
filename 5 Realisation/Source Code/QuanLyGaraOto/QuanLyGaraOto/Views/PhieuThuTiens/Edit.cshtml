@@ -8,9 +8,6 @@
 
 
     body {
-        margin: 0;
-        padding-top: 10vh;
-        padding-left: 20vh;
         background: url("/Content/Image/BG-Paying.jpg");
         background-size: cover;
         background-repeat: no-repeat;
@@ -35,10 +32,6 @@
         color: #fafc0d;
     }
 
-    footer {
-        position: unset;
-    }
-
     table {
         text-align: center;
     }
@@ -58,7 +51,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-2 col-xs-12"></div>
 
-                <div class="col-md-6 col-sm-9 col-xs-12">
+                <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="panel panel-default">
                         <Center>
                             <h3>Sửa Thông Phiếu Thu Tiền</h3>
@@ -67,7 +60,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IDBienSo, "Biển Số", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.DropDownList("IDBienSo", String.Empty)
+                                    @Html.DropDownList("IDBienSo",(SelectList)ViewBag.IDBienSo, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.IDBienSo)
                                 </div>
                             </div>
@@ -75,7 +68,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.NgayThu,"Ngày", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.EditorFor(model => model.NgayThu)
+                                    @Html.TextBoxFor(model => model.NgayThu,new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.NgayThu)
                                 </div>
                             </div>
@@ -83,21 +76,20 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.SoTienThu,"Số Tiền", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.EditorFor(model => model.SoTienThu)
+                                    @Html.TextBoxFor(model => model.SoTienThu, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.SoTienThu)
                                 </div>
                             </div>
 
                           
-                                <div class="col-md-offset-3 col-md-10">
-                                    <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;">
-                                        <button class="btn btn-danger">Quay lại</button>
-                                    </a>
-                                    <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;">
-                                        <button type="submit" class="btn btn-success">Xác Nhận</button>
-                                    </a>
+                            <div class="col-md-offset-3 col-md-10">
+                                <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-danger">
+                                    Quay lại
+                                </a>
+                                <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-success">
+                                    Xác Nhận
+                                </a>
 
-                                
                             </div>
 
                         </div>

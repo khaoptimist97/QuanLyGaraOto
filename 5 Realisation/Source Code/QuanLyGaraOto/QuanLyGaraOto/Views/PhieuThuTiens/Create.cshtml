@@ -7,44 +7,10 @@
 
 
 
-<script src="~/Scripts/jquery-1.12.4.min.js"></script>
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-@section scripts
-{
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-}
-<script>
-    $(function () {
-        $("#NgayThuTien").datepicker({ dateFormat: 'dd/mm/yy' });
-    });
-    $(document).ready(function () {
-        $("#dropDownID").change(function () {
-
-            var dropDownID = $("#dropDownID").val();
-            $.ajax({
-                type: 'GET',
-                data: { dropDownID: dropDownID },
-                url: '@Url.Action("GetInfoXe", "PhieuThuTiens")',
-                success: function (result) {
-                    //var info = JSON.parse(result);
-                    for (var i = 0; i < result.length; i++) {
-                        $("#TenChuXe").val(result[i].TenChuXe);
-                        $("#DienThoai").val(result[i].DienThoai);
-                    }
-                }
-            });
-        });
-    });
-</script>
-
 <style>
 
-
     body {
-        margin: 0;
-        padding-top: 10vh;
-        padding-left: 23vh;
-        background: url("/Content/Image/BG-Paying.jpgg");
+        background: url("/Content/Image/BG-Paying.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -79,12 +45,8 @@
         color: white;
     }
 
-    ::placeholder {
+    placeholder {
         font-style: italic;
-    }
-
-    footer {
-        position: unset;
     }
 </style>
 
@@ -98,7 +60,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-2 col-xs-12"></div>
 
-                <div class="col-md-6 col-sm-9 col-xs-12">
+                <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="panel panel-default">
                         <Center>
                             <h3>Thêm Phiếu Thu Tiền</h3>
@@ -110,35 +72,35 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new {  id = "dropDownID" })
+                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { id = "dropDownID" ,@class = "form-control"})
                                             @Html.ValidationMessageFor(model => model.IDBienSo)
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Xe.TenChuXe, "Chủ Xe", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.TextBoxFor(model => model.Xe.TenChuXe, new { placeholder = "Tên chủ xe", id = "TenChuXe", @readonly = "true" })
+                                            @Html.TextBoxFor(model => model.Xe.TenChuXe, new { placeholder = "Tên chủ xe", id = "TenChuXe", @readonly = "true", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Xe.TenChuXe)
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Xe.DienThoai, "SĐT", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.TextBoxFor(model => model.Xe.DienThoai, new { placeholder = "Số Điện Thoại", id = "DienThoai", @readonly = "true" })
+                                            @Html.TextBoxFor(model => model.Xe.DienThoai, new { placeholder = "Số Điện Thoại", id = "DienThoai", @readonly = "true", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Xe.DienThoai)
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.TextBox("Email","", new { @placeholder = "Email" })
+                                            @Html.TextBox("Email", "", new { @placeholder = "Email", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Xe.DienThoai)
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.NgayThu, "Ngày ", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.TextBoxFor(model => model.NgayThu, new {  id = "NgayThuTien", @placeholder = "Ngày Thu Tiền" })
+                                            @Html.TextBoxFor(model => model.NgayThu, new { id = "NgayThuTien", @placeholder = "Ngày Thu Tiền", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.NgayThu)
                                         </div>
                                     </div>
@@ -146,22 +108,19 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.SoTienThu, "Số tiền", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.TextBoxFor(model => model.SoTienThu, new { placeholder = "Số TIền Thu" , type = "number" })
+                                            @Html.TextBoxFor(model => model.SoTienThu, new { placeholder = "Số TIền Thu", type = "number", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.SoTienThu)
                                         </div>
                                     </div>
 
-                                   
-
-                                    <div class="form-inline col-md-offset-2 " style="padding-left:25px;">
 
 
-                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;">
-                                            <button type="button" class="btn btn-danger">Quay lại </button>
+                                    <div class="col-md-offset-3 col-md-10">
+                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-danger">
+                                            Quay lại
                                         </a>
-
-                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;">
-                                            <button type="submit" class="btn btn-success">Xác Nhận </button>
+                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-success">
+                                            Xác Nhận
                                         </a>
 
                                     </div>
@@ -175,3 +134,34 @@
         </div>
     }
 </body>
+
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts
+{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+}
+<script>
+    $(function () {
+        $("#NgayThuTien").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+    $(document).ready(function () {
+        $("#dropDownID").change(function () {
+
+            var dropDownID = $("#dropDownID").val();
+            $.ajax({
+                type: 'GET',
+                data: { dropDownID: dropDownID },
+                url: '@Url.Action("GetInfoXe", "PhieuThuTiens")',
+                success: function (result) {
+                    //var info = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        $("#TenChuXe").val(result[i].TenChuXe);
+                        $("#DienThoai").val(result[i].DienThoai);
+                    }
+                }
+            });
+        });
+    });
+</script>
