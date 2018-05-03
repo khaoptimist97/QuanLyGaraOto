@@ -145,9 +145,17 @@
                             <div class="col-md-4">
                                 @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, new { @class = "form-control", id = "IDTienCong" })
                             </div>
-                            <div class="col-md-2 col-lg-offset-4">
+                            <label class="control-label col-md-2">
+                                Giá tiền công
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
+                                <br />
                                 <a id="addToList" class="btn btn-primary">Add To List</a>
                             </div>
+                            @*<div class="col-md-2 col-lg-offset-4">
+                                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                                </div>*@
                         </div>
 
 
@@ -178,11 +186,32 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 @section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script>
         //Show Modal.
         function addNewOrder() {
             $("#newOrderModal").modal();
         }
+        //Khởi tạo giá trị đầu cho input tiền công, sử dụng hard-code do đã set mặc định giá trị cho dropdown nhưng ko hiển thị ????
+        $("#TienCong").val('20000')
+        $("#date").click(function () {
+            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+        $("#IDTienCong").change(function () {
+
+            var IDTienCong = $("#IDTienCong").val();
+            $.ajax({
+                type: 'GET',
+                data: { IDTienCong: IDTienCong },
+                url: '@Url.Action("GetInfoTienCong", "PhieuSuaChuas")',
+                success: function (result) {
+                    //var info = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        $("#TienCong").val(result[i].TienCong);
+                    }
+                }
+            });
+        });
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
@@ -197,9 +226,11 @@
                 SoLuongBan = $("#SoLuongBan").val(),
                 IDTienCong = $("#IDTienCong").val(),
                 NoiDung = $("#NoiDung").val(),
+                TienCong = $("#TienCong").val(),
                 detailsTableBody = $("#detailsTable tbody");
 
-            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan) + parseInt(TienCong)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+
             detailsTableBody.append(productItem);
             clearItem();
         });
