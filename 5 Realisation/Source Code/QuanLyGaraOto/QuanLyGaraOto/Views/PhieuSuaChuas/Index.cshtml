@@ -1,269 +1,188 @@
 ﻿@model IPagedList<QuanLyGaraOto.Models.PhieuSuaChua>
 @using PagedList;
 @using PagedList.Mvc;
-<style>
-
-
-    body {
-        color: white;
-        background: url("/Content/Image/BG-DSxe.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        font-family: sans-serif
-    }
-
-    .panel {
-        border: 1px solid #ffffff;
-        background: rgba(0,0,0,0.5);
-        padding: 10px 40px;
-        margin-top: 5vh;
-        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-        width: 99%;
-    }
-
-
-    h2 {
-        margin: 0;
-        padding-left: 20px;
-        padding-bottom: 20px;
-        color: #fafc0d;
-    }
-
-    footer {
-        position: unset;
-    }
-
-    table {
-        text-align: center;
-        background: rgba(0,0,0,0.5);
-        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-    }
-    td {
-        background: rgba(0,0,0,0.5);
-    }
-    tr {
-        background: rgba(0,0,0,0.5);
-    }
-    ::-moz-placeholder {
-        font-style: italic;
-    }
-</style>
-<body>
-    <br /><br />
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row">
-                <h2 class="panel-title pull-left" style="margin-left:10px;">
-                    <strong>Phiếu Sửa Chữa</strong>
-                </h2>
-                <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
-            </div>
+<br /><br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <h2 class="panel-title pull-left" style="margin-left:10px;">
+                <strong>Phiếu Sửa chữa</strong>
+            </h2>
+            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
         </div>
+    </div>
 
-        @*Receive All Database Data From Controller And Display Those Data In Client Side*@
+    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
 
-        @if (Model.Count() != 0)
+    @if (Model.Count() != 0)
+    {
+        foreach (var item in Model)
         {
-            foreach (var item in Model)
-            { 
-                        <div class="panel-body">
-                            <table class="table table-striped table-responsive">
-                                <tbody>
-                                    <tr>
-                                        <td>Tên chủ xe : @item.PhieuTiepNhan.Xe.TenChuXe </td>
-                                        <td>Ngày sửa : @item.NgaySuaChua </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Phụ tùng</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Đơn giá</th>
-                                                        <th>Tiền công</th>
-                                                        <th>Thành tiền</th>
-                                                    </tr>
-                                                    @{
-                                                        var totalBill = 0;
-                                                    }
-                                                    @foreach (var chitiet in item.ChiTietPhieuSuas)
-                                                    {
-                                                        <tr>
-                                                            <td>@chitiet.PhuTung.TenPhuTung</td>
-                                                            <td>@chitiet.SoLuongBan</td>
-                                                            <td>@chitiet.DonGia</td>
-                                                            <td>@chitiet.TienCong.LoaiTC</td>
-                                                            <td>@chitiet.ThanhTien</td>
-
-                                                        </tr>
-                                                        totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
-                                                    }
-                                                </tbody>
-                                            </table>
-                                            <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                    }
-                    else
-                    {
-                    <div class="panel-body">
-                        <h3 style="color:red;">Empty!</h3>
-                    </div>
-
-                    }
-                </div>
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-        </body>
-
-        @*Desing Bootdtrap Modal With ChiTietSua Form*@
-
-        <div class="modal fade" id="newOrderModal">
-            <div class="modal-dialog modal-lg" style=" width: 900px !important;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        <h4>Add New </h4>
-                    </div>
-                    <form id="NewOrderForm">
-                        <div class="modal-body">
-                            @*Phieu Sua Chua*@
-                            <h5 style="color:#ff6347">Phiếu sửa chữa</h5>
-                            <hr />
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        Phiếu tiếp nhận
-                                    </label>
-                                    <div class="col-md-4">
-                                        @*<input type="text" id="name" name="name" placeholder="Customer Name" class="form-control" />*@
-                                        @Html.DropDownList("IDPhieuTN", (SelectList)ViewBag.IDPhieuTN, new { @class = "form-control", id = "idPhieuTN" })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        Ngày tiếp nhận
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" id="date" name="date" placeholder="Ngày tiếp nhận" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            @*Order Details*@
-                            <h5 style="margin-top:10px;color:#ff6347">Chi tiết phiếu sửa chữa</h5>
-                            <hr />
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        Phụ tùng
-                                    </label>
-                                    <div class="col-md-4">
-                                        @*<input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" />*@
-                                        @Html.DropDownList("IDPhuTung", (SelectList)ViewBag.IDPhuTung, new { @class = "form-control", id = "IDPhuTung" })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        Đơn giá
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="number" id="DonGia" name="DonGia" placeholder="Giá phụ tùng" class="form-control" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        Số lượng
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="number" id="SoLuongBan" name="SoLuongBan" placeholder="Số lượng bán" class="form-control" />
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        Nội dung
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" id="NoiDung" name="NoiDung" placeholder="Nội dung" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        Tiền công
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownList("IDTienCong", new SelectList(ViewBag.IDTienCong, "Value", "Text", "---Select---"), new { @class = "form-control", id = "IDTienCong" })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        Giá tiền công
-                                    </label>
-                                    <div class="col-md-4">
-                                        <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
-                                        <br />
-                                        <a id="addToList" class="btn btn-primary">Add To List</a>
-                                    </div>
-                                    @*<div class="col-md-2 col-lg-offset-4">
-                                            <a id="addToList" class="btn btn-primary">Add To List</a>
-                                        </div>*@
-                                </div>
-
-
-                                <table id="detailsTable" class="table">
-                                    <thead>
+            <div class="panel-body">
+                <table class="table table-striped table-responsive">
+                    <tbody>
+                        <tr>
+                            <td>Tên chủ xe : @item.PhieuTiepNhan.Xe.TenChuXe </td>
+                            <td>Ngày sửa : @item.NgaySuaChua </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <table class="table table-bordered">
+                                    <tbody>
                                         <tr>
-                                            <th style="width:20%">Phụ tùng</th>
-                                            <th style="width:20%">Số lượng</th>
-                                            <th style="width:15%">Đơn giá</th>
-                                            <th style="width:10%">Tiền công</th>
-                                            <th style="width:20%">Nội dung</th>
-                                            <th style="width:35%">Thành tiền</th>
+                                            <th>Phụ tùng</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Tiền công</th>
+                                            <th>Thành tiền</th>
                                         </tr>
-                                    </thead>
-                                    <tbody></tbody>
+                                        @{
+                                            var totalBill = 0;
+                                        }
+                                        @foreach (var chitiet in item.ChiTietPhieuSuas)
+                                        {
+                                            <tr>
+                                                <td>@chitiet.PhuTung.TenPhuTung</td>
+                                                <td>@chitiet.SoLuongBan</td>
+                                                <td>@chitiet.DonGia</td>
+                                                <td>@chitiet.TienCong.LoaiTC</td>
+                                                <td>@chitiet.ThanhTien</td>
+
+                                            </tr>
+                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
+                                        }
+                                    </tbody>
                                 </table>
+                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="panel-body">
+            <h3 style="color:red;">Empty!</h3>
+        </div>
+
+    }
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+@*Desing Bootdtrap Modal With Order Form*@
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Add New </h4>
+            </div>
+            <form id="NewOrderForm">
+                <div class="modal-body">
+                    @*Phieu Sua Chua*@
+                    <h5 style="color:#ff6347">Phiếu sửa chữa</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Phiếu tiếp nhận
+                            </label>
+                            <div class="col-md-4">
+                                @*<input type="text" id="name" name="name" placeholder="Customer Name" class="form-control" />*@
+                                @Html.DropDownList("IDPhieuTN", (SelectList)ViewBag.IDPhieuTN, new { @class = "form-control", id = "idPhieuTN" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                Ngày tiếp nhận
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="date" name="date" placeholder="Ngày tiếp nhận" class="form-control" />
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id="saveOrder" type="submit" class="btn btn-danger">Save</button>
+                    </div>
+
+                    @*Order Details*@
+                    <h5 style="margin-top:10px;color:#ff6347">Chi tiết phiếu sửa chữa</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Phụ tùng
+                            </label>
+                            <div class="col-md-4">
+                                @*<input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" />*@
+                                @Html.DropDownList("IDPhuTung", (SelectList)ViewBag.IDPhuTung, new { @class = "form-control", id = "IDPhuTung" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                Đơn giá
+                            </label>
+                            <div class="col-md-4">
+                                <input type="number" id="DonGia" name="DonGia" placeholder="Giá phụ tùng" class="form-control" />
+                            </div>
                         </div>
-                    </form>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Số lượng
+                            </label>
+                            <div class="col-md-4">
+                                <input type="number" id="SoLuongBan" name="SoLuongBan" placeholder="Số lượng bán" class="form-control" />
+                            </div>
+                            <label class="control-label col-md-2">
+                                Nội dung
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="NoiDung" name="NoiDung" placeholder="Nội dung" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Tiền công
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, new { @class = "form-control", id = "IDTienCong" })
+                            </div>
+                            <div class="col-md-2 col-lg-offset-4">
+                                <a id="addToList" class="btn btn-primary">Add To List</a>
+                            </div>
+                        </div>
+
+
+                        <table id="detailsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">Phụ tùng</th>
+                                    <th style="width:20%">Số lượng</th>
+                                    <th style="width:15%">Đơn giá</th>
+                                    <th style="width:10%">Tiền công</th>
+                                    <th style="width:20%">Nội dung</th>
+                                    <th style="width:35%">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="saveOrder" type="submit" class="btn btn-danger">Save</button>
+                </div>
+            </form>
         </div>
-        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-        <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    </div>
+</div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
-
-        @section scripts{
-            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-            <script>
-
+@section scripts{
+    <script>
         //Show Modal.
         function addNewOrder() {
             $("#newOrderModal").modal();
         }
-        //Khởi tạo giá trị đầu cho input tiền công, sử dụng hard-code do đã set mặc định giá trị cho dropdown nhưng ko hiển thị ????
-        $("#TienCong").val('20000')
-        $("#date").click(function () {
-            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
-        });
-        $("#IDTienCong").change(function () {
-
-            var IDTienCong = $("#IDTienCong").val();
-            $.ajax({
-                type: 'GET',
-                data: { IDTienCong: IDTienCong },
-                url: '@Url.Action("GetInfoTienCong", "PhieuSuaChuas")',
-                success: function (result) {
-                    //var info = JSON.parse(result);
-                    for (var i = 0; i < result.length; i++) {
-                        $("#TienCong").val(result[i].TienCong);
-                    }
-                }
-            });
-        });
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
@@ -278,9 +197,9 @@
                 SoLuongBan = $("#SoLuongBan").val(),
                 IDTienCong = $("#IDTienCong").val(),
                 NoiDung = $("#NoiDung").val(),
-                TienCong = $("#TienCong").val(),
                 detailsTableBody = $("#detailsTable tbody");
-            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan) + parseInt(TienCong)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+
+            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
             detailsTableBody.append(productItem);
             clearItem();
         });
@@ -353,5 +272,5 @@
         $(function () {
             $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
         });
-            </script>
-        }
+    </script>
+}
