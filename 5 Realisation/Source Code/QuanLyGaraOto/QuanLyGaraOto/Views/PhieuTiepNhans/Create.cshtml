@@ -71,8 +71,6 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="form-horizontal" style="padding-left:30px; ">
-
-                                    @Html.ValidationSummary(true)
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.TenChuXe, "Chủ Xe", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
@@ -114,9 +112,7 @@
                                         <a href="@Url.Action("Index", "PhieuTiepNhans")" style="padding-right:20px;" class="btn btn-danger">
                                             Quay lại
                                         </a>
-                                        <a href="@Url.Action("Index", "PhieuTiepNhans")" style="padding-right:20px;" class="btn btn-success">
-                                            Xác Nhận
-                                        </a>
+                                        <input type="submit" value="Xác nhận" class="btn btn-success" />
 
                                     </div>
                                 </div>

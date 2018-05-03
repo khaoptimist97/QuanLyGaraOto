@@ -28,6 +28,8 @@ namespace QuanLyGaraOto.Controllers
 
             ViewBag.CurrentFilter = searchString;
             var phieuThuTiens = from s in db.PhieuThuTiens
+                                join a in db.Xes on s.IDBienSo equals a.IDBienSo
+                                where s.Deleted == false
                                  select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -143,8 +145,7 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhieuThuTien phieuThuTien = db.PhieuThuTiens.Find(id);
-            db.PhieuThuTiens.Remove(phieuThuTien);
+            db.PhieuThuTiens.Find(id).Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

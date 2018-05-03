@@ -172,6 +172,18 @@
     <Compile Include="Migrations\201804291605498_QLGarav411.Designer.cs">
       <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805030600424_QLGara42.cs" />
+    <Compile Include="Migrations\201805030600424_QLGara42.Designer.cs">
+      <DependentUpon>201805030600424_QLGara42.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030606114_QLGara421.cs" />
+    <Compile Include="Migrations\201805030606114_QLGara421.Designer.cs">
+      <DependentUpon>201805030606114_QLGara421.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030607396_QLGara43.cs" />
+    <Compile Include="Migrations\201805030607396_QLGara43.Designer.cs">
+      <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChiTietPhieuSua.cs" />
@@ -451,6 +463,7 @@
     <Content Include="Views\PhieuThuTiens\Details.cshtml" />
     <Content Include="Views\PhieuThuTiens\Edit.cshtml" />
     <Content Include="Views\PhieuThuTiens\Index.cshtml" />
+    <Content Include="Views\PhieuTiepNhans\CreateForOldCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -478,6 +491,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804291605498_QLGarav411.resx">
       <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030600424_QLGara42.resx">
+      <DependentUpon>201805030600424_QLGara42.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030606114_QLGara421.resx">
+      <DependentUpon>201805030606114_QLGara421.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030607396_QLGara43.resx">
+      <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

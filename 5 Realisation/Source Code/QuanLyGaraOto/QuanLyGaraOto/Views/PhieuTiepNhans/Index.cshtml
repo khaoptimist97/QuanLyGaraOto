@@ -60,7 +60,7 @@
                             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập tên chủ xe" })
                             <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm Kiếm" />
                             <a href="@Url.Action("Create","PhieuTiepNhans")" style="padding-left:10px;">
-                                <button type="button" class="btn btn-success col-md-offset-4" style="padding-left:10px;">Thêm Phiếu</button>
+                                <button type="button" class="btn btn-success col-md-offset-4" style="padding-left:10px;">Phiếu Mới</button>
                             </a>
                             @*<a href="#" class="btn btn-danger" style="" id="suaButton">Sửa chữa</a>*@
                         </div>
@@ -100,18 +100,18 @@
                                                             @Html.DisplayFor(modelItem => item.NgayTiepNhan)
                                                         </td>
                                                         <td>
-                                                            <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDBienSo })">
+                                                            <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDPhieuTN })">
                                                                 <button type="button" class="btn btn-primary glyphicon glyphicon-info-sign"></button>
                                                             </a>
-                                                            <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDBienSo })">
+                                                            <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDPhieuTN })">
                                                                 <button type="button" class="btn btn-warning ">Sửa</button>
                                                             </a>
 
-                                                            <a href="@Url.Action("Delete", "PhieuTiepNhans", new { id = item.IDBienSo })">
+                                                            <a href="@Url.Action("Delete", "PhieuTiepNhans", new { id = item.IDPhieuTN })">
                                                                 <button type="button" class="btn btn-danger ">Xóa</button>
                                                             </a>
-                                                            <a href="@Url.Action("Create", "PhieuSuaChuas", new { id = item.IDBienSo })">
-                                                                <button type="button" class="btn btn-success ">Sửa chữa</button>
+                                                            <a href="@Url.Action("CreateForOldCustomer", "PhieuTiepNhans", new { id = item.IDBienSo })">
+                                                                <button type="button" class="btn btn-success ">Lập phiếu</button>
                                                             </a>
                                                         </td>
                                                     </tr>

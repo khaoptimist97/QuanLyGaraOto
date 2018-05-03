@@ -27,7 +27,7 @@ namespace QuanLyGaraOto.Models
 
         [StringLength(250)]
         public string NoiDung { get; set; }
-
+        public bool Deleted { get; set; }
         public virtual PhieuSuaChua PhieuSuaChua { get; set; }
 
         public virtual PhuTung PhuTung { get; set; }

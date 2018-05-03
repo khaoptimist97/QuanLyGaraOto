@@ -13,8 +13,7 @@
         public PhieuTiepNhan()
         {
             PhieuSuaChuas = new HashSet<PhieuSuaChua>();
-        }
-
+        }           
         [Key]
         public int IDPhieuTN { get; set; }
         [Display(Name = "Tên Chủ Xe")]
