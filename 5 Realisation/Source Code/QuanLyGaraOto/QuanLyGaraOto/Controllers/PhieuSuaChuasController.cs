@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 
+using System.Data.SqlClient;
+using System.Configuration;
+
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuSuaChuasController : Controller
@@ -178,6 +181,13 @@ namespace QuanLyGaraOto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Button(string button)
+        {
+            if (button == "Backup")
+                return RedirectToAction("Index", "PhieuSuaChuas");
+            return View();
         }
     }
 }

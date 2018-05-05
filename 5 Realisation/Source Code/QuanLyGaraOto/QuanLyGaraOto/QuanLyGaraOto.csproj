@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BUS\BaoCaoDoanhThu_BUS.cs" />
+    <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\BaoCaoDSController.cs" />
     <Compile Include="Controllers\ChiTietPhieuSuasController.cs" />
     <Compile Include="Controllers\HieuXeController.cs" />
@@ -237,6 +238,7 @@
     <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Image\Affirmative.png" />
     <Content Include="Content\Image\BG-CarBrand.jpg" />
     <Content Include="Content\Image\BG-DSxe.jpg" />
     <Content Include="Content\Image\BG-Fix.jpeg" />
@@ -464,6 +466,7 @@
     <Content Include="Views\PhieuThuTiens\Edit.cshtml" />
     <Content Include="Views\PhieuThuTiens\Index.cshtml" />
     <Content Include="Views\PhieuTiepNhans\CreateForOldCustomer.cshtml" />
+    <Content Include="Views\Backup\Backup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
