@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BUS\BaoCaoDoanhThu_BUS.cs" />
+    <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\BaoCaoDSController.cs" />
     <Compile Include="Controllers\ChiTietPhieuSuasController.cs" />
     <Compile Include="Controllers\HieuXeController.cs" />
@@ -159,6 +160,30 @@
     <Compile Include="Migrations\201804271825456_QLGarav3.cs" />
     <Compile Include="Migrations\201804271825456_QLGarav3.Designer.cs">
       <DependentUpon>201804271825456_QLGarav3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804291525377_QLGarav4.cs" />
+    <Compile Include="Migrations\201804291525377_QLGarav4.Designer.cs">
+      <DependentUpon>201804291525377_QLGarav4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804291603538_QLGarav41.cs" />
+    <Compile Include="Migrations\201804291603538_QLGarav41.Designer.cs">
+      <DependentUpon>201804291603538_QLGarav41.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804291605498_QLGarav411.cs" />
+    <Compile Include="Migrations\201804291605498_QLGarav411.Designer.cs">
+      <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030600424_QLGara42.cs" />
+    <Compile Include="Migrations\201805030600424_QLGara42.Designer.cs">
+      <DependentUpon>201805030600424_QLGara42.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030606114_QLGara421.cs" />
+    <Compile Include="Migrations\201805030606114_QLGara421.Designer.cs">
+      <DependentUpon>201805030606114_QLGara421.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030607396_QLGara43.cs" />
+    <Compile Include="Migrations\201805030607396_QLGara43.Designer.cs">
+      <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -213,6 +238,16 @@
     <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Image\Affirmative.png" />
+    <Content Include="Content\Image\BG-CarBrand.jpg" />
+    <Content Include="Content\Image\BG-DSxe.jpg" />
+    <Content Include="Content\Image\BG-Fix.jpeg" />
+    <Content Include="Content\Image\BG-FIxDetail.jpg" />
+    <Content Include="Content\Image\BG-Home1.jpg" />
+    <Content Include="Content\Image\BG-Login.jpg" />
+    <Content Include="Content\Image\BG-Paying.jpg" />
+    <Content Include="Content\Image\BG-Recieve.jpg" />
+    <Content Include="Content\Image\BG-Report.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery-ui.structure.css" />
@@ -420,22 +455,17 @@
     <Content Include="Views\Xes\Details.cshtml" />
     <Content Include="Views\Xes\Edit.cshtml" />
     <Content Include="Views\Xes\Index.cshtml" />
-    <Content Include="Views\PhieuSuaChuas\Create.cshtml" />
-    <Content Include="Views\PhieuSuaChuas\Delete.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Details.cshtml" />
-    <Content Include="Views\PhieuSuaChuas\Edit.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Index.cshtml" />
-    <Content Include="Views\ChiTietPhieuSuas\Create.cshtml" />
     <Content Include="Views\ChiTietPhieuSuas\Delete.cshtml" />
     <Content Include="Views\ChiTietPhieuSuas\Details.cshtml" />
-    <Content Include="Views\ChiTietPhieuSuas\Edit.cshtml" />
-    <Content Include="Views\ChiTietPhieuSuas\Index.cshtml" />
-    <Content Include="Views\ChiTietPhieuSuas\_PhuTungPartial.cshtml" />
     <Content Include="Views\PhieuThuTiens\Create.cshtml" />
     <Content Include="Views\PhieuThuTiens\Delete.cshtml" />
     <Content Include="Views\PhieuThuTiens\Details.cshtml" />
     <Content Include="Views\PhieuThuTiens\Edit.cshtml" />
     <Content Include="Views\PhieuThuTiens\Index.cshtml" />
+    <Content Include="Views\PhieuTiepNhans\CreateForOldCustomer.cshtml" />
+    <Content Include="Views\Backup\Backup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -454,6 +484,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804271825456_QLGarav3.resx">
       <DependentUpon>201804271825456_QLGarav3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291525377_QLGarav4.resx">
+      <DependentUpon>201804291525377_QLGarav4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291603538_QLGarav41.resx">
+      <DependentUpon>201804291603538_QLGarav41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804291605498_QLGarav411.resx">
+      <DependentUpon>201804291605498_QLGarav411.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030600424_QLGara42.resx">
+      <DependentUpon>201805030600424_QLGara42.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030606114_QLGara421.resx">
+      <DependentUpon>201805030606114_QLGara421.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030607396_QLGara43.resx">
+      <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
-
+using PagedList;
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuThuTiensController : Controller
@@ -15,10 +15,29 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuThuTiens
-        public ActionResult Index()
+        public ViewResult Index(string currentFilter, string searchString, int? page)
         {
-            var phieuThuTiens = db.PhieuThuTiens.Include(p => p.Xe);
-            return View(phieuThuTiens.ToList());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var phieuThuTiens = from s in db.PhieuThuTiens
+                                join a in db.Xes on s.IDBienSo equals a.IDBienSo
+                                where s.Deleted == false
+                                 select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                phieuThuTiens = phieuThuTiens.Where(s => s.Xe.TenChuXe.Contains(searchString));
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(phieuThuTiens.OrderBy(s => s.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: PhieuThuTiens/Details/5
@@ -126,8 +145,7 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhieuThuTien phieuThuTien = db.PhieuThuTiens.Find(id);
-            db.PhieuThuTiens.Remove(phieuThuTien);
+            db.PhieuThuTiens.Find(id).Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

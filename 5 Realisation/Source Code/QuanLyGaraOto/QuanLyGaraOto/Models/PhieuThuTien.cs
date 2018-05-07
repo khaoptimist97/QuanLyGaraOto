@@ -1,4 +1,4 @@
-namespace QuanLyGaraOto.Models
+﻿namespace QuanLyGaraOto.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,11 +13,11 @@ namespace QuanLyGaraOto.Models
         public int IDPhieuThu { get; set; }
 
         public int? IDBienSo { get; set; }
-
+        [Display(Name = "Ngày thu")]
         public DateTime? NgayThu { get; set; }
-
+        [Display(Name = "Số tiền thu")]
         public int? SoTienThu { get; set; }
-
+        public bool Deleted { get; set; }
         public virtual Xe Xe { get; set; }
     }
 }

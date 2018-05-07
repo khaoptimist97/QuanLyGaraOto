@@ -34,7 +34,9 @@ namespace QuanLyGaraOto.Controllers
 
             ViewBag.CurrentFilter = searchString;
             var phieuTiepNhans = from s in db.PhieuTiepNhans
-                           select s;
+                                 join a in db.Xes on s.IDBienSo equals a.IDBienSo
+                                 where  s.Deleted == false
+                                 select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 phieuTiepNhans = phieuTiepNhans.Where(s => s.Xe.TenChuXe.Contains(searchString));
@@ -67,18 +69,31 @@ namespace QuanLyGaraOto.Controllers
             return View(phieuTiepNhan);
         }
 
+
+        public ActionResult CreateForOldCustomer(int? id)
+        {
+            if (id != null)
+            {
+                var xe = db.Xes.Where(i => i.IDBienSo == id);
+                ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe", xe.First().TenChuXe);
+                return View();
+            }
+            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateForOldCustomer(PhieuTiepNhan phieu)
+        {
+            if (ModelState.IsValid)
+            {
+                db.PhieuTiepNhans.Add(phieu);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(phieu);
+        }
         // GET: PhieuTiepNhans/Create
-        //public ActionResult Create(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        var xe = db.Xes.Where(i => i.IDBienSo == id);
-        //        ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe",xe.First().TenChuXe);
-        //        return View();
-        //    }           
-        //    ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
-        //    return View();
-        //}
         public ActionResult Create()
         {
             PhieuTiepNhan_Xe phieuTiepNhan_Xe = new PhieuTiepNhan_Xe();
@@ -173,8 +188,7 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhieuTiepNhan phieuTiepNhan = db.PhieuTiepNhans.Find(id);
-            db.PhieuTiepNhans.Remove(phieuTiepNhan);
+            db.PhieuTiepNhans.Find(id).Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

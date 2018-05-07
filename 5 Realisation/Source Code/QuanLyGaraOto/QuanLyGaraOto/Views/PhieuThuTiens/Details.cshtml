@@ -3,40 +3,99 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
 
-<h2>Details</h2>
 
-<div>
-    <h4>PhieuThuTien</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Xe.TenChuXe)
-        </dt>
+    body {
+        color: white;
+        background: url("/Content/Image/BG-Paying.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Xe.TenChuXe)
-        </dd>
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 99%;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayThu)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgayThu)
-        </dd>
+    h2 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienThu)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SoTienThu)
-        </dd>
+    table {
+        text-align: center;
+    }
+</style>
+<body>
+    <div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDPhieuThu }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <dl class="dl-horizontal">
+            <div class="row">
+                <div class="col-md-1 col-sm-2 col-xs-12"> </div>
+
+                <div class="col-md-11 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center><h2>Thông tin Phiếu Thu Tiền</h2></Center>
+                        <div class="panel-body col-md-offset-3" style="padding-left:70px;">
+                            <div>
+
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Xe.TenChuXe)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Xe.TenChuXe)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.NgayThu)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.NgayThu)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SoTienThu)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SoTienThu)
+                                    </dd>
+                                </dl>
+                            </div>
+
+
+                            <div class="form-inline col-md-offset-1" style="padding-top:20px;padding-left:30px;">
+
+
+                                <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;">
+                                    <button class="btn btn-danger">Quay lại </button>
+                                </a>
+
+
+                                <a href="@Url.Action("Edit", "PhieuThuTiens", new { id = Model.IDPhieuThu })">
+                                    <button class="btn btn-warning">Sửa thông tin</button>
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+        </dl>
+    </div>
+</body>

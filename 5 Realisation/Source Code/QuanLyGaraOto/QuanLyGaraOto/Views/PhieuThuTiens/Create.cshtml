@@ -4,70 +4,138 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>PhieuThuTien</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { @class = "form-control", id = "dropDownID" })
-                @Html.ValidationMessageFor(model => model.IDBienSo)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Xe.TenChuXe, "Họ tên", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Xe.TenChuXe, new { @class = "form-control", id = "TenChuXe", @readonly = "true" })
-                @Html.ValidationMessageFor(model => model.Xe.TenChuXe)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Xe.DienThoai, "Điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Xe.DienThoai, new { @class = "form-control", id = "DienThoai", @readonly = "true" })
-                @Html.ValidationMessageFor(model => model.Xe.DienThoai)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input class="form-control" type="text" id="email" />
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayThu, "Ngày thu", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.NgayThu, new { @class = "form-control", id = "NgayThuTien" })
-                @Html.ValidationMessageFor(model => model.NgayThu)
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoTienThu, "Số tiền thu", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.SoTienThu, new { @class = "form-control", type = "number" })
-                @Html.ValidationMessageFor(model => model.SoTienThu)
+<style>
+
+    body {
+        background: url("/Content/Image/BG-Paying.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif;
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 80%;
+    }
+
+
+    h3 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        color: #fafc0d;
+    }
+
+
+
+    table {
+        text-align: center;
+    }
+
+    .col-md-3 {
+        color: white;
+    }
+
+    placeholder {
+        font-style: italic;
+    }
+</style>
+
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-12"></div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center>
+                            <h3>Thêm Phiếu Thu Tiền</h3>
+                        </Center>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="form-horizontal" style="padding-left:30px; ">
+                                    @Html.ValidationSummary(true)
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { id = "dropDownID" ,@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.IDBienSo)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Xe.TenChuXe, "Chủ Xe", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.Xe.TenChuXe, new { placeholder = "Tên chủ xe", id = "TenChuXe", @readonly = "true", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Xe.TenChuXe)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Xe.DienThoai, "SĐT", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.Xe.DienThoai, new { placeholder = "Số Điện Thoại", id = "DienThoai", @readonly = "true", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Xe.DienThoai)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBox("Email", "", new { @placeholder = "Email", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Xe.DienThoai)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NgayThu, "Ngày ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.NgayThu, new { id = "NgayThuTien", @placeholder = "Ngày Thu Tiền", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.NgayThu)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SoTienThu, "Số tiền", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(model => model.SoTienThu, new { placeholder = "Số TIền Thu", type = "number", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SoTienThu)
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-offset-3 col-md-10">
+                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-danger">
+                                            Quay lại
+                                        </a>
+                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-success">
+                                            Xác Nhận
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    }
+</body>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 @section scripts

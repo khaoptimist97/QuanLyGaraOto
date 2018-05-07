@@ -20,6 +20,7 @@
         public int IDBienSo { get; set; }
         [Display(Name ="Tên Chủ Xe")]
         [StringLength(50)]
+        [Required(ErrorMessage ="Vui lòng nhập tên chủ xe")]
         public string TenChuXe { get; set; }
 
         [StringLength(100)]
@@ -33,6 +34,7 @@
         public int? IDHieuXe { get; set; }
         [Display(Name = "Tiền nợ")]
         public int? TienNo { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual HieuXe HieuXe { get; set; }
 

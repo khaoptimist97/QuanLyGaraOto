@@ -1,82 +1,172 @@
 ﻿@model IPagedList<QuanLyGaraOto.Models.PhieuSuaChua>
 @using PagedList;
 @using PagedList.Mvc;
-<br /><br />
-<div class="panel panel-default">
-    <div class="panel-heading">
+<style>
+    body {
+        color: white;
+        margin: 0;
+        padding-top: 0px;
+        padding-right: 40px;
+        background: url("/Content/Image/BG-Fix.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 99%;
+    }
+
+        .panel .panel-heading {
+            border: 1px solid #ffffff;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 40px;
+            margin-top: 10vh;
+            box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+            color: white;
+        }
+
+    h2 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
+
+    footer {
+        position: unset;
+    }
+
+    table {
+        text-align: center;
+    }
+
+
+    .tbody {
+        background-color: red;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="form-horizontal">
         <div class="row">
-            <h2 class="panel-title pull-left" style="margin-left:10px;">
-                <strong>Chi Tiết Phiếu Sửa</strong>
-            </h2>
-            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
+            <div class="col-md-1 col-sm-2 col-xs-12"> </div>
+
+            <div class="col-md-11 col-sm-9 col-xs-12">
+                <div class="panel panel-default">
+                    @using (Html.BeginForm("Index", "PhieuSuaChuas", FormMethod.Get))
+                    {
+                        <div class="form-inline my-2 my-lg-0" style="margin-top:20px">
+                            <label>Tìm theo tên: </label>
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập tên chủ xe" })
+                            <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm Kiếm" />
+                        </div>
+                    }
+                    <div class="panel-heading" style="margin-top:60px">
+                        <div class="row">
+                            <h2 class="panel-title pull-left" style="margin-left:10px;">
+                                <strong>Phiếu Sửa chữa</strong>
+                            </h2>
+                            <a href="@Url.Action("Backup", "Backup")" style="margin-right:10px" class="btn btn-success pull-right">Tạo Backup</a>
+                            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
+                        </div>
+                    </div>
+
+                    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
+
+                    @if (Model.Count() != 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="panel-default">
+                                <table class="table  table-bordered">
+                                    <tbody>
+                                        <tr style="background: rgba(0,0,0,1);border-collapse:collapse;padding:0;font-style:un">
+                                            <td>
+                                                <strong>
+
+                                                    Tên chủ xe : @item.PhieuTiepNhan.Xe.TenChuXe
+
+                                                </strong>
+                                            </td>
+
+                                            <td>
+                                                <Strong>
+
+                                                    Ngày sửa : @item.NgaySuaChua
+
+                                                </Strong>
+                                                <a href="@Url.Action("DeleteConfirmed","PhieuSuaChuas", new { id = item.IDPhieu })" class="btn btn-danger pull-right">Xóa</a>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <table class="table table-bordered" style="background: rgba(0,0,0,0.5);">
+                                                    <tbody style="background-color:transparent;">
+                                                        <tr style="background-color:transparent;">
+                                                            <th>Phụ tùng</th>
+                                                            <th>Số lượng</th>
+                                                            <th>Đơn giá</th>
+                                                            <th>Tiền công</th>
+                                                            <th>Thành tiền</th>
+                                                        </tr>
+                                                        @{
+                                                            var totalBill = 0;
+                                                        }
+                                                        @foreach (var chitiet in item.ChiTietPhieuSuas)
+                                                        {
+                                                            <tr>
+                                                                <td>@chitiet.PhuTung.TenPhuTung</td>
+                                                                <td>@chitiet.SoLuongBan</td>
+                                                                <td>@chitiet.DonGia</td>
+                                                                <td>@chitiet.TienCong.LoaiTC</td>
+                                                                <td>@chitiet.ThanhTien</td>
+
+                                                            </tr>
+                                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    }
+                    else
+                    {
+                        <div class="panel-body">
+                            <h3 style="color:red;">Empty!</h3>
+                        </div>
+
+                    }
+                </div>
+            </div>
         </div>
     </div>
 
-    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
-
-    @if (Model.Count() != 0)
-    {
-        foreach (var item in Model)
-        {
-            <div class="panel-body">
-                <table class="table table-striped table-responsive">
-                    <tbody>
-                        <tr>
-                            <td>Tên chủ xe : @item.PhieuTiepNhan.Xe.TenChuXe </td>
-                            <td>Ngày sửa : @item.NgaySuaChua </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th>Phụ tùng</th>
-                                            <th>Số lượng</th>
-                                            <th>Đơn giá</th>
-                                            <th>Tiền công</th>
-                                            <th>Thành tiền</th>
-                                        </tr>
-                                        @{
-                                            var totalBill = 0;
-                                        }
-                                        @foreach (var chitiet in item.ChiTietPhieuSuas)
-                                        {
-                                            <tr>
-                                                <td>@chitiet.PhuTung.TenPhuTung</td>
-                                                <td>@chitiet.SoLuongBan</td>
-                                                <td>@chitiet.DonGia</td>
-                                                <td>@chitiet.TienCong.LoaiTC</td>
-                                                <td>@chitiet.ThanhTien</td>
-
-                                            </tr>
-                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
-                                        }
-                                    </tbody>
-                                </table>
-                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        }
-    }
-    else
-    {
-        <div class="panel-body">
-            <h3 style="color:red;">Empty!</h3>
-        </div>
-
-    }
-</div>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
+</body>
 
 @*Desing Bootdtrap Modal With Order Form*@
 
-<div class="modal fade" id="newOrderModal">
+<div class="modal fade" id="newOrderModal" style="color:white;background: rgba(0,0,0,1);">
     <div class="modal-dialog modal-lg" style=" width: 900px !important;">
-        <div class="modal-content">
+        <div class="modal-content" style="background: rgba(0,0,0,0.5);">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
                 <h4>Add New </h4>
@@ -145,9 +235,17 @@
                             <div class="col-md-4">
                                 @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, new { @class = "form-control", id = "IDTienCong" })
                             </div>
-                            <div class="col-md-2 col-lg-offset-4">
+                            <label class="control-label col-md-2">
+                                Giá tiền công
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
+                                <br />
                                 <a id="addToList" class="btn btn-primary">Add To List</a>
                             </div>
+                            @*<div class="col-md-2 col-lg-offset-4">
+                                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                                </div>*@
                         </div>
 
 
@@ -178,11 +276,32 @@
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
 @section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script>
         //Show Modal.
         function addNewOrder() {
             $("#newOrderModal").modal();
         }
+        //Khởi tạo giá trị đầu cho input tiền công, sử dụng hard-code do đã set mặc định giá trị cho dropdown nhưng ko hiển thị ????
+        $("#TienCong").val('20000')
+        $("#date").click(function () {
+            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
+        });
+        $("#IDTienCong").change(function () {
+
+            var IDTienCong = $("#IDTienCong").val();
+            $.ajax({
+                type: 'GET',
+                data: { IDTienCong: IDTienCong },
+                url: '@Url.Action("GetInfoTienCong", "PhieuSuaChuas")',
+                success: function (result) {
+                    //var info = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        $("#TienCong").val(result[i].TienCong);
+                    }
+                }
+            });
+        });
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
@@ -197,9 +316,11 @@
                 SoLuongBan = $("#SoLuongBan").val(),
                 IDTienCong = $("#IDTienCong").val(),
                 NoiDung = $("#NoiDung").val(),
+                TienCong = $("#TienCong").val(),
                 detailsTableBody = $("#detailsTable tbody");
 
-            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            var productItem = '<tr><td>' + IDPhuTung + '</td><td>' + SoLuongBan + '</td><td>' + DonGia + '</td><td>' + IDTienCong + '</td><td>' + NoiDung + '</td><td>' + (parseFloat(DonGia) * parseInt(SoLuongBan) + parseInt(TienCong)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+
             detailsTableBody.append(productItem);
             clearItem();
         });

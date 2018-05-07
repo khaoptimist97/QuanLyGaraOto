@@ -84,4 +84,10 @@ C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLy
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav2.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav21.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav3.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav4.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav41.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGarav411.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGara42.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGara421.resources
+C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.Migrations.QLGara43.resources
 C:\Users\Minh Kha\Desktop\C#Project\QuanLyGaraOto\QuanLyGaraOto\obj\Debug\QuanLyGaraOto.csprojResolveAssemblyReference.cache

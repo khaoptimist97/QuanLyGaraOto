@@ -13,14 +13,16 @@
         public PhieuTiepNhan()
         {
             PhieuSuaChuas = new HashSet<PhieuSuaChua>();
-        }
-
+        }           
         [Key]
         public int IDPhieuTN { get; set; }
         [Display(Name = "Tên Chủ Xe")]
         public int? IDBienSo { get; set; }
+        
+        [DataType(DataType.DateTime)]
         [Display(Name = "Ngày tiếp nhận")]
         public DateTime? NgayTiepNhan { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuSuaChua> PhieuSuaChuas { get; set; }

@@ -19,10 +19,11 @@ namespace QuanLyGaraOto.Models
         public int IDPhieu { get; set; }
 
         public int? IDPhieuTN { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime? NgaySuaChua { get; set; }
 
         public long? TongTien { get; set; }
+        public bool Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuSua> ChiTietPhieuSuas { get; set; }

@@ -28,6 +28,7 @@ namespace QuanLyGaraOto.Controllers
             }
             ViewBag.CurrentFilter = searchString;
             var xes = from s in db.Xes
+                      where s.Deleted == false
                       select s;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -147,8 +148,7 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Xe xe = db.Xes.Find(id);
-            db.Xes.Remove(xe);
+            db.Xes.Find(id).Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
