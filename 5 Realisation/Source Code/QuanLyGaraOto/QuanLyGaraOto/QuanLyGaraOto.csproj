@@ -455,7 +455,6 @@
     <Content Include="Views\Xes\Details.cshtml" />
     <Content Include="Views\Xes\Edit.cshtml" />
     <Content Include="Views\Xes\Index.cshtml" />
-    <Content Include="Views\PhieuSuaChuas\Delete.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Details.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Index.cshtml" />
     <Content Include="Views\ChiTietPhieuSuas\Delete.cshtml" />

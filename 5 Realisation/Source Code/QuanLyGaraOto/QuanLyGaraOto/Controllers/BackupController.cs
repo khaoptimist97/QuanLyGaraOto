@@ -20,8 +20,7 @@ namespace QuanLyGaraOto.Controllers
         {
 
             //string conString = System.Configuration.ConfigurationManager.ConnectionStrings["data source=DESKTOP-U2T7G9U\\SQLEXPRESS;initial catalog=QLGaraOto;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework"].ToString();
-            string conString = @"Data Source=DESKTOP-U2T7G9U\SQLEXPRESS;Initial Catalog=QLGaraOto;Integrated Security=True";
-            SqlConnection conn = new SqlConnection(conString);
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["QuanLyGaraOtoContext"].ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;

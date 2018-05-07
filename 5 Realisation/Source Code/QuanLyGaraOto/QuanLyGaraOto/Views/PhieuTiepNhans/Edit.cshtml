@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IDBienSo, "Biển Số", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { @class = "form-control" })
+                                    @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList,Model.Xe.TenChuXe ,new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.IDBienSo)
                                 </div>
                             </div>

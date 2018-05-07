@@ -9,9 +9,6 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 
-using System.Data.SqlClient;
-using System.Configuration;
-
 namespace QuanLyGaraOto.Controllers
 {
     public class PhieuSuaChuasController : Controller
@@ -19,7 +16,7 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuSuaChuas
-        public ActionResult Index(int? page)
+        public ViewResult Index(string currentFilter, string searchString, int? page)
         {
             ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC","---Select TC---");
             //Customize dropdownlist for show IDPhieu+TenChuXe
@@ -37,7 +34,22 @@ namespace QuanLyGaraOto.Controllers
             ViewBag.IDPhieuTN = new SelectList(listItems, "Value", "Text");
             //
             ViewBag.IDPhuTung = new SelectList(db.PhuTungs, "IDPhuTung", "TenPhuTung");
+            //Search
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var phieuSuaChuas = db.PhieuSuaChuas.Include(p => p.PhieuTiepNhan);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                phieuSuaChuas = phieuSuaChuas.Where(s => s.PhieuTiepNhan.Xe.TenChuXe.Contains(searchString));
+            }
             return View(phieuSuaChuas.ToList().ToPagedList(page??1,10));
         }
         public ActionResult GetInfoTienCong(int IDTienCong)
@@ -148,28 +160,16 @@ namespace QuanLyGaraOto.Controllers
             return View(phieuSuaChua);
         }
 
-        // GET: PhieuSuaChuas/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PhieuSuaChua phieuSuaChua = db.PhieuSuaChuas.Find(id);
-            if (phieuSuaChua == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phieuSuaChua);
-        }
-
         // POST: PhieuSuaChuas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             PhieuSuaChua phieuSuaChua = db.PhieuSuaChuas.Find(id);
-            db.PhieuSuaChuas.Remove(phieuSuaChua);
+            phieuSuaChua.Deleted = true;
+            foreach(ChiTietPhieuSua ct in phieuSuaChua.ChiTietPhieuSuas)
+            {
+                ct.Deleted = true;
+            }
+            db.Entry(phieuSuaChua).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -181,13 +181,6 @@ namespace QuanLyGaraOto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public ActionResult Button(string button)
-        {
-            if (button == "Backup")
-                return RedirectToAction("Index", "PhieuSuaChuas");
-            return View();
         }
     }
 }
