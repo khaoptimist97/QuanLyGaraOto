@@ -10,7 +10,7 @@
     body {
         color: white;
         margin: 0;
-        padding-top: 15vh;
+      
         padding-right: 30px;
         background: url("/Content/Image/BG-CarBrand.jpg");
         background-size: cover;
@@ -21,7 +21,7 @@
 
     .panel {
         border: 1px solid #ffffff;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.7);
         padding: 10px 40px;
         margin-top: 10vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
@@ -47,7 +47,7 @@
 <body>
     <div>
 
-        <dl class="dl-horizontal">
+        <dl class="dl-horizontal" style="padding-top: 15vh;">
             <div class="row">
                 <div class="col-md-1 col-sm-2 col-xs-12"> </div>
 
@@ -79,8 +79,8 @@
                                 <div class="form-inline col-md-offset-1" style="padding-top:20px;padding-left:30px;">
 
 
-                                    <a href="@Url.Action("Index", "HieuXe")" class="btn btn-danger">
-                                        Quay lại
+                                    <a href="@Url.Action("Index", "HieuXe")">
+                                        <button type="button" class="btn btn-danger">Quay Lại</button>
                                     </a>
 
 
@@ -99,3 +99,5 @@
         </dl>
     </div>
 </body>
+
+

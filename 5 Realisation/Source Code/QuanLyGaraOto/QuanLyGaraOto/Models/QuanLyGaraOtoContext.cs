@@ -48,5 +48,7 @@ namespace QuanLyGaraOto.Models
                 .Property(e => e.DienThoai)
                 .IsFixedLength();
         }
+
+        public System.Data.Entity.DbSet<QuanLyGaraOto.Models.TaiKhoan> TaiKhoans { get; set; }
     }
 }

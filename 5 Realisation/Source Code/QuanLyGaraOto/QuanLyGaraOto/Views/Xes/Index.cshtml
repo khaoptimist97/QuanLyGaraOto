@@ -29,6 +29,7 @@
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
         width: 99%;
     }
+
     .panel-body {
         border: 1px solid #ffffff;
         background: rgba(0,0,0,0.5);
@@ -52,6 +53,11 @@
     ::-moz-placeholder {
         font-style: italic;
     }
+
+    footer {
+        position: unset;
+    }
+    
 </style>
 
 <body>
@@ -72,8 +78,10 @@
                             <label class="custom-control-label" for="customRadio2">Hiệu Xe</label>
                             @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Tìm kiếm theo tên", id = "txtSearch" })
                             <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm kiếm" />
-
-                            <a href="@Url.Action("Create","Xes")" style=" padding-right:20px;" class="btn btn-success col-md-offset-4">Thêm xe</a>
+                            @if (Session["LoaiTaiKhoan"].ToString() == "1")
+                            {
+                                <a href="@Url.Action("Create","Xes")" style=" padding-right:20px;" class="btn btn-success col-md-offset-4">Thêm xe</a>
+                            }
                         </div>
                     }
 
@@ -128,16 +136,27 @@
                                                             @Html.DisplayFor(modelItem => item.TienNo)
                                                         </td>
                                                         <td>
-                                                            <a href="@Url.Action("Details","Xes",new { id = item.IDBienSo })" class="btn btn-primary glyphicon glyphicon-info-sign">
+                                                            @if (Session["LoaiTaiKhoan"].ToString() == "1")
+                                                            {
+                                                                <a href="@Url.Action("Details","Xes",new { id = item.IDBienSo })" class="btn btn-info glyphicon glyphicon-info-sign">
 
-                                                            </a>
-                                                            <a href="@Url.Action("Edit", "Xes", new { id = item.IDBienSo })" class="btn btn-warning ">
-                                                                Sửa
-                                                            </a>
+                                                                </a>
+                                                                <a href="@Url.Action("Edit", "Xes", new { id = item.IDBienSo })" class="btn btn-warning ">
+                                                                    Sửa
+                                                                </a>
 
-                                                            <a href="@Url.Action("Delete", "Xes", new { id = item.IDBienSo })" class="btn btn-danger ">
-                                                                Xóa
-                                                            </a>
+                                                                <a href="@Url.Action("Delete", "Xes", new { id = item.IDBienSo })" class="btn btn-danger ">
+                                                                    Xóa
+                                                                </a>
+                                                            }
+                                                            @if (Session["LoaiTaiKhoan"].ToString() == "2")
+                                                            {
+                                                                <Center>
+                                                                    <a href="@Url.Action("Details","Xes",new { id = item.IDBienSo })" class="btn btn-info ">
+                                                                        Chi Tiết
+                                                                    </a>
+                                                                </Center>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 }

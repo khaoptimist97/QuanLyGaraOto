@@ -140,6 +140,8 @@
     <Compile Include="Controllers\PhieuSuaChuasController.cs" />
     <Compile Include="Controllers\PhieuThuTiensController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
+    <Compile Include="Controllers\PhuTungsController.cs" />
+    <Compile Include="Controllers\TaiKhoansController.cs" />
     <Compile Include="Controllers\XesController.cs" />
     <Compile Include="DTO\Motor.cs" />
     <Compile Include="Global.asax.cs">
@@ -185,15 +187,29 @@
     <Compile Include="Migrations\201805030607396_QLGara43.Designer.cs">
       <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805091245312_QlGaraV5.cs" />
+    <Compile Include="Migrations\201805091245312_QlGaraV5.Designer.cs">
+      <DependentUpon>201805091245312_QlGaraV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091301382_QLGaraV5.cs" />
+    <Compile Include="Migrations\201805091301382_QLGaraV5.Designer.cs">
+      <DependentUpon>201805091301382_QLGaraV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091306192_QlGaraV51.cs" />
+    <Compile Include="Migrations\201805091306192_QlGaraV51.Designer.cs">
+      <DependentUpon>201805091306192_QlGaraV51.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChiTietPhieuSua.cs" />
     <Compile Include="Models\HieuXe.cs" />
+    <Compile Include="Models\LoaiTaiKhoan.cs" />
     <Compile Include="Models\PhieuSuaChua.cs" />
     <Compile Include="Models\PhieuThuTien.cs" />
     <Compile Include="Models\PhieuTiepNhan.cs" />
     <Compile Include="Models\PhuTung.cs" />
     <Compile Include="Models\QuanLyGaraOtoContext.cs" />
+    <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\ThamSo.cs" />
     <Compile Include="Models\TienCong.cs" />
     <Compile Include="Models\UserDetail.cs" />
@@ -245,6 +261,7 @@
     <Content Include="Content\Image\BG-FIxDetail.jpg" />
     <Content Include="Content\Image\BG-Home1.jpg" />
     <Content Include="Content\Image\BG-Login.jpg" />
+    <Content Include="Content\Image\BG-Parts.jpg" />
     <Content Include="Content\Image\BG-Paying.jpg" />
     <Content Include="Content\Image\BG-Recieve.jpg" />
     <Content Include="Content\Image\BG-Report.jpg" />
@@ -399,6 +416,8 @@
     <Content Include="Reports\DataSetDoanhSo.xsc">
       <DependentUpon>DataSetDoanhSo.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\fonts\sofachrome rg it.ttf" />
+    <Content Include="Content\fonts\sofachrome rg.ttf" />
     <None Include="Reports\DataSetDoanhSo.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -440,9 +459,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\HieuXe\Create.cshtml" />
-    <Content Include="Views\HieuXe\Delete.cshtml" />
-    <Content Include="Views\HieuXe\Details.cshtml" />
-    <Content Include="Views\HieuXe\Edit.cshtml" />
     <Content Include="Views\HieuXe\Index.cshtml" />
     <Content Include="Views\BaoCaoDS\Report.cshtml" />
     <Content Include="Views\PhieuTiepNhans\Create.cshtml" />
@@ -466,6 +482,12 @@
     <Content Include="Views\PhieuThuTiens\Index.cshtml" />
     <Content Include="Views\PhieuTiepNhans\CreateForOldCustomer.cshtml" />
     <Content Include="Views\Backup\Backup.cshtml" />
+    <Content Include="Views\TaiKhoans\TaiKhoan.cshtml" />
+    <Content Include="Views\PhuTungs\Create.cshtml" />
+    <Content Include="Views\PhuTungs\Details.cshtml" />
+    <Content Include="Views\PhuTungs\Edit.cshtml" />
+    <Content Include="Views\PhuTungs\Index.cshtml" />
+    <Content Include="Views\HieuXe\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -502,6 +524,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805030607396_QLGara43.resx">
       <DependentUpon>201805030607396_QLGara43.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091245312_QlGaraV5.resx">
+      <DependentUpon>201805091245312_QlGaraV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091306192_QlGaraV51.resx">
+      <DependentUpon>201805091306192_QlGaraV51.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

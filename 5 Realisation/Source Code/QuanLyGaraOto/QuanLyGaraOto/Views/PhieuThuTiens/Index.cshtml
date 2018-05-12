@@ -41,6 +41,10 @@
     placeholder {
         font-style: italic;
     }
+
+    footer {
+        position: unset;
+    }
 </style>
 <body>
     <div class="form-horizontal">
@@ -69,7 +73,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel panel-default">
-                                <div class="panel-body">
+                                <div class="panel-body" >
                                     <div>
                                         <table class="table  table-bordered ">
                                             <tr>
@@ -94,19 +98,21 @@
                                             {
                                                 foreach (var item in Model)
                                                 {
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.NgayThu)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.SoTienThu)
-                                                    </td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details","PhieuThuTiens",new { id = item.IDPhieuThu })">
-                                                            <button type="button" class="btn btn-primary glyphicon glyphicon-info-sign"></button>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgayThu)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoTienThu)
+                                                        </td>
+                                                        <td>
+                                                            @if (Session["LoaiTaiKhoan"].ToString() == "1")
+    {
+                                                        <a href="@Url.Action("Details", "PhieuThuTiens", new { id = item.IDPhieuThu })">
+                                                            <button type="button" class="btn btn-info glyphicon glyphicon-info-sign"></button>
                                                         </a>
                                                         <a href="@Url.Action("Edit", "PhieuThuTiens", new { id = item.IDPhieuThu })">
                                                             <button type="button" class="btn btn-warning ">Sửa</button>
@@ -115,8 +121,15 @@
                                                         <a href="@Url.Action("Delete", "PhieuThuTiens", new { id = item.IDPhieuThu })">
                                                             <button type="button" class="btn btn-danger ">Xóa</button>
                                                         </a>
-                                                    </td>
-                                                </tr>
+}
+                                                            @if (Session["LoaiTaiKhoan"].ToString() == "2")
+    {
+                                                        <a href="@Url.Action("Details", "PhieuThuTiens", new { id = item.IDPhieuThu })">
+                                                            <button type="button" class="btn btn-info ">Chi Tiết</button>
+                                                        </a>
+}
+                                                        </td>
+                                                    </tr>
                                                 }
                                             }
 

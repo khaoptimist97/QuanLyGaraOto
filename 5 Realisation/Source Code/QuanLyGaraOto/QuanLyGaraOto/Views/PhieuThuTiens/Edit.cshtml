@@ -17,7 +17,7 @@
 
     .panel {
         border: 1px solid #ffffff;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.7);
         padding: 10px 40px;
         margin-top: 10vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
@@ -82,11 +82,13 @@
                             </div>
 
                           
-                            <div class="col-md-offset-3 col-md-10">
-                                <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-danger">
-                                    Quay lại
+                            <div class="col-md-offset-5 col-md-10">
+                                <a href="@Url.Action("Index", "PhieuThuTiens")" >
+                                    <button type="button" class="btn btn-danger">Quay Lại</button>
                                 </a>
-                                <input type="submit" value="Xác nhận" class="btn btn-success" />
+                                <a href="@Url.Action("Index", "PhieuThuTiens")">
+                                    <button type="submit" class="btn btn-success">Xác Nhận</button>
+                                </a>
 
                             </div>
 

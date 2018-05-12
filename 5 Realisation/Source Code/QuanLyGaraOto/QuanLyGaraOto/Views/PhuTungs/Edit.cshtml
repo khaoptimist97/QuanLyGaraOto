@@ -1,0 +1,110 @@
+﻿@model QuanLyGaraOto.Models.PhuTung
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding-top: 0vh;
+        padding-left: 0vh;
+        background: url("/Content/Image/BG-Parts.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.7);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 80%;
+    }
+
+    .panel-body {
+        padding-left: 30vh;
+    }
+
+    h3 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    .col-md-3 {
+        color: white;
+    }
+</style>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal" style="padding-top:10vh;">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDPhuTung)
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-12"></div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center>
+                            <h3>Sửa Thông Phụ Tùng</h3>
+                        </Center>
+                        <div class="panel-body" style="padding-left:40px;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TenPhuTung,"Tên", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.TenPhuTung, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TenPhuTung)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SoLuongTon,"Số Tồn", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.SoLuongTon, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SoLuongTon)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DonGiaHienHanh,"Đơn Giá", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.DonGiaHienHanh, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DonGiaHienHanh)
+                                </div>
+                            </div>
+
+                         
+
+                            <div class="form-group">
+
+                                <div class="col-md-offset-5 col-md-10" style="padding-left:30px;">
+                                    <a href="@Url.Action("Index", "PhuTungs")" class="btn btn-danger">
+                                        Quay lại
+                                    </a>
+                                    <a href="@Url.Action("Index", "PhuTungs")">
+                                        <button type="submit" class="btn btn-success">Xác Nhận</button>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>

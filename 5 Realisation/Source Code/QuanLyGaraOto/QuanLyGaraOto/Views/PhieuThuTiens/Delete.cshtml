@@ -18,7 +18,7 @@
 
     .panel {
         border: 1px solid #ffffff;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.7);
         padding: 10px 40px;
         margin-top: 10vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
@@ -89,14 +89,16 @@
                                 @Html.AntiForgeryToken()
 
 
-                                <div class="form-inline col-md-offset-1" style="padding-top:20px;padding-left:30px;">
+                            <div class="form-inline col-md-offset-1" style="padding-top:20px;padding-left:30px;">
 
 
-                                    <a href="@Url.Action("Index", "PhieuThuTiens")" class="btn btn-danger">
-                                        Quay lại
-                                    </a>
-                                    <input type="submit" value="Xóa" class="btn btn-success" />
-                                </div>
+                                <a href="@Url.Action("Index", "PhieuThuTiens")">
+                                    <button type="button" class="btn btn-danger">Quay Lại</button>
+                                </a>
+                                <a href="@Url.Action("Index", "PhieuThuTiens", new { id = Model.IDPhieuThu })">
+                                    <button type="submit" class="btn btn-success">Xác Nhận</button>
+                                </a>
+                            </div>
                             }
 
                         </div>
