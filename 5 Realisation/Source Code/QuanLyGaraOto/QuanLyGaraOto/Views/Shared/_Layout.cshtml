@@ -1,52 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Phần mềm quản lí gara </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     <style>
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 100px;
-        }
-
-            .sidenav a {
-                padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #818181;
-                display: block;
-                transition: 0.3s;
-                text-align: center;
-            }
-
-                .sidenav a:hover {
-                    color: #f1f1f1;
-                }
-
-            .sidenav .closebtn:hover {
-                color: #8f8c8c;
-            }
-
-            .sidenav .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
-                color: white;
-            }
-
         html, body {
             margin: 0;
             padding-top: 0vh;
@@ -77,7 +38,7 @@
         }
         /* NAVIGATION */
         nav {
-            width: 100%;
+            width: 120%;
             margin: 0 auto;
             background: black;
             padding: 5px 0;
@@ -86,6 +47,7 @@
 
             nav ul {
                 list-style: none;
+                text-align: center;
             }
 
                 nav ul li {
@@ -109,7 +71,7 @@
                         }
 
                             nav ul li a:hover {
-                                color: red;
+                                color: #555;
                             }
 
             /* stroke */
@@ -123,12 +85,11 @@
                     left: 0;
                     right: 0;
                     margin: auto;
-                    width: 0;
+                    width: 0%;
                     content: '.';
                     color: transparent;
                     background: #aaa;
                     height: 1px;
-                    font-style: unset;
                 }
 
             nav.fill ul li a {
@@ -143,23 +104,17 @@
                 }
 
                 nav.fill ul li a:hover {
-                    color: white;
+                    color: #fff;
                     z-index: 1;
                 }
 
-
-            nav.fill ul li .closebtn:hover:after {
-                color: azure;
-            }
-
-            nav.fill ul li a:hover:after {
-                z-index: -10;
-                animation: fill 1s forwards;
-                -webkit-animation: fill 1s forwards;
-                -moz-animation: fill 1s forwards;
-                opacity: 1;
-                width: 100%;
-            }
+                    nav.fill ul li a:hover:after {
+                        z-index: -10;
+                        animation: fill 1s forwards;
+                        -webkit-animation: fill 1s forwards;
+                        -moz-animation: fill 1s forwards;
+                        opacity: 1;
+                    }
 
         @@-webkit-keyframes fill {
             0% {
@@ -178,88 +133,90 @@
                 background: #333;
             }
         }
-
-        .topnav {
-            overflow: hidden;
-            background-color: black;
-        }
-
-            .topnav a {
-                float: left;
-                display: block;
-                color: white;
-                text-align: left;
-                text-decoration: none;
-                font-size: 17px;
-                border-bottom: 3px solid transparent;
-            }
-
-                .topnav a:hover {
-                    border-bottom: 3px solid #ff0909;
-                    padding-right: 100px;
-                    width: 200%;
-                }
-
-                .topnav a.active {
-                    border-bottom: 3px solid red;
-                }
-       
     </style>
 </head>
 
 
 <body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
 
-    <nav class="fill fixed-top" style="position:fixed; z-index:10">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
+                    <a class="navbar-brand" href="#">
+                        <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+                    </a>
+                    <p class="navbar-text" style="vertical-align:top; font-family:Arial"><strong>Gara Đại Long</strong>  </p>
+                </div>
 
-        <div id="mySidenav" class="sidenav" style="padding-bottom:40px;">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <div class="dropdown">
+                                <p class="dropbtn" style="font-family:Arial">Quản lý xe</p>
+                                <div class="dropdown-content">
+                                    <a style="color:white;text-align:center;" href="~/Xes/Create/">Thêm xe</a>
+                                    <a style="color:white;text-align:center;" href="~/Xes/Index/">Tìm kiếm & Quản lý</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
+                        <li>@Html.ActionLink("Tìm kiếm xe", "Index", "Xes")</li>
+                        <li>@Html.ActionLink("Lập phiếu sửa chữa", "Index", "PhieuSuaChuas")</li>
+                        <li>@Html.ActionLink("Lập phiếu thu tiền", "Index", "PhieuThuTiens")</li>
+                        <li>@Html.ActionLink("Báo cáo tháng", "Report", "BaoCaoDS")</li>
+                    </ul>
 
-            <Center><a>Quản Lý</a></Center>
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div  class="topnav">
-                <ul>
-                    <li><a href="@Url.Action("Index", "HieuXe")">Hiệu Xe</a></li>
-                    <li><a href="@Url.Action("Index", "PhuTungs")">Phụ Tùng</a></li>
-                   <li><a href="@Url.Action("TaiKhoan", "TaiKhoans")"> Đăng Xuất</a>
-                   </li>
-                </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <button type="button" onclick="location.href='@Url.Action("About","Home")'" class="navbar-btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-info-sign"> </span> Thông tin
+                            </button>
+                        </li>
+
+                        <li>
+                            <button type="button" onclick="location.href='@Url.Action("Contact","Home")'" class="navbar-btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-envelope"></span> Liên Hệ
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-        </div>
-        <a class="navbar-brand" href="#">
-            <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
-        </a>
-        @*<a class="navbar-text" style=" font-family:Helvetica;font-weight:bold;font-size:20px;margin-bottom:40px;">Gara Đại Long </a>*@
-
-
-
+        </div>*@
+    <nav class="fill fixed-top" style="position:fixed; z-index:1000">
+        @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
+        {
+            <a class="navbar-brand" href="/UserDetails/Index">
+                <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+            </a>
+        }
+        else
+        {
+            <a class="navbar-brand" href="#">
+                <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+            </a>
+        }
+        <p class="navbar-text" style="vertical-align:top; font-family:Arial"><strong>Gara Đại Long</strong>  </p>
         <ul style="font-family:'Myriad Pro'">
-            <li style="vertical-align:top;font-family:Helvetica;font-weight:bold;font-size:25px;padding-top:5px;">Gara Đại Long</li>
             <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
             <li>@Html.ActionLink("Tìm kiếm xe", "Index", "Xes")</li>
             <li>@Html.ActionLink("Lập phiếu sửa chữa", "Index", "PhieuSuaChuas")</li>
             <li>@Html.ActionLink("Lập phiếu thu tiền", "Index", "PhieuThuTiens")</li>
-            <li>@Html.ActionLink("Báo cáo tháng", "Report", "BaoCaoDS")</li>
-            @if (Session["LoaiTaiKhoan"].ToString() == "1")
+            @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
             {
-                
-                    <li class="nav navbar-nav navbar-right" style="font-weight:bold;padding-top:8px;padding-right:30px;font-size:20px;cursor:pointer" onclick="openNav()">
-                        Quản Lý &#9776;
-                    </li>
-                
+                <li>@Html.ActionLink("Lập báo cáo", "Report", "BaoCaoDS")</li>
             }
-            @if(Session["LoaiTaiKhoan"].ToString()=="2")
-            {
-                <li class="nav navbar-nav navbar-right" style="padding-top:8px;padding-right:30px;font-size:20px;cursor:pointer" onclick="location.href='@Url.Action("TaiKhoan","TaiKhoans")'">
-                    Đăng Xuất <span class="glyphicon glyphicon-off" >
-</li>
-            }
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:aqua">
+                <i class="fa fa-fw fa-sign-out" style="color:floralwhite"></i>Logout
+            </a>
+        </li>
         </ul>
-
     </nav>
     <div class="container body-content">
         <div id="body">
@@ -270,18 +227,26 @@
             <p>&copy; Phần mềm quản lí gara ô tô - Phầm mềm sử dụng với mục đích học tập </p>
         </footer>
     </div>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-
-
-
-    </script>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Chọn "Logout" nếu muốn đăng xuất</div>
+                <div class="modal-footer">
+                    @using (Html.BeginForm("Logout", "Authentication", FormMethod.Post))
+                    {
+                        <button class="btn btn-primary" type="submit">Logout</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

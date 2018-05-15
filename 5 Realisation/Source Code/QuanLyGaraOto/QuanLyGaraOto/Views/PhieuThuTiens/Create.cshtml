@@ -19,7 +19,7 @@
 
     .panel {
         border: 1px solid #ffffff;
-        background: rgba(0,0,0,0.7);
+        background: rgba(0,0,0,0.5);
         padding: 10px 40px;
         margin-top: 10vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
@@ -72,7 +72,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, new { id = "dropDownID" ,@class = "form-control"})
+                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList,"Chọn Khách Hàng", new { id = "dropDownID" ,@class = "form-control"})
                                             @Html.ValidationMessageFor(model => model.IDBienSo)
                                         </div>
                                     </div>
@@ -115,13 +115,11 @@
 
 
 
-                                    <div class="col-md-offset-5 col-md-10">
-                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" >
-                                            <button type="button" class="btn btn-danger">Quay Lại</button>
+                                    <div class="col-md-offset-3 col-md-10">
+                                        <a href="@Url.Action("Index", "PhieuThuTiens")" style="padding-right:20px;" class="btn btn-danger">
+                                            Quay lại
                                         </a>
-                                        <a href="@Url.Action("Index", "PhieuThuTiens")">
-                                            <button type="submit" class="btn btn-success">Xác Nhận</button>
-                                        </a>
+                                        <input type="submit" style="padding-right:20px;" class="btn btn-success" value="Xác nhận" />
 
                                     </div>
                                 </div>

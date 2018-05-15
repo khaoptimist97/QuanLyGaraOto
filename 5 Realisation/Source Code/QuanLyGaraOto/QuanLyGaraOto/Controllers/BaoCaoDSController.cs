@@ -12,6 +12,7 @@ using QuanLyGaraOto.Reports.DataSetDoanhSoTableAdapters;
 
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class BaoCaoDSController : Controller
     {
 

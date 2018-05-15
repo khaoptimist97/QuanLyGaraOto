@@ -11,6 +11,7 @@ using PagedList;
 using QuanLyGaraOto.DTO;
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class XesController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
@@ -88,7 +89,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 db.Xes.Add(xe);
                 db.SaveChanges();
-                return RedirectToAction("Create", "PhieuTiepNhans", new { id = xe.IDBienSo });
+                return RedirectToAction("Index", "Xes", new { id = xe.IDBienSo });
             }
 
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", xe.IDHieuXe);

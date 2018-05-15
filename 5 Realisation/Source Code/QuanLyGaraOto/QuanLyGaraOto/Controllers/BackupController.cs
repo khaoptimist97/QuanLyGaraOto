@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class BackupController : Controller
     {
        

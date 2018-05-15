@@ -8,9 +8,15 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
+using Newtonsoft.Json;
+using QuanLyGaraOto.ViewModel;
+using System.Collections;
+using QuanLyGaraOto.Help;
+using QuanLyGaraOto.DTO;
 
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class PhieuSuaChuasController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
@@ -18,12 +24,13 @@ namespace QuanLyGaraOto.Controllers
         // GET: PhieuSuaChuas
         public ViewResult Index(string currentFilter, string searchString, int? page)
         {
-            ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC","---Select TC---");
+            ViewBag.IDTienCong = new SelectList(db.TienCongs, "IDTienCong", "LoaiTC", "---Select TC---");
             //Customize dropdownlist for show IDPhieu+TenChuXe
             IQueryable<PhieuTiepNhan> model = from s in db.PhieuTiepNhans
-                                                select s;
+                                              where s.Deleted == false
+                                              select s;
             List<SelectListItem> listItems = new List<SelectListItem>();
-            foreach(var item in model)
+            foreach (var item in model)
             {
                 listItems.Add(new SelectListItem
                 {
@@ -50,18 +57,67 @@ namespace QuanLyGaraOto.Controllers
             {
                 phieuSuaChuas = phieuSuaChuas.Where(s => s.PhieuTiepNhan.Xe.TenChuXe.Contains(searchString));
             }
-            return View(phieuSuaChuas.ToList().ToPagedList(page??1,10));
+            return View(phieuSuaChuas.Where(x => x.Deleted == false).ToList().ToPagedList(page ?? 1, 10));
+        }
+        public JsonResult GetSearchValue(string search)
+        {
+            List<Motor> allsearch = db.PhieuSuaChuas.Where(s => s.PhieuTiepNhan.Xe.TenChuXe.Contains(search)).Select(x => new Motor
+            {  
+                TenChuXe = x.PhieuTiepNhan.Xe.TenChuXe,
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public ActionResult GetInfoTienCong(int IDTienCong)
         {
-            return Json(db.TienCongs.Where(x => x.IDTienCong == IDTienCong).Select(s => new {
+            return Json(db.TienCongs.Where(x => x.IDTienCong == IDTienCong).Select(s => new
+            {
                 TienCong = s.Gia
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Save(int idPhieuTN, DateTime date, ChiTietPhieuSua[] chitietphieusua)
+        public ActionResult GetInfoPhuTung(int IDPhuTung)
+        {
+            return Json(db.PhuTungs.Where(x => x.IDPhuTung == IDPhuTung).Select(s => new
+            {
+                GiaPhuTung = s.DonGiaHienHanh
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetInfoChiTietPhieu(int IDPhieu)
+        {
+            var phieuSuaChua = db.PhieuSuaChuas.Where(x => x.Deleted == false && x.IDPhieu == IDPhieu).SingleOrDefault();
+            var chiTiets = db.ChiTietPhieuSuas.Where(x => x.Deleted == false && x.IDPhieu == IDPhieu).ToList();
+            //Tạo List<ChiTietPhieuSuas> của PhieuSuaChua(IDPhieu)
+            List<ChiTietPhieuViewModel> chiTietPhieuViewModels = new List<ChiTietPhieuViewModel>();
+            foreach (var ele in chiTiets)
+            {
+                ChiTietPhieuViewModel models = new ChiTietPhieuViewModel()
+                {
+                    IDPhieu = ele.IDPhieu,
+                    IDPhuTung = ele.IDPhuTung,
+                    SoLuongBan = ele.SoLuongBan,
+                    DonGia = ele.DonGia,
+                    IDTienCong = ele.IDTienCong,
+                    ThanhTien = ele.ThanhTien,
+                    NoiDung = ele.NoiDung
+                };
+                chiTietPhieuViewModels.Add(models);
+            }
+            //Tạo PhieuSuaChuas gửi lên view
+
+            PhieuSuaChuaViewModel phieuSua = new PhieuSuaChuaViewModel()
+            {
+                IDPhieu = phieuSuaChua.IDPhieu,
+                IDPhieuTN = (int)phieuSuaChua.IDPhieuTN,
+                NgaySuaChua = phieuSuaChua.NgaySuaChua,
+                chiTietPhieuSua = chiTietPhieuViewModels,
+                TenChuXe = phieuSuaChua.PhieuTiepNhan.Xe.TenChuXe
+            };
+
+            return Json(phieuSua, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Save(int? IDPhieu, int idPhieuTN, DateTime date, ChiTietPhieuSua[] chitietphieusua)
         {
             string result = "Error! Thêm chi tiết không thể hoàn tất!";
-            if (idPhieuTN != 0 && date != null && chitietphieusua != null)
+            if (IDPhieu == null && idPhieuTN != 0 && date != null && chitietphieusua != null)
             {
                 PhieuSuaChua phieuSua = new PhieuSuaChua();
                 phieuSua.IDPhieuTN = idPhieuTN;
@@ -85,93 +141,100 @@ namespace QuanLyGaraOto.Controllers
                 db.SaveChanges();
                 result = "Thành công! Thêm chi tiết hoàn tất!";
             }
-            return Json(result,JsonRequestBehavior.AllowGet);
+            else
+            {
+                try
+                {
+                    //Trường hợp đã remove 1 hay nhiều ChiTietPhieuSua nào đó ...
+                    ChiTietPhieuSua[] C = db.ChiTietPhieuSuas.Where(x => x.IDPhieu == IDPhieu).ToList().ToArray();
+
+                    List<int> listC = Helper.GhiIDPhuTungThanhMang(C);
+                    List<int> listChiTiet = Helper.GhiIDPhuTungThanhMang(chitietphieusua);
+                    //Tìm phần tử có trong C mà ko có trong chitietphieusua
+                    var excepts = listC.Except(listChiTiet).ToArray();
+                    if (excepts != null)
+                    {
+                        foreach (var e in excepts)
+                        {
+                            ChiTietPhieuSua chiTietPhieuSua = db.ChiTietPhieuSuas.Find(IDPhieu, e);
+                            chiTietPhieuSua.Deleted = true;
+                            db.Entry(chiTietPhieuSua).State = EntityState.Modified;
+                        }
+                        db.SaveChanges();
+                    }
+                    foreach (ChiTietPhieuSua chiTiet in chitietphieusua)
+                    {
+                        int idPhuTung = chiTiet.IDPhuTung;
+                        //Nếu đã có ChiTietPhieu này thi chỉ thực hiện edit
+                        if (db.ChiTietPhieuSuas.Any(x => x.IDPhieu == IDPhieu && x.IDPhuTung == idPhuTung))
+                        {
+                            ChiTietPhieuSua ct = db.ChiTietPhieuSuas.Find(IDPhieu, idPhuTung);
+                            ct.DonGia = chiTiet.DonGia;
+                            ct.SoLuongBan = chiTiet.SoLuongBan;
+                            ct.IDTienCong = chiTiet.IDTienCong;
+                            ct.ThanhTien = chiTiet.ThanhTien;
+                            ct.NoiDung = chiTiet.NoiDung;
+                            db.Entry(ct).State = EntityState.Modified;
+                        }
+                        else //Nếu không có thì thêm mới
+                        {
+                            ChiTietPhieuSua ChiTiet = new ChiTietPhieuSua();
+                            ChiTiet.IDPhieu = (int)IDPhieu;
+                            ChiTiet.IDPhuTung = chiTiet.IDPhuTung;
+                            ChiTiet.DonGia = chiTiet.DonGia;
+                            ChiTiet.SoLuongBan = chiTiet.SoLuongBan;
+                            ChiTiet.IDTienCong = chiTiet.IDTienCong;
+                            ChiTiet.ThanhTien = chiTiet.ThanhTien;
+                            ChiTiet.NoiDung = chiTiet.NoiDung;
+                            db.ChiTietPhieuSuas.Add(ChiTiet);
+                        }
+                        db.SaveChanges();
+                    }
+                    result = "Sửa thành công!!";
+                }
+                catch (Exception ex)
+                {
+                    result = "Sửa không thành công!!";
+                    throw ex;
+                }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         // GET: PhieuSuaChuas/Details/5
-        public ActionResult Details(int? id)
+        public JsonResult GetDetails(int IDPhieu)
         {
-            if (id == null)
+            var chiTiets = db.ChiTietPhieuSuas.Where(x => x.Deleted == false && x.IDPhieu == IDPhieu).ToList();
+            //Tạo List<ChiTietPhieuSuas> của PhieuSuaChua(IDPhieu)
+            List<ChiTietPhieuViewModel> chiTietPhieuViewModels = new List<ChiTietPhieuViewModel>();
+            foreach (var ele in chiTiets)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ChiTietPhieuViewModel models = new ChiTietPhieuViewModel()
+                {
+                    IDPhieu = ele.IDPhieu,
+                    IDPhuTung = ele.IDPhuTung,
+                    SoLuongBan = ele.SoLuongBan,
+                    DonGia = ele.DonGia,
+                    IDTienCong = ele.IDTienCong,
+                    ThanhTien = ele.ThanhTien,
+                    NoiDung = ele.NoiDung
+                };
+                chiTietPhieuViewModels.Add(models);
             }
-            PhieuSuaChua phieuSuaChua = db.PhieuSuaChuas.Find(id);
-            if (phieuSuaChua == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phieuSuaChua);
-        }
-
-        // GET: PhieuSuaChuas/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN");
-            return View();
-        }
-
-        // POST: PhieuSuaChuas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDPhieu,IDPhieuTN,NgaySuaChua,TongTien")] PhieuSuaChua phieuSuaChua)
-        {
-            if (ModelState.IsValid)
-            {
-                db.PhieuSuaChuas.Add(phieuSuaChua);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN", phieuSuaChua.IDPhieuTN);
-            return View(phieuSuaChua);
-        }
-
-        // GET: PhieuSuaChuas/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PhieuSuaChua phieuSuaChua = db.PhieuSuaChuas.Find(id);
-            if (phieuSuaChua == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN", phieuSuaChua.IDPhieuTN);
-            return View(phieuSuaChua);
-        }
-
-        // POST: PhieuSuaChuas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDPhieu,IDPhieuTN,NgaySuaChua,TongTien")] PhieuSuaChua phieuSuaChua)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(phieuSuaChua).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IDPhieuTN = new SelectList(db.PhieuTiepNhans, "IDPhieuTN", "IDPhieuTN", phieuSuaChua.IDPhieuTN);
-            return View(phieuSuaChua);
-        }
-
+            return Json(chiTietPhieuViewModels, JsonRequestBehavior.AllowGet);
+        }    
         // POST: PhieuSuaChuas/Delete/5
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult DeleteConfirmation(int IDPhieu)
         {
-            PhieuSuaChua phieuSuaChua = db.PhieuSuaChuas.Find(id);
-            phieuSuaChua.Deleted = true;
-            foreach(ChiTietPhieuSua ct in phieuSuaChua.ChiTietPhieuSuas)
+            bool result = false;
+            PhieuSuaChua phieuSua = db.PhieuSuaChuas.Find(IDPhieu);
+            if(phieuSua!=null)
             {
-                ct.Deleted = true;
+                phieuSua.Deleted = true;
+                db.SaveChanges();
+                result = true;
             }
-            db.Entry(phieuSuaChua).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

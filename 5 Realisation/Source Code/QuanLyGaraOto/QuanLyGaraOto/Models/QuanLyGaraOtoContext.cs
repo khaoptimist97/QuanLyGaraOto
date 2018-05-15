@@ -4,6 +4,7 @@ namespace QuanLyGaraOto.Models
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     public partial class QuanLyGaraOtoContext : DbContext
     {
@@ -23,6 +24,7 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<TienCong> TienCongs { get; set; }
         public virtual DbSet<Xe> Xes { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
@@ -47,8 +49,7 @@ namespace QuanLyGaraOto.Models
             modelBuilder.Entity<Xe>()
                 .Property(e => e.DienThoai)
                 .IsFixedLength();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
-
-        public System.Data.Entity.DbSet<QuanLyGaraOto.Models.TaiKhoan> TaiKhoans { get; set; }
     }
 }

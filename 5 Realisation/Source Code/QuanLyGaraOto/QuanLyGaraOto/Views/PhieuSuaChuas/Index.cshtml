@@ -1,6 +1,10 @@
 ﻿@model IPagedList<QuanLyGaraOto.Models.PhieuSuaChua>
 @using PagedList;
 @using PagedList.Mvc;
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+
 <style>
     body {
         color: white;
@@ -14,23 +18,15 @@
         font-family: sans-serif
     }
 
+
     .panel {
         border: 1px solid #ffffff;
         background: rgba(0,0,0,0.5);
         padding: 10px 40px;
-        margin-top: 10vh;
+        margin-top: 5vh;
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
         width: 99%;
     }
-
-        .panel .panel-heading {
-            border: 1px solid #ffffff;
-            background: rgba(0,0,0,0.5);
-            padding: 10px 40px;
-            margin-top: 10vh;
-            box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-            color: white;
-        }
 
     h2 {
         margin: 0;
@@ -56,7 +52,6 @@
         text-align: center;
     }
 </style>
-
 <body>
     <div class="form-horizontal">
         <div class="row">
@@ -64,236 +59,271 @@
 
             <div class="col-md-11 col-sm-9 col-xs-12">
                 <div class="panel panel-default">
+                    <h1 style="font-family:'Myriad Pro'; text-align:center; color: #fafc0d;">DANH SÁCH PHIẾU SỬA</h1>
+                    <br />
                     @using (Html.BeginForm("Index", "PhieuSuaChuas", FormMethod.Get))
                     {
-                        <div class="form-inline my-2 my-lg-0" style="margin-top:20px">
+                        <div class="form-inline my-2 my-lg-0" style="margin-top:30px">
                             <label>Tìm theo tên: </label>
-                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập tên chủ xe" })
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, htmlAttributes: new { @class = "form-control mr-sm-2", @placeholder = "Nhập tên chủ xe" ,id = "txtSearch"})
                             <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Tìm Kiếm" />
                         </div>
+
                     }
-                    <div class="panel-heading" style="margin-top:60px">
-                        <div class="row">
-                            <h2 class="panel-title pull-left" style="margin-left:10px;">
-                                <strong>Phiếu Sửa chữa</strong>
-                            </h2>
-                            @if (Session["LoaiTaiKhoan"].ToString() == "1")
-                            {
-                                <a href="@Url.Action("Backup", "Backup")" class="btn btn-success pull-right">Sao Lưu dữ liệu</a>
-                            }
-                            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">Thêm Phiếu Sửa</button>
+                    @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
+                    {
+                        <a href="@Url.Action("Backup", "Backup")" style="margin-right:10px" class="btn btn-success pull-right">Tạo Backup</a>
+                    }
+                    <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New</button>
+                    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
+                    <div class="row" style="margin-top:0">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div>
+                                        <table class="table  table-bordered" id="myTable">
+                                            <tr>
+                                                <th>
+                                                    <strong>
+
+                                                        Tên chủ xe
+
+                                                    </strong>
+                                                </th>
+
+                                                <th>
+                                                    <Strong>
+
+                                                        Ngày sửa
+
+                                                    </Strong>
+
+                                                </th>
+                                                <td></td>
+                                            </tr>
+                                            @if (Model.Count() != 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr class="row_@item.IDPhieu">
+                                                        @Html.HiddenFor(m => item.IDPhieu, new { @id = "PhieuID" })
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.PhieuTiepNhan.Xe.TenChuXe)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgaySuaChua)
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" onclick="Details('@item.IDPhieu')" class="btn btn-primary glyphicon glyphicon-info-sign"></a>
+                                                            <button type="button" class="btn btn-warning" id="btnSua" data-toggle="modal" data-target="#newOrderModal" data-whatever="@item.IDPhieu">Sửa</button>
+                                                            <a href="#" class="btn btn-danger" onclick="DeleteRecord('@item.IDPhieu')">Xóa</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="3"> Records not found </td>
+                                                </tr>
+
+                                            }
+                                        </table>
+                                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
-
-                    @if (Model.Count() != 0)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <div class="panel-default">
-                                <table class="table  table-bordered">
-                                    <tbody>
-                                        <tr style="background: rgba(0,0,0,1);border-collapse:collapse;padding:0;font-style:un">
-                                            <td>
-                                                <strong>
-
-                                                    Tên chủ xe : @item.PhieuTiepNhan.Xe.TenChuXe
-
-                                                </strong>
-                                            </td>
-
-                                            <td>
-                                                <Strong>
-
-                                                    Ngày sửa : @item.NgaySuaChua
-
-                                                </Strong>
-                                                @if (Session["LoaiTaiKhoan"].ToString() == "1")
-                                                {
-                                                    <a href="@Url.Action("DeleteConfirmed", "PhieuSuaChuas", new { id = item.IDPhieu })" class="btn btn-danger pull-right" >Xóa</a>
-                                                }
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <table class="table table-bordered" style="background: rgba(0,0,0,0.5);">
-                                                    <tbody style="background-color:transparent;">
-                                                        <tr style="background-color:transparent;">
-                                                            <th>Phụ tùng</th>
-                                                            <th>Số lượng</th>
-                                                            <th>Đơn giá</th>
-                                                            <th>Tiền công</th>
-                                                            <th>Thành tiền</th>
-                                                        </tr>
-                                                        @{
-                                                            var totalBill = 0;
-                                                        }
-                                                        @foreach (var chitiet in item.ChiTietPhieuSuas)
-                                                        {
-                                                            <tr>
-                                                                <td>@chitiet.PhuTung.TenPhuTung</td>
-                                                                <td>@chitiet.SoLuongBan</td>
-                                                                <td>@chitiet.DonGia</td>
-                                                                <td>@chitiet.TienCong.LoaiTC</td>
-                                                                <td>@chitiet.ThanhTien</td>
-
-                                                            </tr>
-                                                            totalBill = totalBill + @Convert.ToInt32(chitiet.ThanhTien) + Convert.ToInt32(chitiet.TienCong.Gia);
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        }
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                    }
-                    else
-                    {
-                        <div class="panel-body">
-                            <h3 style="color:red;">Empty!</h3>
-                        </div>
-
-                    }
                 </div>
             </div>
         </div>
     </div>
 
+
+
+    @*Desing Bootdtrap Modal With Add Form*@
+    <div class="modal fade" id="newOrderModal" style="color:black" tabindex="-1">
+        <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle">Add New </h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id="NewOrderForm">
+                        <fieldset id="SubmitForm">
+                            @*Phieu Sua Chua*@
+                            <h5 style="color:#ff6347">Phiếu sửa chữa</h5>
+                            <hr />
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Phiếu tiếp nhận
+                                    </label>
+                                    <div class="col-md-4">
+                                        @*<input type="text" id="name" name="name" placeholder="Customer Name" class="form-control" />*@
+                                        @Html.DropDownList("IDPhieuTN", (SelectList)ViewBag.IDPhieuTN, new { @class = "form-control", id = "idPhieuTN" })
+                                    </div>
+                                    <label class="control-label col-md-2">
+                                        Ngày tiếp nhận
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="date" name="date" placeholder="Ngày tiếp nhận" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Order Details*@
+                            <h5 style="margin-top:10px;color:#ff6347">Chi tiết phiếu sửa chữa</h5>
+                            <hr />
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Phụ tùng
+                                    </label>
+                                    <div class="col-md-4">
+                                        @*<input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" />*@
+                                        @Html.DropDownList("IDPhuTung", (SelectList)ViewBag.IDPhuTung, "-- Chọn Phụ Tùng --", new { @class = "form-control", id = "IDPhuTung" })
+                                    </div>
+                                    <label class="control-label col-md-2">
+                                        Đơn giá
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="number" id="DonGia" name="DonGia" placeholder="Giá phụ tùng" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số lượng
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="number" id="SoLuongBan" name="SoLuongBan" placeholder="Số lượng bán" class="form-control" />
+                                    </div>
+                                    <label class="control-label col-md-2">
+                                        Nội dung
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="NoiDung" name="NoiDung" placeholder="Nội dung" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Tiền công
+                                    </label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, "-- Chọn Tiền Công --", new { @class = "form-control", id = "IDTienCong" })
+                                    </div>
+                                    <label class="control-label col-md-2">
+                                        Giá tiền công
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
+                                        <br />
+                                        <a id="addToList" class="btn btn-primary">Add To List</a>
+                                    </div>
+                                    @*<div class="col-md-2 col-lg-offset-4">
+                                            <a id="addToList" class="btn btn-primary">Add To List</a>
+                                        </div>*@
+                                </div>
+
+                                <div style="height: 300px; overflow: auto;">
+                                    <table id="detailsTable" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20%">Phụ tùng</th>
+                                                <th style="width:20%">Số lượng</th>
+                                                <th style="width:15%">Đơn giá</th>
+                                                <th style="width:10%">Tiền công</th>
+                                                <th style="width:20%">Nội dung</th>
+                                                <th style="width:35%">Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="saveOrder" type="submit" class="btn btn-danger">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*Desing Bootdtrap Modal For Delete*@
+    <div class="modal fade" id="DeleteConfirmation" style="color:black">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Xóa Phiếu Sửa Chữa </h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Bạn chắc chứ? Bạn muốn xóa Phiếu sửa và Chi tiết phiếu sửa ở trong?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary" data-dismiss="modal">Cancle</button>
+                    <button type="submit" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Desing Bootdtrap Modal For Detail*@
+    <div class="modal fade" id="Details" style="color:black">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Details </h4>
+                </div>
+                <div class="modal-body">
+                    <div style="height: 400px; overflow: auto;">
+                        <table id="details" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">Phụ tùng</th>
+                                    <th style="width:20%">Số lượng</th>
+                                    <th style="width:15%">Đơn giá</th>
+                                    <th style="width:10%">Tiền công</th>
+                                    <th style="width:20%">Nội dung</th>
+                                    <th style="width:35%">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
-@*Desing Bootdtrap Modal With Order Form*@
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
-<div class="modal fade" id="newOrderModal" style="color:white;background: rgba(0,0,0,0.7);">
-    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
-        <div class="modal-content" style="background: rgba(0,0,0,1);">
-            <div class="panel panel-default">
-                <div class="modal-header">
-                    <a href="#" class="close" data-dismiss="modal" style="color:white;">&times;</a>
-                    <h4>Thêm Phiếu Sửa Chữa </h4>
-                </div>
-                <form id="NewOrderForm">
-                    <div class="modal-body">
-                        @*Phieu Sua Chua*@
-                        <h5 style="color:#ff6347">Phiếu sửa chữa</h5>
-                        <hr />
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    Phiếu tiếp nhận
-                                </label>
-                                <div class="col-md-4">
-                                    @*<input type="text" id="name" name="name" placeholder="Customer Name" class="form-control" />*@
-                                    @Html.DropDownList("IDPhieuTN", (SelectList)ViewBag.IDPhieuTN, new { @class = "form-control", id = "idPhieuTN" })
-                                </div>
-                                <label class="control-label col-md-2">
-                                    Ngày tiếp nhận
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" id="date" name="date" placeholder="Ngày tiếp nhận" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+@section scripts{
 
-                        @*Order Details*@
-                        <h5 style="margin-top:10px;color:#ff6347">Chi tiết phiếu sửa chữa</h5>
-                        <hr />
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    Phụ tùng
-                                </label>
-                                <div class="col-md-4">
-                                    @*<input type="text" id="productName" name="productName" placeholder="Product Name" class="form-control" />*@
-                                    @Html.DropDownList("IDPhuTung", (SelectList)ViewBag.IDPhuTung, new { @class = "form-control", id = "IDPhuTung" })
-                                </div>
-                                <label class="control-label col-md-2">
-                                    Đơn giá
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="number" id="DonGia" name="DonGia" placeholder="Giá phụ tùng" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    Số lượng
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="number" id="SoLuongBan" name="SoLuongBan" placeholder="Số lượng bán" class="form-control" />
-                                </div>
-                                <label class="control-label col-md-2">
-                                    Nội dung
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" id="NoiDung" name="NoiDung" placeholder="Nội dung" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    Tiền công
-                                </label>
-                                <div class="col-md-4">
-                                    @Html.DropDownList("IDTienCong", (SelectList)ViewBag.IDTienCong, new { @class = "form-control", id = "IDTienCong" })
-                                </div>
-                                <label class="control-label col-md-2">
-                                    Giá tiền công
-                                </label>
-                                <div class="col-md-4">
-                                    <input type="text" id="TienCong" name="TienCong" placeholder="Tiền công" class="form-control" readonly />
-                                    <br />
-                                    <a id="addToList" class="btn btn-primary">Thêm vào danh sách</a>
-                                </div>
-                                @*<div class="col-md-2 col-lg-offset-4">
-                                        <a id="addToList" class="btn btn-primary">Add To List</a>
-                                    </div>*@
-                            </div>
-
-
-                            <table id="detailsTable" class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="width:20%">Phụ tùng</th>
-                                        <th style="width:20%">Số lượng</th>
-                                        <th style="width:15%">Đơn giá</th>
-                                        <th style="width:10%">Tiền công</th>
-                                        <th style="width:20%">Nội dung</th>
-                                        <th style="width:35%">Thành tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-danger" data-dismiss="modal">Quay Lại</button>
-                        <button id="saveOrder" type="submit" class="btn btn-success">Lưu</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
-    @section scripts{
-        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-        <script>
+    <script>
+        //Để phân biệt lúc Add và Edit , 1:Add, 0:Edit
+        var flag = 0;
         //Show Modal.
         function addNewOrder() {
+            flag = 1;
             $("#newOrderModal").modal();
         }
-        //Khởi tạo giá trị đầu cho input tiền công, sử dụng hard-code do đã set mặc định giá trị cho dropdown nhưng ko hiển thị ????
-        $("#TienCong").val('20000')
-        $("#date").click(function () {
-            $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
-        });
+        //Auto hiển thị giá tiền tương ứng của loại tiền công
         $("#IDTienCong").change(function () {
 
             var IDTienCong = $("#IDTienCong").val();
@@ -305,6 +335,21 @@
                     //var info = JSON.parse(result);
                     for (var i = 0; i < result.length; i++) {
                         $("#TienCong").val(result[i].TienCong);
+                    }
+                }
+            });
+        });
+        //Auto hiển thị giá tiền tương ứng của loại phụ tùng
+        $("#IDPhuTung").change(function () {
+
+            var IDPhuTung = $("#IDPhuTung").val();
+            $.ajax({
+                type: 'GET',
+                data: { IDPhuTung: IDPhuTung },
+                url: '@Url.Action("GetInfoPhuTung", "PhieuSuaChuas")',
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        $("#DonGia").val(result[i].GiaPhuTung);
                     }
                 }
             });
@@ -368,6 +413,7 @@
         }
         //Collect Multiple Order List For Pass To Controller
         $("#saveOrder").click(function (e) {
+
             e.preventDefault();
 
             var chitietphieusuaArr = [];
@@ -379,13 +425,14 @@
                     SoLuongBan: $(this).find('td:eq(1)').html(),
                     DonGia: $(this).find('td:eq(2)').html(),
                     IDTienCong: $(this).find('td:eq(3)').html(),
-                    NoiDung: $(this).find('td:eq(4)').html(),
+                    NoiDung: $( this).find('td:eq(4)').html(),
                     ThanhTien: $(this).find('td:eq(5)').html()
                 });
             });
 
 
             var data = JSON.stringify({
+                IDPhieu: IDPhieu,
                 idPhieuTN: $("#idPhieuTN").val(),
                 date: $("#date").val(),
                 chitietphieusua: chitietphieusuaArr
@@ -400,5 +447,98 @@
         $(function () {
             $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
         });
-        </script>
-    }
+        //Date Format When Using Ajax Get Datetime
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return (dt.getDate() + 1) + "/" + dt.getMonth() + "/" + dt.getFullYear();
+        }
+        //Edit
+        var IDPhieu;
+        $("#newOrderModal").on('show.bs.modal', function (event) {
+
+            if (flag == 0) {
+                var button = $(event.relatedTarget);
+                IDPhieu = button.data('whatever');
+                $("#ModalTitle").html("Update Phiếu Sửa Chữa");
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetInfoChiTietPhieu","PhieuSuaChuas")',
+                    dataType: 'json',
+                    data: { IDPhieu: IDPhieu },
+                    success: function (result) {
+                        $("#idPhieuTN option:selected").text(result.IDPhieuTN + " - " + result.TenChuXe);
+                        $("#date").val(ToJavaScriptDate(result.NgaySuaChua));
+                        for (var i = 0; i < result.chiTietPhieuSua.length; i++) {
+                            var Data = '<tr><td>' + result.chiTietPhieuSua[i].IDPhuTung + '</td><td>' + result.chiTietPhieuSua[i].SoLuongBan + '</td><td>' + result.chiTietPhieuSua[i].DonGia + '</td><td>' + result.chiTietPhieuSua[i].IDTienCong + '</td><td>' + result.chiTietPhieuSua[i].NoiDung + '</td><td>' + result.chiTietPhieuSua[i].ThanhTien + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                            $("#detailsTable tbody").append(Data);
+                        }
+                    }
+                });
+            }
+        });
+        $('body').on('hidden.bs.modal', '#newOrderModal', function () {
+            location.reload();
+        });
+        function DeleteRecord(IDPhieu) {
+            $("#PhieuID").val(IDPhieu);
+            $("#DeleteConfirmation").modal("show");
+        }
+        function ConfirmDelete() {
+            var IDPhieu = $("#PhieuID").val();
+            $.ajax({
+                type: "POST",
+                data: { IDPhieu: IDPhieu },
+                url: "/PhieuSuaChuas/DeleteConfirmation",
+                success: function (result) {
+                    $("#DeleteConfirmation").modal("hide");
+                    $(".row_" + IDPhieu).remove();
+                }
+            })
+        }
+        function Details(IDPhieu) {
+            $("#Details").modal("show");
+            $.ajax({
+                type: "GET",
+                data: { IDPhieu: IDPhieu },
+                url: "/PhieuSuaChuas/GetDetails",
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        var Data = '<tr><td>' + result[i].IDPhuTung + '</td><td>' + result[i].SoLuongBan + '</td><td>' + result[i].DonGia + '</td><td>' + result[i].IDTienCong + '</td><td>' + result[i].NoiDung + '</td><td>' + result[i].ThanhTien + '</td></tr>';
+                        $("#details tbody").append(Data);
+                    }
+                }
+            });
+        }
+        $('#Details').on('hide.bs.modal', function () {
+            $("#details tbody tr").remove();
+        })
+        $("#txtSearch").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue","PhieuSuaChuas")',
+                dataType: "json",
+                data: { search: $("#txtSearch").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.TenChuXe, value: item.TenChuXe };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    $('#txtSearch').on('keypress', function (event) {
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    });
+    </script>
+}

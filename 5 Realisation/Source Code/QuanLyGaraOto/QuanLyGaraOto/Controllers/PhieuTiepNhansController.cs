@@ -9,8 +9,11 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.ViewModel;
+using QuanLyGaraOto.DTO;
+
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class PhieuTiepNhansController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
@@ -45,15 +48,14 @@ namespace QuanLyGaraOto.Controllers
             int pageNumber = (page ?? 1);
             return View(phieuTiepNhans.OrderBy(s => s.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
-        //public ActionResult Index(string searchString, int? page)
-        //{
-        //    var phieuTiepNhans = db.PhieuTiepNhans.Include(p => p.Xe).OrderBy(p => p.Xe.TenChuXe).ToPagedList(page ?? 1, 10);
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        phieuTiepNhans = phieuTiepNhans.Where(s => s.Xe.TenChuXe.Contains(searchString)).OrderBy(p => p.Xe.TenChuXe).ToPagedList(page ?? 1, 10);
-        //    }
-        //    return View(phieuTiepNhans);
-        //}
+        public JsonResult GetSearchValue(string search)
+        {
+            List<Motor> allsearch = db.PhieuTiepNhans.Where(s => s.Xe.TenChuXe.Contains(search)).Select(x => new Motor
+            {
+                TenChuXe = x.Xe.TenChuXe,
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         // GET: PhieuTiepNhans/Details/5
         public ActionResult Details(int? id)
         {

@@ -8,8 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
+using QuanLyGaraOto.DTO;
+
 namespace QuanLyGaraOto.Controllers
 {
+    [Authorize]
     public class PhieuThuTiensController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
@@ -39,7 +42,14 @@ namespace QuanLyGaraOto.Controllers
             int pageNumber = (page ?? 1);
             return View(phieuThuTiens.OrderBy(s => s.Xe.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
-
+        public JsonResult GetSearchValue(string search)
+        {
+            List<Motor> allsearch = db.PhieuThuTiens.Where(s => s.Xe.TenChuXe.Contains(search)).Select(x => new Motor
+            {
+                TenChuXe = x.Xe.TenChuXe,
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         // GET: PhieuThuTiens/Details/5
         public ActionResult Details(int? id)
         {
