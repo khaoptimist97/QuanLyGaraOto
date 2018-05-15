@@ -6,9 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Configuration;
+using QuanLyGaraOto.Filters;
+
 namespace QuanLyGaraOto.Controllers
 {
     [Authorize]
+    [AdminFilter]
     public class BackupController : Controller
     {
        

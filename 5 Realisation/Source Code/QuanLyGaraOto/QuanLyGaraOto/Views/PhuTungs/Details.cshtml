@@ -1,0 +1,51 @@
+﻿@model QuanLyGaraOto.Models.PhuTung
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhuTung</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenPhuTung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenPhuTung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGiaHienHanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGiaHienHanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deleted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDPhuTung }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

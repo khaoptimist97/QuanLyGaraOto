@@ -6,11 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyGaraOto.Filters;
 using QuanLyGaraOto.Models;
 
 namespace QuanLyGaraOto.Controllers
 {
     [Authorize]
+    [AdminFilter]
     public class UserDetailsController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();

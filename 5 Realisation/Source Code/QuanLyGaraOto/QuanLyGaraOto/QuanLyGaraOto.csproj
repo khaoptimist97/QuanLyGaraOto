@@ -136,13 +136,16 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\BaoCaoDSController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PhieuSuaChuasController.cs" />
     <Compile Include="Controllers\PhieuThuTiensController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
+    <Compile Include="Controllers\PhuTungsController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserTypesController.cs" />
     <Compile Include="Controllers\XesController.cs" />
     <Compile Include="DTO\Motor.cs" />
+    <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1006,9 +1009,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PhieuTiepNhans\Create.cshtml" />
     <Content Include="Views\PhieuTiepNhans\Delete.cshtml" />
     <Content Include="Views\PhieuTiepNhans\Details.cshtml" />
@@ -1040,6 +1040,12 @@
     <Content Include="Views\UserDetails\Edit.cshtml" />
     <Content Include="Views\UserDetails\Index.cshtml" />
     <Content Include="Views\BaoCaoDS\Report.cshtml" />
+    <Content Include="Views\PhuTungs\Create.cshtml" />
+    <Content Include="Views\PhuTungs\Delete.cshtml" />
+    <Content Include="Views\PhuTungs\Details.cshtml" />
+    <Content Include="Views\PhuTungs\Edit.cshtml" />
+    <Content Include="Views\PhuTungs\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

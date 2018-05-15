@@ -13,107 +13,107 @@ namespace QuanLyGaraOto.Controllers
 {
     [Authorize]
     [AdminFilter]
-    public class UserTypesController : Controller
+    public class PhuTungsController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
-        // GET: UserTypes
+        // GET: PhuTungs
         public ActionResult Index()
         {
-            return View(db.UserTypes.ToList());
+            return View(db.PhuTungs.ToList());
         }
 
-        // GET: UserTypes/Details/5
+        // GET: PhuTungs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserType userType = db.UserTypes.Find(id);
-            if (userType == null)
+            PhuTung phuTung = db.PhuTungs.Find(id);
+            if (phuTung == null)
             {
                 return HttpNotFound();
             }
-            return View(userType);
+            return View(phuTung);
         }
 
-        // GET: UserTypes/Create
+        // GET: PhuTungs/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UserTypes/Create
+        // POST: PhuTungs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,TypeName")] UserType userType)
+        public ActionResult Create([Bind(Include = "IDPhuTung,TenPhuTung,SoLuong,DonGiaHienHanh,Deleted")] PhuTung phuTung)
         {
             if (ModelState.IsValid)
             {
-                db.UserTypes.Add(userType);
+                db.PhuTungs.Add(phuTung);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(userType);
+            return View(phuTung);
         }
 
-        // GET: UserTypes/Edit/5
+        // GET: PhuTungs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserType userType = db.UserTypes.Find(id);
-            if (userType == null)
+            PhuTung phuTung = db.PhuTungs.Find(id);
+            if (phuTung == null)
             {
                 return HttpNotFound();
             }
-            return View(userType);
+            return View(phuTung);
         }
 
-        // POST: UserTypes/Edit/5
+        // POST: PhuTungs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TypeName")] UserType userType)
+        public ActionResult Edit([Bind(Include = "IDPhuTung,TenPhuTung,SoLuong,DonGiaHienHanh,Deleted")] PhuTung phuTung)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(userType).State = EntityState.Modified;
+                db.Entry(phuTung).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(userType);
+            return View(phuTung);
         }
 
-        // GET: UserTypes/Delete/5
+        // GET: PhuTungs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserType userType = db.UserTypes.Find(id);
-            if (userType == null)
+            PhuTung phuTung = db.PhuTungs.Find(id);
+            if (phuTung == null)
             {
                 return HttpNotFound();
             }
-            return View(userType);
+            return View(phuTung);
         }
 
-        // POST: UserTypes/Delete/5
+        // POST: PhuTungs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            UserType userType = db.UserTypes.Find(id);
-            db.UserTypes.Remove(userType);
+            PhuTung phuTung = db.PhuTungs.Find(id);
+            db.PhuTungs.Remove(phuTung);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -7,12 +7,14 @@ using System.Web;
 using System.Web.Mvc;
 using CrystalDecisions.CrystalReports.Engine;
 using QuanLyGaraOto.BUS;
+using QuanLyGaraOto.Filters;
 using QuanLyGaraOto.Reports;
 using QuanLyGaraOto.Reports.DataSetDoanhSoTableAdapters;
 
 namespace QuanLyGaraOto.Controllers
 {
     [Authorize]
+    [AdminFilter]
     public class BaoCaoDSController : Controller
     {
 

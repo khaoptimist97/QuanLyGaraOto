@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.DTO;
+using QuanLyGaraOto.Filters;
+
 namespace QuanLyGaraOto.Controllers
 {
     [Authorize]
@@ -72,6 +74,7 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: Xes/Create
+        [AdminFilter]
         public ActionResult Create()
         {
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe");
@@ -97,6 +100,7 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: Xes/Edit/5
+        [AdminFilter]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -117,6 +121,7 @@ namespace QuanLyGaraOto.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminFilter]
         public ActionResult Edit([Bind(Include = "IDBienSo,TenChuXe,DiaChi,DienThoai,IDHieuXe,TienNo")] Xe xe)
         {
             if (ModelState.IsValid)
@@ -130,6 +135,7 @@ namespace QuanLyGaraOto.Controllers
         }
 
         // GET: Xes/Delete/5
+        [AdminFilter]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -147,6 +153,7 @@ namespace QuanLyGaraOto.Controllers
         // POST: Xes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AdminFilter]
         public ActionResult DeleteConfirmed(int id)
         {
             db.Xes.Find(id).Deleted = true;
