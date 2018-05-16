@@ -38,7 +38,7 @@
         }
         /* NAVIGATION */
         nav {
-            width: 120%;
+            width: 100%;
             margin: 0 auto;
             background: black;
             padding: 5px 0;
@@ -47,7 +47,7 @@
 
             nav ul {
                 list-style: none;
-                text-align: center;
+                text-align: right;
             }
 
                 nav ul li {
@@ -189,33 +189,42 @@
             </div>
         </div>*@
     <nav class="fill fixed-top" style="position:fixed; z-index:1000">
+
         @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
-        {
-            <a class="navbar-brand" href="/UserDetails/Index">
-                <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
-            </a>
-        }
-        else
-        {
-            <a class="navbar-brand" href="#">
-                <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
-            </a>
-        }
+    {
+        <a class="navbar-brand" href="/UserDetails/Index">
+            <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+        </a>
+        <a href="/UserDetails/Index" style="cursor:pointer;color:white">
+            <p class="navbar-text" style="vertical-align:top; font-family:Arial"><strong>Gara Đại Long</strong>  </p>
+        </a>
+}
+
+else
+{
+    <a class="navbar-brand" href="#">
+        <img alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+    </a>
+    <a href="#" style="cursor:pointer;color:white">
         <p class="navbar-text" style="vertical-align:top; font-family:Arial"><strong>Gara Đại Long</strong>  </p>
+    </a>
+}
+
         <ul style="font-family:'Myriad Pro'">
             <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
             <li>@Html.ActionLink("Tìm kiếm xe", "Index", "Xes")</li>
             <li>@Html.ActionLink("Lập phiếu sửa chữa", "Index", "PhieuSuaChuas")</li>
             <li>@Html.ActionLink("Lập phiếu thu tiền", "Index", "PhieuThuTiens")</li>
             @if (Convert.ToBoolean(Session["IsAdmin"]) == true)
-            {
-                <li>@Html.ActionLink("Lập báo cáo", "Report", "BaoCaoDS")</li>
-            }
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:aqua">
-                <i class="fa fa-fw fa-sign-out" style="color:floralwhite"></i>Logout
-            </a>
-        </li>
+        {
+            <li>@Html.ActionLink("Lập báo cáo", "Report", "BaoCaoDS")</li>
+    }
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:aqua;cursor:pointer;">
+                    <i class="fa fa-fw fa-sign-out" style="color:floralwhite"></i>Đăng Xuất
+                </a>
+            </li>
         </ul>
     </nav>
     <div class="container body-content">
@@ -232,16 +241,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size:20px;"><Center><strong>Đăng Xuất</strong></Center></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Chọn "Logout" nếu muốn đăng xuất</div>
+                <div class="modal-body" style="text-align:center;font-size:15px;">Bạn có muốn Đăng Xuất</div>
                 <div class="modal-footer">
+
                     @using (Html.BeginForm("Logout", "Authentication", FormMethod.Post))
                     {
-                        <button class="btn btn-primary" type="submit">Logout</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                        <button class="btn btn-primary" type="submit">Xác Nhận</button>
                     }
                 </div>
             </div>

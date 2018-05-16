@@ -470,6 +470,7 @@
                     data: { IDPhieu: IDPhieu },
                     success: function (result) {
                         $("#idPhieuTN option:selected").text(result.IDPhieuTN + " - " + result.TenChuXe);
+                        $("#idPhieuTN").val(result.IDPhieuTN);
                         $("#date").val(ToJavaScriptDate(result.NgaySuaChua));
                         for (var i = 0; i < result.chiTietPhieuSua.length; i++) {
                             var Data = '<tr><td>' + result.chiTietPhieuSua[i].IDPhuTung + '</td><td>' + result.chiTietPhieuSua[i].SoLuongBan + '</td><td>' + result.chiTietPhieuSua[i].DonGia + '</td><td>' + result.chiTietPhieuSua[i].IDTienCong + '</td><td>' + result.chiTietPhieuSua[i].NoiDung + '</td><td>' + result.chiTietPhieuSua[i].ThanhTien + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';

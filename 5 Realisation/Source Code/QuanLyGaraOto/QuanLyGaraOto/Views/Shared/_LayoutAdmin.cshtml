@@ -20,7 +20,11 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <a class="navbar-brand" href="/PhieuTiepNhans/Index">Quản lý Gara</a>
+        <a  href="/PhieuTiepNhans/Index">
+             <img href="/PhieuTiepNhans/Index" style="height:50px;padding-right:15px;" alt="Wrench" src="~/Content/themes/base/images/wrench_icon-1.png" />
+        </a>
+       
+        <a class="navbar-brand" href="/PhieuTiepNhans/Index">Gara Đại Long</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,15 +57,15 @@
                         <li>
                             <a href="@Url.Action("Index", "PhuTungs")">Quản Lý Phụ tùng</a>
                         </li>
-                        <li>
+                        @*<li>
                             <a href="#">Quản lý Chi Tiết Phiếu Sửa</a>
-                        </li>
+                        </li>*@
                     </ul>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-file"></i>
-                        <span class="nav-link-text">Function Pages</span>
+                        <span class="nav-link-text">Nghiệp Vụ </span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>@Html.ActionLink("Tiếp nhận xe", "Index", "PhieuTiepNhans")</li>
@@ -71,7 +75,7 @@
                         <li>@Html.ActionLink("Lập báo cáo", "Report", "BaoCaoDS")</li>
                     </ul>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                @*<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-sitemap"></i>
                         <span class="nav-link-text">Menu Levels</span>
@@ -101,13 +105,13 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                </li>*@
+                @*<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                     <a class="nav-link" href="#">
                         <i class="fa fa-fw fa-link"></i>
                         <span class="nav-link-text">Link</span>
                     </a>
-                </li>
+                </li>*@
             </ul>
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
@@ -117,7 +121,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
+                @*<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-fw fa-envelope"></i>
                         <span class="d-lg-none">
@@ -198,7 +202,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item small" href="#">View all alerts</a>
                     </div>
-                </li>
+                </li>*@
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0 mr-lg-2">
                         <div class="input-group">
@@ -239,17 +243,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <h5 class="modal-title" style="text-align:center;" id="exampleModalLabel"><center>Đăng Xuất</center></h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Chọn "Logout" nếu muốn đăng xuất</div>
+                    <div class="modal-body" style="text-align:center;">Bạn có muốn Đăng Xuất ?</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
                         @using (Html.BeginForm("Logout", "Authentication", FormMethod.Post))
                         {
-                            <button class="btn btn-primary" type="submit">Logout</button>
+                            <button class="btn btn-primary" type="submit">Xác Nhận</button>
                         }
 
                     </div>
