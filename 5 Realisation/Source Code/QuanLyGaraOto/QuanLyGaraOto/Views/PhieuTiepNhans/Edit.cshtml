@@ -76,7 +76,7 @@
                                 @Html.LabelFor(model => model.IDBienSo, "Biển Số", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
                                     <input type="hidden" value="@Model.IDBienSo" id="IDXe"/>
-                                    @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList,Model.Xe.TenChuXe,new { @class = "form-control", id = "dropDown" })
+                                    @Html.DropDownList("IDBienSo",(SelectList)ViewBag.IDBienSo,Model.Xe.TenChuXe,new { @class = "form-control", id = "dropDown" })
                                     @Html.ValidationMessageFor(model => model.IDBienSo)
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.NgayTiepNhan, "Ngày Nhận", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.EditorFor(model => model.NgayTiepNhan, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.NgayTiepNhan, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.NgayTiepNhan)
                                 </div>
                             </div>

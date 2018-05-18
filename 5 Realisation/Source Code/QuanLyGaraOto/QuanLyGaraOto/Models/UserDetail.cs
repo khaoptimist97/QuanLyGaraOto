@@ -10,6 +10,7 @@
     {
         [StringLength(7, MinimumLength = 2, ErrorMessage = "UserName length should be between 2 and 7")]
         [Key]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string UserName { get; set; }
         public string Password { get; set; }
         public int UserTypeID { get; set; }

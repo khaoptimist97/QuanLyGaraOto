@@ -19,11 +19,7 @@ namespace QuanLyGaraOto.Controllers
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
 
         // GET: PhieuTiepNhans
-        //public ActionResult Index(int page=1, int pageSize = 10)
-        //{
-        //    var phieuTiepNhans = db.PhieuTiepNhans.Include(p => p.Xe).OrderByDescending(p=>p.Xe.TenChuXe).ToPagedList(page,pageSize);
-        //    return View(phieuTiepNhans);
-        //}
+      
         public ViewResult Index(string currentFilter,string searchString, int? page)
         {
             if (searchString != null)
@@ -71,37 +67,13 @@ namespace QuanLyGaraOto.Controllers
             return View(phieuTiepNhan);
         }
 
-
-        public ActionResult CreateForOldCustomer(int? id)
-        {
-            if (id != null)
-            {
-                var xe = db.Xes.Where(i => i.IDBienSo == id);
-                ViewBag.IDBienSo = new SelectList(xe, "IDBienSo", "TenChuXe", xe.First().TenChuXe);
-                return View();
-            }
-            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe");
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateForOldCustomer(PhieuTiepNhan phieu)
-        {
-            if (ModelState.IsValid)
-            {
-                db.PhieuTiepNhans.Add(phieu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(phieu);
-        }
         // GET: PhieuTiepNhans/Create
         public ActionResult Create()
         {
-            PhieuTiepNhan_Xe phieuTiepNhan_Xe = new PhieuTiepNhan_Xe();
+            PhieuTiepNhan phieu = new PhieuTiepNhan();
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", db.HieuXes.First().TenHieuXe);
-
-            return View(phieuTiepNhan_Xe);
+            ViewBag.IDBienSo = new SelectList(db.Xes.Where(x=>x.Deleted==false), "IDBienSo", "TenChuXe", db.Xes.First().TenChuXe);
+            return View(phieu);
         }
 
         // POST: PhieuTiepNhans/Create
@@ -109,33 +81,33 @@ namespace QuanLyGaraOto.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PhieuTiepNhan_Xe phieuTiepNhan_Xe)
+        public ActionResult Create(PhieuTiepNhan phieu)
         {
             if (ModelState.IsValid)
             {
-                Xe xe = new Xe();
-                PhieuTiepNhan phieuTiepNhan = new PhieuTiepNhan();
-                //Add 1 xe
-                xe.IDBienSo = phieuTiepNhan_Xe.IDBienSo;
-                xe.TenChuXe = phieuTiepNhan_Xe.TenChuXe;
-                xe.IDHieuXe = phieuTiepNhan_Xe.IDHieuXe;
-                xe.DiaChi = phieuTiepNhan_Xe.DiaChi;
-                xe.DienThoai = phieuTiepNhan_Xe.DienThoai;
-                db.Xes.Add(xe);
+                db.PhieuTiepNhans.Add(phieu);
                 db.SaveChanges();
-                //Add 1 Phieu tiep nhan
-                int latestIDXe = xe.IDBienSo;
-                phieuTiepNhan.IDBienSo = latestIDXe;
-                phieuTiepNhan.NgayTiepNhan = phieuTiepNhan_Xe.NgayTiepNhan;
-                db.PhieuTiepNhans.Add(phieuTiepNhan);
-                db.SaveChanges();
-               
                 return RedirectToAction("Index");
             }
-
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe",db.HieuXes.First().TenHieuXe);
-
-            return View(phieuTiepNhan_Xe);
+            ViewBag.IDBienSo = new SelectList(db.Xes.Where(x => x.Deleted == false), "IDBienSo", "TenChuXe", db.Xes.First().TenChuXe);
+            return View(phieu);
+        }
+        public JsonResult ConfirmThemMoiXe(string TenChuXe, string DiaChi, string SDT, int HieuXe)
+        {
+            int newIDBienSo = 0;
+            if (TenChuXe != null && DiaChi != null && SDT != null && HieuXe != 0)
+            {
+                Xe xe = new Xe();
+                xe.TenChuXe = TenChuXe;
+                xe.DiaChi = DiaChi;
+                xe.DienThoai = SDT;
+                xe.IDHieuXe = HieuXe;
+                db.Xes.Add(xe);
+                db.SaveChanges();
+                newIDBienSo = xe.IDBienSo;
+            }
+            return Json(newIDBienSo, JsonRequestBehavior.AllowGet);
         }
         // GET: PhieuTiepNhans/Edit/5
         public ActionResult Edit(int? id)
@@ -149,7 +121,7 @@ namespace QuanLyGaraOto.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
+            ViewBag.IDBienSo = new SelectList(db.Xes.Where(x=>x.Deleted==false), "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
             return View(phieuTiepNhan);
         }
 
@@ -166,33 +138,23 @@ namespace QuanLyGaraOto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
+            ViewBag.IDBienSo = new SelectList(db.Xes.Where(x => x.Deleted == false), "IDBienSo", "TenChuXe", phieuTiepNhan.IDBienSo);
+            phieuTiepNhan.Xe = db.Xes.Find(phieuTiepNhan.IDBienSo);
             return View(phieuTiepNhan);
         }
 
         // GET: PhieuTiepNhans/Delete/5
-        public ActionResult Delete(int? id)
+        public JsonResult DeleteConfirmation(int IDPhieu)
         {
-            if (id == null)
+            bool result = false;
+            PhieuTiepNhan phieuTiep = db.PhieuTiepNhans.Find(IDPhieu);
+            if (phieuTiep != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                phieuTiep.Deleted = true;
+                db.SaveChanges();
+                result = true;
             }
-            PhieuTiepNhan phieuTiepNhan = db.PhieuTiepNhans.Find(id);
-            if (phieuTiepNhan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phieuTiepNhan);
-        }
-
-        // POST: PhieuTiepNhans/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            db.PhieuTiepNhans.Find(id).Deleted = true;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

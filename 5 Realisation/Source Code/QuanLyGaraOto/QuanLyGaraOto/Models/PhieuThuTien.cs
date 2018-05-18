@@ -14,6 +14,7 @@
 
         public int? IDBienSo { get; set; }
         [Display(Name = "Ngày thu")]
+        [DataType(DataType.DateTime)]
         public DateTime? NgayThu { get; set; }
         [Display(Name = "Số tiền thu")]
         public int SoTienThu { get; set; }

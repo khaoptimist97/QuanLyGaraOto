@@ -19,6 +19,7 @@ namespace QuanLyGaraOto.Models
         public int IDPhuTung { get; set; }
 
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string TenPhuTung { get; set; }
 
         public int SoLuong { get; set; }

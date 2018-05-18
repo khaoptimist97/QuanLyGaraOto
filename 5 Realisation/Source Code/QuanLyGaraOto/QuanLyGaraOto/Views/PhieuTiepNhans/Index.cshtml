@@ -40,9 +40,7 @@
     table {
         text-align: center;
     }
-    footer{
-        position:unset;
-    }
+
     placeholder {
         font-style: italic;
     }
@@ -96,28 +94,24 @@
                                             {
                                                 foreach (var item in Model)
                                                 {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.NgayTiepNhan)
-                                                        </td>
-                                                        <td>
-                                                            <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDPhieuTN })" class="btn btn-primary glyphicon glyphicon-info-sign">
-                                                            </a>
-                                                            <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDPhieuTN })" class="btn btn-warning ">
-                                                                Sửa
-                                                            </a>
+                                                <tr class="row_@item.IDPhieuTN">
+                                                    @Html.HiddenFor(m => item.IDPhieuTN, new { @id = "PhieuID" })
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NgayTiepNhan)
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details","PhieuTiepNhans",new { id = item.IDPhieuTN })" class="btn btn-primary glyphicon glyphicon-info-sign">
+                                                        </a>
+                                                        <a href="@Url.Action("Edit", "PhieuTiepNhans", new { id = item.IDPhieuTN })" class="btn btn-warning ">
+                                                            Sửa
+                                                        </a>
 
-                                                            <a href="@Url.Action("Delete", "PhieuTiepNhans", new { id = item.IDPhieuTN })" class="btn btn-danger ">
-                                                                Xóa
-                                                            </a>
-                                                            <a href="@Url.Action("CreateForOldCustomer", "PhieuTiepNhans", new { id = item.IDBienSo })" class="btn btn-success ">
-                                                                Lập phiếu
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                        <a href="#" class="btn btn-danger" onclick="DeleteRecord('@item.IDPhieuTN')">Xóa</a>
+                                                    </td>
+                                                </tr>
                                                 }
                                             }
 
@@ -132,7 +126,24 @@
             </div>
         </div>
     </div>
-
+    @*Desing Bootdtrap Modal For Delete*@
+    <div class="modal fade" id="DeleteConfirmation" style="color:black">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Xóa Phiếu tiếp nhận </h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Bạn chắc chứ? Bạn muốn xóa Phiếu tiếp nhận này không?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary" data-dismiss="modal">Cancle</button>
+                    <button type="submit" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -153,6 +164,7 @@
             });
         }
     });
+
     $('#searchString').on('keypress', function (event) {
         var regex = new RegExp("^[a-zA-Z0-9]+$");
         var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -161,4 +173,20 @@
             return false;
         }
     });
+    function DeleteRecord(IDPhieu) {
+        $("#PhieuID").val(IDPhieu);
+        $("#DeleteConfirmation").modal("show");
+    }
+    function ConfirmDelete() {
+        var IDPhieu = $("#PhieuID").val();
+        $.ajax({
+            type: "POST",
+            data: { IDPhieu: IDPhieu },
+            url: "/PhieuTiepNhans/DeleteConfirmation",
+            success: function (result) {
+                $("#DeleteConfirmation").modal("hide");
+                $(".row_" + IDPhieu).remove();
+            }
+        })
+    }
 </script>

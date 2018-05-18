@@ -131,34 +131,22 @@ namespace QuanLyGaraOto.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", xe.IDHieuXe);
+            xe.HieuXe = db.HieuXes.Find(xe.IDHieuXe);
             return View(xe);
         }
 
         // GET: Xes/Delete/5
-        [AdminFilter]
-        public ActionResult Delete(int? id)
+        public JsonResult DeleteConfirmation(int BienSoID)
         {
-            if (id == null)
+            bool result = false;
+            Xe xe = db.Xes.Find(BienSoID);
+            if (xe != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                xe.Deleted = true;
+                db.SaveChanges();
+                result = true;
             }
-            Xe xe = db.Xes.Find(id);
-            if (xe == null)
-            {
-                return HttpNotFound();
-            }
-            return View(xe);
-        }
-
-        // POST: Xes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [AdminFilter]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            db.Xes.Find(id).Deleted = true;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {

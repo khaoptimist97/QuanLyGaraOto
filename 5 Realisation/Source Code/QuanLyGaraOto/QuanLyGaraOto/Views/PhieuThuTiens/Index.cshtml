@@ -44,9 +44,6 @@
     placeholder {
         font-style: italic;
     }
-    footer{
-        position:unset;
-    }
 </style>
 <body>
     <div class="form-horizontal">
@@ -100,7 +97,8 @@
                                             {
                                                 foreach (var item in Model)
                                                 {
-                                                    <tr>
+                                                    <tr class="row_@item.IDPhieuThu">
+                                                        @Html.HiddenFor(m => item.IDPhieuThu, new { @id = "PhieuID" })
                                                         <td>
                                                             @Html.DisplayFor(modelItem => item.Xe.TenChuXe)
                                                         </td>
@@ -111,16 +109,12 @@
                                                             @Html.DisplayFor(modelItem => item.SoTienThu)
                                                         </td>
                                                         <td>
-                                                            <a href="@Url.Action("Details","PhieuThuTiens",new { id = item.IDPhieuThu })">
-                                                                <button type="button" class="btn btn-primary glyphicon glyphicon-info-sign"></button>
+                                                            <a href="@Url.Action("Details","PhieuThuTiens",new { id = item.IDPhieuThu })" class="btn btn-primary glyphicon glyphicon-info-sign">
                                                             </a>
-                                                            <a href="@Url.Action("Edit", "PhieuThuTiens", new { id = item.IDPhieuThu })">
-                                                                <button type="button" class="btn btn-warning ">Sửa</button>
+                                                            <a href="@Url.Action("Edit", "PhieuThuTiens", new { id = item.IDPhieuThu })" class="btn btn-warning ">
+                                                                Sửa
                                                             </a>
-
-                                                            <a href="@Url.Action("Delete", "PhieuThuTiens", new { id = item.IDPhieuThu })">
-                                                                <button type="button" class="btn btn-danger ">Xóa</button>
-                                                            </a>
+                                                            <a href="#" class="btn btn-danger" onclick="DeleteRecord('@item.IDPhieuThu')">Xóa</a>
                                                         </td>
                                                     </tr>
                                                 }
@@ -137,7 +131,24 @@
             </div>
         </div>
     </div>
-
+    @*Desing Bootdtrap Modal For Delete*@
+    <div class="modal fade" id="DeleteConfirmation" style="color:black">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Xóa Phiếu thu tiền </h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Bạn chắc chứ? Bạn muốn xóa Phiếu thu tiền này?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-primary" data-dismiss="modal">Cancle</button>
+                    <button type="submit" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
      $("#txtSearch").autocomplete({
@@ -165,4 +176,20 @@
             return false;
         }
     });
+    function DeleteRecord(IDPhieu) {
+        $("#PhieuID").val(IDPhieu);
+        $("#DeleteConfirmation").modal("show");
+    }
+    function ConfirmDelete() {
+        var IDPhieu = $("#PhieuID").val();
+        $.ajax({
+            type: "POST",
+            data: { IDPhieu: IDPhieu },
+            url: "/PhieuThuTiens/DeleteConfirmation",
+            success: function (result) {
+                $("#DeleteConfirmation").modal("hide");
+                $(".row_" + IDPhieu).remove();
+            }
+        })
+    }
 </script>

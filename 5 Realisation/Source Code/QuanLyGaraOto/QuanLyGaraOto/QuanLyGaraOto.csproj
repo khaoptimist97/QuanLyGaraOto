@@ -137,10 +137,12 @@
     <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\BaoCaoDSController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HieuXesController.cs" />
     <Compile Include="Controllers\PhieuSuaChuasController.cs" />
     <Compile Include="Controllers\PhieuThuTiensController.cs" />
     <Compile Include="Controllers\PhieuTiepNhansController.cs" />
     <Compile Include="Controllers\PhuTungsController.cs" />
+    <Compile Include="Controllers\TienCongsController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserTypesController.cs" />
     <Compile Include="Controllers\XesController.cs" />
@@ -201,7 +203,13 @@
     <Compile Include="Migrations\201805150627599_QLGaraV61.Designer.cs">
       <DependentUpon>201805150627599_QLGaraV61.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805160456431_QLGaraV7.cs" />
+    <Compile Include="Migrations\201805160456431_QLGaraV7.Designer.cs">
+      <DependentUpon>201805160456431_QLGaraV7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BK_ChiTietPhieuSua.cs" />
+    <Compile Include="Models\BK_PhieuSuaChua.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChiTietPhieuSua.cs" />
     <Compile Include="Help\Helper.cs" />
@@ -245,6 +253,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootswatch.css" />
+    <Content Include="Content\CSSforPageAdmin.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
@@ -988,6 +997,8 @@
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\JSForPhieuSua.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -1021,11 +1032,9 @@
     <Content Include="Views\Xes\Index.cshtml" />
     <Content Include="Views\PhieuSuaChuas\Index.cshtml" />
     <Content Include="Views\PhieuThuTiens\Create.cshtml" />
-    <Content Include="Views\PhieuThuTiens\Delete.cshtml" />
     <Content Include="Views\PhieuThuTiens\Details.cshtml" />
     <Content Include="Views\PhieuThuTiens\Edit.cshtml" />
     <Content Include="Views\PhieuThuTiens\Index.cshtml" />
-    <Content Include="Views\PhieuTiepNhans\CreateForOldCustomer.cshtml" />
     <Content Include="Views\Backup\Backup.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\UserTypes\Create.cshtml" />
@@ -1046,6 +1055,16 @@
     <Content Include="Views\PhuTungs\Edit.cshtml" />
     <Content Include="Views\PhuTungs\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\HieuXes\Create.cshtml" />
+    <Content Include="Views\HieuXes\Delete.cshtml" />
+    <Content Include="Views\HieuXes\Details.cshtml" />
+    <Content Include="Views\HieuXes\Edit.cshtml" />
+    <Content Include="Views\HieuXes\Index.cshtml" />
+    <Content Include="Views\TienCongs\Create.cshtml" />
+    <Content Include="Views\TienCongs\Delete.cshtml" />
+    <Content Include="Views\TienCongs\Details.cshtml" />
+    <Content Include="Views\TienCongs\Edit.cshtml" />
+    <Content Include="Views\TienCongs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1091,6 +1110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805150627599_QLGaraV61.resx">
       <DependentUpon>201805150627599_QLGaraV61.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805160456431_QLGaraV7.resx">
+      <DependentUpon>201805160456431_QLGaraV7.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CrystalReportDoanhSo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

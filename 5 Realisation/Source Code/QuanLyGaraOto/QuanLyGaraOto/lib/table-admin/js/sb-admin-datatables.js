@@ -2,4 +2,3 @@
 $(document).ready(function() {
   $('#dataTable').DataTable();
 });
-// Thua :)) 

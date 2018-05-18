@@ -5,15 +5,13 @@
 }
 
 <style>
-
-        
     body {
         color: white;
-        background: url("/Content/Image/BG-Report.jpg");
+        background: url("/Content/Image/BG-Paying.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        font-family: sans-serif
+        font-family: sans-serif;
     }
 
     .panel {
@@ -47,7 +45,7 @@
             <div class="col-md-2 col-sm-2 col-xs-12"></div>
 
             <div class="col-md-8 col-sm-9 col-xs-12">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("Report", "BaoCaoDS", FormMethod.Post, new { @id = "myform" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="panel panel-default">
@@ -55,18 +53,25 @@
                             <h2>BÁO CÁO DOANH SỐ</h2>
                         </Center>
                         <div class="panel-body">
+                            <br />
+                            <div class="form-group">
+                                <p style="color:yellow;padding-left:40px">
+                                    Vui lòng tạo thư mục chứa Báo cáo.
+                                    <a href="/BaoCaoDS/CreateDefaultFolder">Click Here</a>
+                                </p>
+                            </div>
                             <div class="form-group">
                                 <div class="form-inline center-block">
                                     <div class="form-group col-md-6">
                                         @Html.Label("Từ ngày:", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" id="datetime1" name="dtp1">
+                                            <input type="text" class="form-control" id="time" name="dtp1">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         @Html.Label(" Đến:", htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" id="datetime2" name="dtp2">
+                                            <input type="text" class="form-control" id="time2" name="dtp2">
                                         </div>
                                     </div>
                                 </div>
@@ -75,8 +80,14 @@
                                         <input type="submit" value="Create" class="btn btn-success" />
                                     </div>
                                 </div>
+                                <div class="form-group" style="margin-left:40px;font-size:medium">
+                                    @Html.ValidationMessage("ErrorMessage", new { style = "color:red" })
+                                    <label style="color:orangered">@ViewBag.Success</label>
+                                </div>
+
                             </div>
                         </div>
+                        <label style="color:white;font-style:italic">(*) Vui lòng lưu file vào đường dẫn: C:\ReportGaraOto</label>   
                     </div>
                 }
             </div>

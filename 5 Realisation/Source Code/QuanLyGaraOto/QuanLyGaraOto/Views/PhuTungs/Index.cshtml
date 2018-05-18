@@ -4,69 +4,42 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<style>
 
-    h2 {
-        text-align: center;
-    }
-
-    .panel {
-        border: 1px solid #ffffff;
-        background: rgba(0,0,0,0);
-        padding: 10px 40px;
-        margin-top: 5vh;
-        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-        width: 99%;
-    }
-
-    .panel-body {
-        border: 1px solid #ffffff;
-        background: rgba(0,0,0,0);
-        padding: 10px 40px;
-        margin-top: 5vh;
-        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-        width: 99%;
-    }
-
-    th, td {
-        text-align: center;
-    }
-</style>
-<h2>Quản lý Phụ Tùng</h2>
+<h2 style="text-align:center">Quản lý Phụ Tùng</h2>
 <br />
 <div class="container-fluid">
     <!-- Example DataTables Card-->
-    <div>
-
-        <div class="panel panel-default"style="padding-bottom:40px;">
-           
-
-                @using (Html.BeginForm("Create", "PhuTungs", FormMethod.Get))
-                {
-                    <div style="margin-left:2em; margin-bottom:1em; font-weight:bold">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Quản lý phụ tùng
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div style="margin-left:2em; margin-bottom:1em; font-weight:bold">
+                    @using (Html.BeginForm("Create", "PhuTungs", FormMethod.Get))
+                    {
                         <button type="submit" class="btn btn-primary" name="themmoi">THÊM MỚI</button>
-                    </div>
-                }
-
-            <div class="panel-body">
-            <div class="table">
+                    }
+                </div>
+            </div>
+            <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr style="text-align:center">
-                            <th style="width:20%">Tên phụ tùng</th>
-                            <th style="width:20%">Số lượng</th>
-                            <th style="width:20%">Đơn giá HH</th>
-                            <th style="width:10%">Đã Xóa</th>
-                            <th style="width:30%">Chức năng</th>
+                            <th style="width:10%">Tên phụ tùng</th>
+                            <th style="width:10%">Số lượng</th>
+                            <th style="width:10%">Đơn giá HH</th>
+                            <th style="width:10%">Deleted</th>
+                            <th style="width:60%">Chức năng</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr style="text-align:center">
-                            <th style="width:20%">Tên phụ tùng</th>
-                            <th style="width:20%">Số lượng</th>
-                            <th style="width:20%">Đơn giá HH</th>
-                            <th style="width:10%">Đã Xóa</th>
-                            <th style="width:30%">Chức năng</th>
+                            <th style="width:10%">Tên phụ tùng</th>
+                            <th style="width:10%">Số lượng</th>
+                            <th style="width:10%">Đơn giá HH</th>
+                            <th style="width:10%">Deleted</th>
+                            <th style="width:60%">Chức năng</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -80,9 +53,9 @@
                                 <td style="text-align:center">
                                     @using (Html.BeginForm())
                                     {
-                                        <button class="btn glyphicon glyphicon-info" > @Html.ActionLink("Chi tiết", "Details", new { id = item.IDPhuTung })</button>
-                                        <button class="btn" >@Html.ActionLink("Sửa", "Edit", new { id = item.IDPhuTung })</button>
-                                        <button class="btn" >@Html.ActionLink("Xóa", "Delete", new { id = item.IDPhuTung })</button>
+                                        <button class="btn glyphicon glyphicon-info" style="width:120px;"> @Html.ActionLink("Xem chi tiết", "Details", new { id = item.IDPhuTung })</button>
+                                        <button class="btn" style="width:120px;">@Html.ActionLink("Sửa", "Edit", new { id = item.IDPhuTung })</button>
+                                        <button class="btn" style="width:120px;">@Html.ActionLink("Xóa", "Delete", new { id = item.IDPhuTung })</button>
                                     }
                                 </td>
                             </tr>

@@ -10,6 +10,7 @@ using QuanLyGaraOto.Models;
 using PagedList;
 using QuanLyGaraOto.DTO;
 using QuanLyGaraOto.Filters;
+using QuanLyGaraOto.Help;
 
 namespace QuanLyGaraOto.Controllers
 {
@@ -124,10 +125,12 @@ namespace QuanLyGaraOto.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDPhieuThu,IDBienSo,NgayThu,SoTienThu")] PhieuThuTien phieuThuTien)
+        public ActionResult Edit([Bind(Include = "IDPhieuThu,IDBienSo,NgayThu,SoTienThu")] PhieuThuTien phieuThuTien, int SoTienThuCu)
         {
             if (ModelState.IsValid)
             {
+                //Update tien no sau khi sua
+                Helper.UpdateAfterPhieuThuTienUpdating(phieuThuTien, SoTienThuCu);
                 db.Entry(phieuThuTien).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -136,29 +139,17 @@ namespace QuanLyGaraOto.Controllers
             return View(phieuThuTien);
         }
 
-        // GET: PhieuThuTiens/Delete/5
-        public ActionResult Delete(int? id)
+        public JsonResult DeleteConfirmation(int IDPhieu)
         {
-            if (id == null)
+            bool result = false;
+            PhieuThuTien phieuThuTien = db.PhieuThuTiens.Find(IDPhieu);
+            if (phieuThuTien != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                phieuThuTien.Deleted = true;
+                db.SaveChanges();
+                result = true;
             }
-            PhieuThuTien phieuThuTien = db.PhieuThuTiens.Find(id);
-            if (phieuThuTien == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phieuThuTien);
-        }
-
-        // POST: PhieuThuTiens/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            db.PhieuThuTiens.Find(id).Deleted = true;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

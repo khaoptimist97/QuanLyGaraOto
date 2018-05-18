@@ -152,12 +152,15 @@ namespace QuanLyGaraOto.Controllers
                     List<int> listChiTiet = Helper.GhiIDPhuTungThanhMang(chitietphieusua);
                     //Tìm phần tử có trong C mà ko có trong chitietphieusua
                     var excepts = listC.Except(listChiTiet).ToArray();
-                    if (excepts != null)
+                    if (excepts.Count() !=0)
                     {
                         foreach (var e in excepts)
                         {
                             ChiTietPhieuSua chiTietPhieuSua = db.ChiTietPhieuSuas.Find(IDPhieu, e);
                             chiTietPhieuSua.Deleted = true;
+                            //Update lại thành Số lượng tồn, Tổng tiền, Tiền nợ
+                            Helper.UpdateAfterDeleteChiTietPhieu(chiTietPhieuSua);
+                            //Flag
                             db.Entry(chiTietPhieuSua).State = EntityState.Modified;
                         }
                         db.SaveChanges();
@@ -169,12 +172,30 @@ namespace QuanLyGaraOto.Controllers
                         if (db.ChiTietPhieuSuas.Any(x => x.IDPhieu == IDPhieu && x.IDPhuTung == idPhuTung))
                         {
                             ChiTietPhieuSua ct = db.ChiTietPhieuSuas.Find(IDPhieu, idPhuTung);
-                            ct.DonGia = chiTiet.DonGia;
-                            ct.SoLuongBan = chiTiet.SoLuongBan;
-                            ct.IDTienCong = chiTiet.IDTienCong;
-                            ct.ThanhTien = chiTiet.ThanhTien;
-                            ct.NoiDung = chiTiet.NoiDung;
-                            db.Entry(ct).State = EntityState.Modified;
+                            if (ct.Deleted == false) //Chi Edit vs ChiTiet chua xoa
+                            {
+                                ct.DonGia = chiTiet.DonGia;
+                                ct.SoLuongBan = chiTiet.SoLuongBan;
+                                ct.IDTienCong = chiTiet.IDTienCong;
+                                ct.ThanhTien = chiTiet.ThanhTien;
+                                ct.NoiDung = chiTiet.NoiDung;
+                                db.Entry(ct).State = EntityState.Modified;
+                            }
+                            else //Neu xoa roi (Deleted = true) thi xoa hẳn giá trị đó, va them lai => To fire trigger, update Soluongton, ...
+                            {
+                                //Xóa
+                                db.ChiTietPhieuSuas.Remove(ct);
+                                db.SaveChanges();
+                                //Gán & Add lại
+                                ct.DonGia = chiTiet.DonGia;
+                                ct.SoLuongBan = chiTiet.SoLuongBan;
+                                ct.IDTienCong = chiTiet.IDTienCong;
+                                ct.ThanhTien = chiTiet.ThanhTien;
+                                ct.NoiDung = chiTiet.NoiDung;
+                                ct.Deleted = false;
+                                db.ChiTietPhieuSuas.Add(ct);
+                                db.SaveChanges();
+                            }
                         }
                         else //Nếu không có thì thêm mới
                         {
@@ -198,6 +219,7 @@ namespace QuanLyGaraOto.Controllers
                     throw ex;
                 }
             }
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

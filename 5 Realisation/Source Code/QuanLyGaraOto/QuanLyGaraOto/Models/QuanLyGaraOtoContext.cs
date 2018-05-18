@@ -25,6 +25,8 @@ namespace QuanLyGaraOto.Models
         public virtual DbSet<Xe> Xes { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<BK_PhieuSuaChua>  BK_PhieuSuaChuas { get; set; }
+        public virtual DbSet<BK_ChiTietPhieuSua> BK_ChiTietPhieuSuas { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()

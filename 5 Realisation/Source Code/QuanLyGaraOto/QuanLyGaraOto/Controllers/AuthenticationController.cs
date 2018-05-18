@@ -40,6 +40,7 @@ namespace QuanLyGaraOto.Controllers
                     return View("Login");
                 }
                 FormsAuthentication.SetAuthCookie(userName, false);
+                Session["UserName"] = userName;
                 Session["IsAdmin"] = IsAdmin;
                 if (IsAdmin == true)
                 {
@@ -55,6 +56,7 @@ namespace QuanLyGaraOto.Controllers
         public ActionResult Logout()
         {
             Session["IsAdmin"] = null;
+            Session["UserName"] = null;
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
