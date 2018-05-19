@@ -26,7 +26,6 @@ namespace QuanLyGaraOto.Models
         public long? ThanhTien { get; set; }
 
         [StringLength(250)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string NoiDung { get; set; }
         public bool Deleted { get; set; }
         public virtual PhieuSuaChua PhieuSuaChua { get; set; }

@@ -21,7 +21,6 @@
 
         [StringLength(50)]      
         [DisplayName("Hiệu xe")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string TenHieuXe { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

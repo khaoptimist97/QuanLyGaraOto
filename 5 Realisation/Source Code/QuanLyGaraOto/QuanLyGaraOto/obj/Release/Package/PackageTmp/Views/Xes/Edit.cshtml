@@ -1,0 +1,127 @@
+﻿@model QuanLyGaraOto.Models.Xe
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    body {
+        margin: 0;
+        padding-top: 0vh;
+        padding-left: 0vh;
+        background: url("/Content/Image/BG-DSxe.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: sans-serif
+    }
+
+    .panel {
+        border: 1px solid #ffffff;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 40px;
+        margin-top: 10vh;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        width: 80%;
+    }
+    .panel-body{
+        padding-left: 30vh;
+    }
+
+    h3 {
+        margin: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        color: #fafc0d;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    .col-md-3 {
+        color: white;
+    }
+</style>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDBienSo)
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-12"></div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="panel panel-default">
+                        <Center>
+                            <h3>Sửa Thông Tin Xe</h3>
+                        </Center>
+                        <div class="panel-body" style="padding-left:40px;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TenChuXe,"Chủ Xe", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.TenChuXe, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TenChuXe)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DiaChi,"Địa Chỉ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DiaChi)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DienThoai,"SĐT", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.DienThoai, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DienThoai)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IDHieuXe, "Hiệu Xe", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    <input type="hidden" value="@Model.IDHieuXe" id="IDHieuXe" />
+                                    @Html.DropDownList("IDHieuXe", (SelectList)ViewBag.IDHieuXe, Model.HieuXe.TenHieuXe, new { @class = "form-control", @id = "dropDown" })
+                                    @Html.ValidationMessageFor(model => model.IDHieuXe)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TienNo,"Tiền nợ ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.TienNo, new { @class = "form-control", type = "number" })
+                                    @Html.ValidationMessageFor(model => model.TienNo)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-offset-3 col-md-10">
+                                    <a href="@Url.Action("Index", "Xes")" style="padding-right:20px;" class="btn btn-danger">Quay lại
+                                    </a>
+                                    <input type="submit" value="Xác nhận" class="btn btn-success" onclick="GanIDHieuXe()" />
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+<script>
+    function GanIDHieuXe() {
+        var IDHieuXe = $("#IDHieuXe").val();
+        $("#dropDown option:selected").val(IDHieuXe);
+    }
+
+</script>

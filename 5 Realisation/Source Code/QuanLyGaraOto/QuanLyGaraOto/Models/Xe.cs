@@ -21,12 +21,10 @@
         [Display(Name ="Tên Chủ Xe")]
         [StringLength(50)]
         [Required(ErrorMessage ="Vui lòng nhập tên chủ xe")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string TenChuXe { get; set; }
 
         [StringLength(100)]
         [Display(Name = "Địa Chỉ")]
-        [RegularExpression(@"^[a-zA-Z'\s0-9]+$")]
         public string DiaChi { get; set; }
 
         [StringLength(20)]

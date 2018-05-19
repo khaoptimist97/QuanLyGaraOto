@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
 using CrystalDecisions.CrystalReports.Engine;
@@ -57,24 +58,33 @@ namespace QuanLyGaraOto.Controllers
             Response.ClearHeaders();
             string tenNewFile = "BaoCao_" + dt1.Month + "_" + dt1.Year + "_to_" + dt2.Month + "_" + dt2.Year + ".pdf";
             //Get Files Name in Default Saving Folder (C:\\ReportGaraOto) and Compare to new file wheather it exists or not
-            string[] files = Directory.GetFiles("C:\\ReportGaraOto");
-            if (files.Count() != 0)
+            try
             {
-                foreach (string file in files)
+                string[] files = Directory.GetFiles("C:\\ReportGaraOto");
+                if (files.Count() != 0)
                 {
-                    string fileName = Path.GetFileName(file);
-                    if (fileName == tenNewFile)
+                    foreach (string file in files)
                     {
-                        ModelState.AddModelError("ErrorMessage", "File đã tồn tại, vui lòng vào đường dẫn C:\\ReportGaraOto để xem báo cáo từ tháng " + dt1.Month + "/" + dt1.Year + "đến tháng " + dt2.Month + "/" + dt2.Year);
-                        return View("Report");
+                        string fileName = Path.GetFileName(file);
+                        if (fileName == tenNewFile)
+                        {
+                            ModelState.AddModelError("ErrorMessage", "File đã tồn tại, vui lòng vào đường dẫn C:\\ReportGaraOto để xem báo cáo từ tháng " + dt1.Month + "/" + dt1.Year + "đến tháng " + dt2.Month + "/" + dt2.Year);
+                            return View("Report");
+                        }
                     }
                 }
+                
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("ErrorMessage", ex.Message);
+                return View("Report");
             }
             //
-
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", tenNewFile);
+
 
         }
         public ActionResult CreateDefaultFolder()

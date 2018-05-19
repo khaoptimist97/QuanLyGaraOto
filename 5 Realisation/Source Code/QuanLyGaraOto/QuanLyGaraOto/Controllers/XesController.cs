@@ -38,16 +38,16 @@ namespace QuanLyGaraOto.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 if (option == "BrandName")
-                    return View(xes.Where(s => s.HieuXe.TenHieuXe.Contains(searchString)).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
+                    return View(xes.Where(s => s.HieuXe.TenHieuXe.Contains(searchString) && s.Deleted == false).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
                 else
-                    return View(xes.Where(s => s.TenChuXe.Contains(searchString)).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
+                    return View(xes.Where(s => s.TenChuXe.Contains(searchString)&& s.Deleted == false).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
             }
-            return View(xes.OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
+            return View(xes.Where(x=>x.Deleted==false).OrderBy(s => s.TenChuXe).ToPagedList(pageNumber, pageSize));
         }
         [HttpGet]
         public JsonResult GetSearchValue(string search)
         {
-            List<Motor> allsearch = db.Xes.Where(s => s.TenChuXe.Contains(search)).Select(x => new Motor
+            List<Motor> allsearch = db.Xes.Where(s => s.TenChuXe.Contains(search) && s.Deleted == false).Select(x => new Motor
             {
                 IDBienSo = x.IDBienSo,
                 TenChuXe = x.TenChuXe,

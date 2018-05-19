@@ -1,0 +1,50 @@
+﻿@model QuanLyGaraOto.Models.HieuXe
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/CSSforPageAdmin.css" rel="stylesheet" />
+<h2>Sửa thông tin Hiệu xe</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-horizontal" style="padding-left:50px;  ">
+                                <hr />
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.IDHieuXe)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TenHieuXe,"Hiệu", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.TenHieuXe, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TenHieuXe)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

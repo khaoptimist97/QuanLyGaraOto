@@ -979,6 +979,7 @@
     <Content Include="lib\table-admin\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="lib\table-admin\vendor\jquery\jquery.min.map" />
     <Content Include="lib\table-admin\vendor\jquery\jquery.slim.min.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Reports\DataSetDoanhSo.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

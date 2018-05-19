@@ -18,7 +18,6 @@ namespace QuanLyGaraOto.Models
         public int IDTienCong { get; set; }
 
         [StringLength(50)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string LoaiTC { get; set; }
         public bool Deleted { get; set; }
         public int? Gia { get; set; }

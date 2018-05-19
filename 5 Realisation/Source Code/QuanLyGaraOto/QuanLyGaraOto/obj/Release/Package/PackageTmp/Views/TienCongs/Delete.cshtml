@@ -1,0 +1,64 @@
+﻿@model QuanLyGaraOto.Models.TienCong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/CSSforPageAdmin.css" rel="stylesheet" />
+<h2>Bạn Có Muốn Xóa Tiền công này? </h2>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-horizontal" style="padding-left:30px; ">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LoaiTC)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.LoaiTC)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Deleted)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Deleted)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Gia)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Gia)
+                                </dd>
+
+                            </dl>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-default" /> |
+                                @Html.ValidationMessage("ErrorMessage", new { style = "color:red" })
+
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

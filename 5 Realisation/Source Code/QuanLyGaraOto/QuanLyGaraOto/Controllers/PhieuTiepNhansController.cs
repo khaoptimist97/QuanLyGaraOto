@@ -13,7 +13,6 @@ using QuanLyGaraOto.DTO;
 
 namespace QuanLyGaraOto.Controllers
 {
-    [Authorize]
     public class PhieuTiepNhansController : Controller
     {
         private QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
