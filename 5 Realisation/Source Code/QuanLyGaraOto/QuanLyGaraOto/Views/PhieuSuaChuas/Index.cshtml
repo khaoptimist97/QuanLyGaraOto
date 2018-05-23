@@ -190,7 +190,7 @@
                                         @Html.DropDownList("IDPhieuTN", (SelectList)ViewBag.IDPhieuTN, new { @class = "form-control", id = "idPhieuTN" })
                                     </div>
                                     <label class="control-label col-md-2">
-                                        Ngày tiếp nhận
+                                        Ngày sửa chữa
                                     </label>
                                     <div class="col-md-4">
                                         <input type="text" id="date" name="date" placeholder="Ngày tiếp nhận" class="form-control" />
@@ -344,7 +344,7 @@
                 flag = 1;
                 $("#newOrderModal").modal();
             }
-            //Auto hiển thị giá tiền tương ứng của loại tiền công
+            //Auto hiển thị giá tiền tương ứng với loại tiền công
             $("#IDTienCong").change(function () {
 
                 var IDTienCong = $("#IDTienCong").val();
@@ -466,7 +466,7 @@
                 });
             });
             $(function () {
-                $("#date").datepicker({ dateFormat: 'dd/mm/yy' });
+                $("#date").datepicker({ dateFormat: 'mm/dd/yy' });
             });
             //Date Format When Using Ajax Get Datetime
             function ToJavaScriptDate(value) {

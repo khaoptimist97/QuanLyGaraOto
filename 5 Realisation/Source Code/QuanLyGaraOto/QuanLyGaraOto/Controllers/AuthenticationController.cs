@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using QuanLyGaraOto.BUS;
 using QuanLyGaraOto.Models;
-
+using QuanLyGaraOto.Help;
 namespace QuanLyGaraOto.Controllers
 {
     public class AuthenticationController : Controller
@@ -24,7 +24,8 @@ namespace QuanLyGaraOto.Controllers
                 UserBusinessLayer userBusiness = new UserBusinessLayer();
                 var userName = form["UserName"].ToString();
                 var passWord = form["Password"].ToString();
-                UserStatus userStatus  =  userBusiness.GetUserStatus(userName);
+                passWord = Encryptor.MD5Hash(passWord);
+                UserStatus userStatus  =  userBusiness.GetUserStatus(userName, passWord);
                 bool IsAdmin = false;
                 if (userStatus == UserStatus.AuthenticatedAdmin)
                 {

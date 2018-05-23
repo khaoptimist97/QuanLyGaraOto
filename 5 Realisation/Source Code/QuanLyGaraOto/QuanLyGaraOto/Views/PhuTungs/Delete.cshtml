@@ -69,11 +69,12 @@
                             {
                                 @Html.AntiForgeryToken()
 
-                                <div class="form-actions no-color">
-                                    <button type="button" onclick="window.location.href='@Url.Action("Index","PhuTungs")'" class="btn btn-default">Quay Lại</button>
-                                    <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                            <div class="form-actions no-color">
+                                <button type="button" onclick="window.location.href='@Url.Action("Index","PhuTungs")'" class="btn btn-default">Quay Lại</button>
+                                <input type="submit" value="Xác Nhận" class="btn btn-default" />
+                                @Html.ValidationMessage("ErrorMessage", new { style = "color:red" })
 
-                                </div>
+                            </div>
                             }
                         </div>
 

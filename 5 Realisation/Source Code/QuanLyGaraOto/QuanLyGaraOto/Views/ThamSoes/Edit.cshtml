@@ -1,0 +1,64 @@
+﻿@model QuanLyGaraOto.Models.ThamSo
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/CSSforPageAdmin.css" rel="stylesheet" />
+<h2>Sửa Thông Tin Quy Định</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-horizontal" style="padding-left:50px;  ">
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true)
+                                    @Html.HiddenFor(model => model.IDTS)
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.NoiDung)
+                                            @Html.ValidationMessageFor(model => model.NoiDung)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.GhiChu)
+                                            @Html.ValidationMessageFor(model => model.GhiChu)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Save" class="btn btn-default" />
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+                                <div>
+                                    @Html.ActionLink("Back to List", "Index")
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </body>
+}

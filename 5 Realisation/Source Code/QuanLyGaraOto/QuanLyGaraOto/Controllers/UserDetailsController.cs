@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyGaraOto.Filters;
+using QuanLyGaraOto.Help;
 using QuanLyGaraOto.Models;
 
 namespace QuanLyGaraOto.Controllers
@@ -55,6 +56,7 @@ namespace QuanLyGaraOto.Controllers
         {
             if (ModelState.IsValid)
             {
+                userDetail.Password = Encryptor.MD5Hash(userDetail.Password);
                 db.UserDetails.Add(userDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,6 +91,7 @@ namespace QuanLyGaraOto.Controllers
         {
             if (ModelState.IsValid)
             {
+                userDetail.Password = Encryptor.MD5Hash(userDetail.Password);
                 db.Entry(userDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

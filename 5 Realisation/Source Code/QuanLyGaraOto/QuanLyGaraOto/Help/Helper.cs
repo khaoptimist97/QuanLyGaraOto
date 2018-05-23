@@ -28,9 +28,27 @@ namespace QuanLyGaraOto.Help
             //Update so luong ton
             phuTung.SoLuong += (int)ct.SoLuongBan;
             //Update tong tien
-            phieuSua.TongTien -= (int) ct.ThanhTien;
+            int tongTien = (int)phieuSua.TongTien;
+            tongTien -= (int) ct.ThanhTien;
+            if(tongTien<0)
+            {
+                phieuSua.TongTien = 0;
+            }
+            else
+            {
+                phieuSua.TongTien = tongTien;
+            }
             //Update tien no
-            xe.TienNo -= (int)ct.ThanhTien;
+            int tienNo = xe.TienNo;
+            tienNo -= (int)ct.ThanhTien;
+            if (tienNo < 0)
+            {
+                xe.TienNo = 0;
+            }
+            else
+            {
+                xe.TienNo = tienNo;
+            }
             //Save
             db.SaveChanges();
         }

@@ -74,9 +74,9 @@ namespace QuanLyGaraOto.Controllers
             var listXes = from s in db.Xes.ToList()
                                 select new {
                                                 IDBienSo = s.IDBienSo,
-                                                IDBienSo_TenChuXe = s.IDBienSo+" - "+s.TenChuXe,
+                                                TenChuXe_IDBienSo = s.TenChuXe + " - "+ s.IDBienSo,
                                             };
-            ViewBag.IDBienSo = new SelectList(listXes, "IDBienSo", "IDBienSo_TenChuXe",listXes.First().IDBienSo_TenChuXe);
+            ViewBag.IDBienSo = new SelectList(listXes, "IDBienSo", "TenChuXe_IDBienSo", listXes.First().TenChuXe_IDBienSo);
             return View();
         }
         public ActionResult GetInfoXe(int dropDownID)
@@ -93,11 +93,22 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDPhieuThu,IDBienSo,NgayThu,SoTienThu")] PhieuThuTien phieuThuTien)
         {
+            
             if (ModelState.IsValid)
             {
-                db.PhieuThuTiens.Add(phieuThuTien);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Xe xe = db.Xes.Find(phieuThuTien.IDBienSo);
+                if (phieuThuTien.SoTienThu > xe.TienNo)
+                {
+                    ModelState.AddModelError("ErrorMessage", "Số tiền thu không được vượt quá số tiền đang nợ");
+                    ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuThuTien.IDBienSo);
+                    return View(phieuThuTien);
+                }
+                else
+                {
+                    db.PhieuThuTiens.Add(phieuThuTien);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.IDBienSo = new SelectList(db.Xes, "IDBienSo", "TenChuXe", phieuThuTien.IDBienSo);

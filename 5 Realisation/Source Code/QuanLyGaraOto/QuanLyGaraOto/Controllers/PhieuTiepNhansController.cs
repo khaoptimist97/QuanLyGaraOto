@@ -82,12 +82,21 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PhieuTiepNhan phieu)
         {
+            int soLuongPhieu = Convert.ToInt32(db.ThamSoes.First().GhiChu);
+            if (db.PhieuTiepNhans.Where(x => x.NgayTiepNhan == phieu.NgayTiepNhan).Count() >= soLuongPhieu)
+            {
+                ViewBag.Error = "Đã đủ số lượng tiếp nhận trong ngày!";
+                ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe", db.HieuXes.First().TenHieuXe);
+                ViewBag.IDBienSo = new SelectList(db.Xes.Where(x => x.Deleted == false), "IDBienSo", "TenChuXe", db.Xes.First().TenChuXe);
+                return View(phieu);
+            }
             if (ModelState.IsValid)
             {
                 db.PhieuTiepNhans.Add(phieu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+           
             ViewBag.IDHieuXe = new SelectList(db.HieuXes, "IDHieuXe", "TenHieuXe",db.HieuXes.First().TenHieuXe);
             ViewBag.IDBienSo = new SelectList(db.Xes.Where(x => x.Deleted == false), "IDBienSo", "TenChuXe", db.Xes.First().TenChuXe);
             return View(phieu);

@@ -72,7 +72,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.IDBienSo, "Biển số", htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-9">
-                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList,"Chọn Khách Hàng", new { id = "dropDownID" ,@class = "form-control"})
+                                            @Html.DropDownList("IDBienSo", ViewBag.IDBienSo as SelectList, "Chọn Khách Hàng", new { id = "dropDownID", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.IDBienSo)
                                         </div>
                                     </div>
@@ -120,8 +120,8 @@
                                             Quay lại
                                         </a>
                                         <input type="submit" style="padding-right:20px;" class="btn btn-success" value="Xác nhận" />
-
                                     </div>
+                                    @Html.ValidationMessage("ErrorMessage", new { style = "color:red", @class = "col-md-offset-3"})
                                 </div>
 
                             </div>
@@ -142,7 +142,7 @@
 }
 <script>
     $(function () {
-        $("#NgayThuTien").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#NgayThuTien").datepicker({ dateFormat: 'mm/dd/yy' });
     });
     $(document).ready(function () {
         $("#dropDownID").change(function () {

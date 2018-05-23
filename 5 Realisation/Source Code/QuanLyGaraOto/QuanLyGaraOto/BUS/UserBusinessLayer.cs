@@ -7,12 +7,13 @@ namespace QuanLyGaraOto.BUS
 {
     public class UserBusinessLayer
     {
-        public UserStatus GetUserStatus(string userName)
+        public UserStatus GetUserStatus(string userName, string passWord)
         {
             QuanLyGaraOtoContext db = new QuanLyGaraOtoContext();
             UserDetail user = db.UserDetails.Find(userName.Trim());
             if (user != null)
             {
+                if (user.Password != passWord) return UserStatus.NonAuthenticatedUser;
                 if (user.UserTypeID == 1)
                     return UserStatus.AuthenticatedAdmin;
                 else if (user.UserTypeID == 2)

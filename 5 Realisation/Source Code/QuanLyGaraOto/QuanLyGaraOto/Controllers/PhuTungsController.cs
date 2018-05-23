@@ -112,10 +112,18 @@ namespace QuanLyGaraOto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhuTung phuTung = db.PhuTungs.Find(id);
-            db.PhuTungs.Remove(phuTung);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                PhuTung phuTung = db.PhuTungs.Find(id);
+                db.PhuTungs.Remove(phuTung);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("ErrorMessage", "Phụ tùng này đã có trong bảng khác, xóa thất bại.");
+                return View("Delete");
+            }
         }
 
         protected override void Dispose(bool disposing)

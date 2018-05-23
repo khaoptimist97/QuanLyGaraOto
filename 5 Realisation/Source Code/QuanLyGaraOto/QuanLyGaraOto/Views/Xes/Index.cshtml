@@ -29,6 +29,7 @@
         box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
         width: 99%;
     }
+
     .panel-body {
         border: 1px solid #ffffff;
         background: rgba(0,0,0,0.5);
@@ -87,6 +88,9 @@
                                     <table class="table  table-bordered ">
                                         <tr>
                                             <th>
+                                                <Center>Biển số</Center>
+                                            </th>
+                                            <th>
                                                 <Center>Hiệu xe</Center>
                                             </th>
                                             <th>
@@ -115,6 +119,9 @@
                                             {
                                                 <tr class="row_@item.IDBienSo">
                                                     @Html.HiddenFor(m => item.IDBienSo, new { @id = "BienSoID" })
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.IDBienSo)
+                                                    </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.HieuXe.TenHieuXe)
                                                     </td>
@@ -200,7 +207,7 @@
         }
     });
     $('#txtSearch').on('keypress', function (event) {
-        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var regex = new RegExp("^[a-zA-Z0-9\\s]+$");
         var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
         if (!regex.test(key)) {
             event.preventDefault();

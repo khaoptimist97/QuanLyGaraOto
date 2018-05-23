@@ -122,7 +122,7 @@ namespace QuanLyGaraOto.Controllers
             catch(Exception)
             {
                 ModelState.AddModelError("ErrorMessage", "Tiền công này đã có trong bảng khác, xóa thất bại.");
-                return View();
+                return View("Delete");
             }
         }
 
